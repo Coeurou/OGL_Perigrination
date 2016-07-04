@@ -6,9 +6,24 @@
 //  Copyright © 2016 Guillaume Trollé. All rights reserved.
 //
 
-#ifndef OGLProgram_hpp
-#define OGLProgram_hpp
+#pragma once
+#include <GL/glew.h>
+#include <set>
+#include "OGLShader.hpp"
 
-#include <stdio.h>
+class OGLProgram
+{
+public:
+	OGLProgram();
+	~OGLProgram();
+	const GLuint get() const { return programID; };
+	void Attach(GLuint shader);
+	void Detach(GLuint shader);
+	void Link();
+	void Use();
 
-#endif /* OGLProgram_hpp */
+private:
+	GLuint programID;
+	std::set<OGLShader> shaders;
+};
+/* OGLProgram_hpp */

@@ -6,9 +6,27 @@
 //  Copyright © 2016 Guillaume Trollé. All rights reserved.
 //
 
-#ifndef OGLShader_hpp
-#define OGLShader_hpp
+#pragma once
 
-#include <stdio.h>
+#include <GL/glew.h>
+#include <string>
 
-#endif /* OGLShader_hpp */
+class OGLShader
+{
+public:
+	OGLShader(GLenum shaderType);
+	~OGLShader();
+
+	const GLuint get() const { return shaderID; }
+	void SetSource(std::string shaderFilePath);
+	bool Compile();
+
+	bool operator<(const OGLShader& rhs) const
+	{
+		return shaderID < rhs.shaderID;
+	}
+
+private:
+	GLuint shaderID;
+};
+/* OGLShader_hpp */

@@ -7,3 +7,35 @@
 //
 
 #include "OGLProgram.hpp"
+
+OGLProgram::OGLProgram()
+{
+	programID = glCreateProgram();
+}
+
+OGLProgram::~OGLProgram()
+{
+	glDeleteProgram(programID);
+}
+
+void OGLProgram::Attach(GLuint shader)
+{
+	shaders.insert(shader);
+	glAttachShader(programID, shader);
+}
+
+void OGLProgram::Detach(GLuint shader)
+{
+	shaders.erase(shader);
+	glDetachShader(programID, shader);
+}
+
+void OGLProgram::Link()
+{
+	glLinkProgram(programID);
+}
+
+void OGLProgram::Use()
+{
+	glUseProgram(programID);
+}

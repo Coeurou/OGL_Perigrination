@@ -21,7 +21,7 @@ bool OGLAntTweakBar::InitAntTweakBar(const std::string& barTitle, int width, int
 {
     bool res = false;
     
-    res = TwInit(TW_OPENGL_CORE, NULL);
+    res = (TwInit(TW_OPENGL_CORE, NULL) == 1);
     TwWindowSize(width, height);
     TwBar* bar;
     bar = TwNewBar(barTitle.c_str());

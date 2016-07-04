@@ -55,9 +55,9 @@ int OGLApplication::Run()
     
 	auto loop = [&]() {
         if (isDynamicBg) {
-            double time = glfwGetTime();
-            bgColor.r = cos(time) * 0.5f + 0.5f;
-            bgColor.g = sin(time) * 0.5f + 0.5f;
+            float time = (float)glfwGetTime();
+            bgColor.r = cosf(time) * 0.5f + 0.5f;
+            bgColor.g = sinf(time) * 0.5f + 0.5f;
             bgColor.b = 0.5f;
         }
         glClearBufferfv(GL_COLOR, 0, &bgColor[0]);

@@ -20,7 +20,7 @@ static void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 
 static void OnMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 {
-    TwEventMouseWheelGLFW(yoffset);
+    TwEventMouseWheelGLFW((int)yoffset);
 }
 
 static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)

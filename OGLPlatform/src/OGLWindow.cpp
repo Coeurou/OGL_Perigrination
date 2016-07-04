@@ -15,7 +15,7 @@ bool OGLWindow::CreateWindow(int width, int height, const std::string& title)
 	bool res = false;
 
 	window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-	res = window;
+	res = (window != nullptr);
     this->width = width;
     this->height = height;
     
