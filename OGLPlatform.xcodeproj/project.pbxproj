@@ -19,7 +19,9 @@
 		D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A551D2C5E0E00657C3F /* OGLAntTweakBar.cpp */; };
 		D1926A5B1D2C5E9900657C3F /* OGLVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A591D2C5E9900657C3F /* OGLVertexBuffer.cpp */; };
 		D1926A5E1D2D9E6A00657C3F /* OGLVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */; };
+		D1926A621D30499E00657C3F /* OGLStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A601D30499E00657C3F /* OGLStage.cpp */; };
 		D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */; };
+		D1E6AEA81D304C8800CAD186 /* OGLObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +62,10 @@
 		D1926A5A1D2C5E9900657C3F /* OGLVertexBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLVertexBuffer.hpp; path = src/OGLVertexBuffer.hpp; sourceTree = "<group>"; };
 		D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLVertexArray.cpp; path = src/OGLVertexArray.cpp; sourceTree = "<group>"; };
 		D1926A5D1D2D9E6A00657C3F /* OGLVertexArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLVertexArray.hpp; path = src/OGLVertexArray.hpp; sourceTree = "<group>"; };
+		D1926A601D30499E00657C3F /* OGLStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLStage.cpp; path = src/OGLStage.cpp; sourceTree = "<group>"; };
+		D1926A611D30499E00657C3F /* OGLStage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLStage.hpp; path = src/OGLStage.hpp; sourceTree = "<group>"; };
+		D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLObject.cpp; path = src/OGLObject.cpp; sourceTree = "<group>"; };
+		D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLObject.hpp; path = src/OGLObject.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		D15B06951D185F9000F77089 /* OGLPlatform */ = {
 			isa = PBXGroup;
 			children = (
+				D1926A5F1D3048E700657C3F /* OGLApps */,
 				D1926A491D2C5DD100657C3F /* main.cpp */,
 				D1926A4A1D2C5DD100657C3F /* OGLApplication.cpp */,
 				D1926A4B1D2C5DD100657C3F /* OGLApplication.hpp */,
@@ -154,6 +161,17 @@
 				D1926A581D2C5E6700657C3F /* Uncopyable.hpp */,
 			);
 			name = Commons;
+			sourceTree = "<group>";
+		};
+		D1926A5F1D3048E700657C3F /* OGLApps */ = {
+			isa = PBXGroup;
+			children = (
+				D1926A601D30499E00657C3F /* OGLStage.cpp */,
+				D1926A611D30499E00657C3F /* OGLStage.hpp */,
+				D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */,
+				D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */,
+			);
+			name = OGLApps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +231,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1926A471D2C5DB400657C3F /* OGLProgram.cpp in Sources */,
+				D1E6AEA81D304C8800CAD186 /* OGLObject.cpp in Sources */,
+				D1926A621D30499E00657C3F /* OGLStage.cpp in Sources */,
 				D1926A541D2C5DFC00657C3F /* OGLWindow.cpp in Sources */,
 				D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */,
 				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
