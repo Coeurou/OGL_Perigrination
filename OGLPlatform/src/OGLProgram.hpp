@@ -7,6 +7,7 @@
 //
 
 #pragma once
+
 #include <GL/glew.h>
 #include <set>
 #include "OGLShader.hpp"

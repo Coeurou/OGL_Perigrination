@@ -21,8 +21,3 @@ bool OGLWindow::CreateWindow(int width, int height, const std::string& title)
     
 	return res;
 }
-
-GLFWwindow * OGLWindow::get() const
-{
-	return window;
-}

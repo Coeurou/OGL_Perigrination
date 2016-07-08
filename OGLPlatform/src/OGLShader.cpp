@@ -19,7 +19,7 @@ OGLShader::~OGLShader()
 	glDeleteShader(shaderID);
 }
 
-void OGLShader::SetSource(std::string shaderFilePath)
+void OGLShader::SetSource(const std::string& shaderFilePath)
 {
 	std::ifstream stream(shaderFilePath);
 	std::string source((std::istreambuf_iterator<char>(stream)), (std::istreambuf_iterator<char>()));

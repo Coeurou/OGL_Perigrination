@@ -8,7 +8,6 @@
 
 #pragma once
 
-
 #include <GL/glew.h>
 
 class OGLVertexArray

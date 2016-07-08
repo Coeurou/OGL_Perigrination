@@ -18,7 +18,7 @@ public:
 	~OGLShader();
 
 	const GLuint get() const { return shaderID; }
-	void SetSource(std::string shaderFilePath);
+	void SetSource(const std::string& shaderFilePath);
 	bool Compile();
 
 	bool operator<(const OGLShader& rhs) const

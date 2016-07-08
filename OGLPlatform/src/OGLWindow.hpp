@@ -1,4 +1,5 @@
 #pragma once
+
 #include <GLFW/glfw3.h>
 #include <string>
 #include "Uncopyable.hpp"
@@ -10,7 +11,7 @@ public:
 	~OGLWindow();
 
 	bool CreateWindow(int width, int height, const std::string& title);
-	GLFWwindow* get() const;
+	GLFWwindow* get() const { return window; }
     int GetWindowWidth() const { return width; }
     int GetWindowHeight() const { return height;}
 

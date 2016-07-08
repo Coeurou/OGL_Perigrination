@@ -7,9 +7,9 @@
 //
 
 #pragma once
+
 #include "Uncopyable.hpp"
 #include <AntTweakBar.h>
-#include <memory>
 #include <vector>
 
 class OGLAntTweakBar : private Uncopyable

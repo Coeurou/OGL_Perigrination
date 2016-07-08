@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Uncopyable.hpp"
 #include "OGLglfw.hpp"
 #include "OGLAntTweakBar.hpp"
