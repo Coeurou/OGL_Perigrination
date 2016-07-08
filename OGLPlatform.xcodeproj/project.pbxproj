@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D15B06971D185F9000F77089 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15B06961D185F9000F77089 /* main.cpp */; };
-		D15B06A31D185FD900F77089 /* OGLApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15B069D1D185FD900F77089 /* OGLApplication.cpp */; };
-		D15B06A41D185FD900F77089 /* OGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D15B06A01D185FD900F77089 /* OGLWindow.cpp */; };
 		D15B06A61D18600400F77089 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15B06A51D18600400F77089 /* OpenGL.framework */; };
 		D15B06A91D18601400F77089 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D15B06A71D18601400F77089 /* libglfw.3.2.dylib */; };
 		D15B06AA1D18601400F77089 /* libGLEW.1.13.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D15B06A81D18601400F77089 /* libGLEW.1.13.0.dylib */; };
-		D1926A3B1D23248D00657C3F /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A391D23248D00657C3F /* OGLShader.cpp */; };
-		D1926A3E1D23249D00657C3F /* OGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A3C1D23249D00657C3F /* OGLProgram.cpp */; };
+		D1926A471D2C5DB400657C3F /* OGLProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A431D2C5DB400657C3F /* OGLProgram.cpp */; };
+		D1926A481D2C5DB400657C3F /* OGLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A451D2C5DB400657C3F /* OGLShader.cpp */; };
+		D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A491D2C5DD100657C3F /* main.cpp */; };
+		D1926A4D1D2C5DD100657C3F /* OGLApplication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A4A1D2C5DD100657C3F /* OGLApplication.cpp */; };
+		D1926A531D2C5DFC00657C3F /* OGLglfw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A4F1D2C5DFC00657C3F /* OGLglfw.cpp */; };
+		D1926A541D2C5DFC00657C3F /* OGLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A511D2C5DFC00657C3F /* OGLWindow.cpp */; };
+		D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A551D2C5E0E00657C3F /* OGLAntTweakBar.cpp */; };
+		D1926A5B1D2C5E9900657C3F /* OGLVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A591D2C5E9900657C3F /* OGLVertexBuffer.cpp */; };
+		D1926A5E1D2D9E6A00657C3F /* OGLVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */; };
 		D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */; };
-		D1E5DFAE1D1C70E200FA6C52 /* OGLglfw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E5DFAC1D1C70E200FA6C52 /* OGLglfw.cpp */; };
-		D1E5DFB11D1C7D5C00FA6C52 /* OGLAntTweakBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E5DFAF1D1C7D5C00FA6C52 /* OGLAntTweakBar.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,24 +38,28 @@
 		D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libAntTweakBar.dylib; path = ../../../../../../../../opt/local/lib/libAntTweakBar.dylib; sourceTree = "<group>"; };
 		D13F506D1D1B50CD003E29B9 /* libAntTweakBar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAntTweakBar.a; path = ../../../../../../../../opt/local/lib/libAntTweakBar.a; sourceTree = "<group>"; };
 		D15B06931D185F9000F77089 /* OGLPlatform */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OGLPlatform; sourceTree = BUILT_PRODUCTS_DIR; };
-		D15B06961D185F9000F77089 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		D15B069D1D185FD900F77089 /* OGLApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLApplication.cpp; sourceTree = "<group>"; };
-		D15B069E1D185FD900F77089 /* OGLApplication.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLApplication.hpp; sourceTree = "<group>"; };
-		D15B069F1D185FD900F77089 /* OGLWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLWindow.hpp; sourceTree = "<group>"; };
-		D15B06A01D185FD900F77089 /* OGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLWindow.cpp; sourceTree = "<group>"; };
-		D15B06A11D185FD900F77089 /* GLFWUtility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLFWUtility.hpp; sourceTree = "<group>"; };
-		D15B06A21D185FD900F77089 /* Uncopyable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Uncopyable.hpp; sourceTree = "<group>"; };
 		D15B06A51D18600400F77089 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		D15B06A71D18601400F77089 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../../../opt/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		D15B06A81D18601400F77089 /* libGLEW.1.13.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.13.0.dylib; path = ../../../../../../../../opt/local/lib/libGLEW.1.13.0.dylib; sourceTree = "<group>"; };
-		D1926A391D23248D00657C3F /* OGLShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLShader.cpp; sourceTree = "<group>"; };
-		D1926A3A1D23248D00657C3F /* OGLShader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLShader.hpp; sourceTree = "<group>"; };
-		D1926A3C1D23249D00657C3F /* OGLProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLProgram.cpp; sourceTree = "<group>"; };
-		D1926A3D1D23249D00657C3F /* OGLProgram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLProgram.hpp; sourceTree = "<group>"; };
-		D1E5DFAC1D1C70E200FA6C52 /* OGLglfw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLglfw.cpp; sourceTree = "<group>"; };
-		D1E5DFAD1D1C70E200FA6C52 /* OGLglfw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLglfw.hpp; sourceTree = "<group>"; };
-		D1E5DFAF1D1C7D5C00FA6C52 /* OGLAntTweakBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OGLAntTweakBar.cpp; sourceTree = "<group>"; };
-		D1E5DFB01D1C7D5C00FA6C52 /* OGLAntTweakBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OGLAntTweakBar.hpp; sourceTree = "<group>"; };
+		D1926A431D2C5DB400657C3F /* OGLProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLProgram.cpp; path = src/OGLProgram.cpp; sourceTree = "<group>"; };
+		D1926A441D2C5DB400657C3F /* OGLProgram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLProgram.hpp; path = src/OGLProgram.hpp; sourceTree = "<group>"; };
+		D1926A451D2C5DB400657C3F /* OGLShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLShader.cpp; path = src/OGLShader.cpp; sourceTree = "<group>"; };
+		D1926A461D2C5DB400657C3F /* OGLShader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLShader.hpp; path = src/OGLShader.hpp; sourceTree = "<group>"; };
+		D1926A491D2C5DD100657C3F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
+		D1926A4A1D2C5DD100657C3F /* OGLApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLApplication.cpp; path = src/OGLApplication.cpp; sourceTree = "<group>"; };
+		D1926A4B1D2C5DD100657C3F /* OGLApplication.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLApplication.hpp; path = src/OGLApplication.hpp; sourceTree = "<group>"; };
+		D1926A4E1D2C5DFC00657C3F /* GLFWUtility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLFWUtility.hpp; path = src/GLFWUtility.hpp; sourceTree = "<group>"; };
+		D1926A4F1D2C5DFC00657C3F /* OGLglfw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLglfw.cpp; path = src/OGLglfw.cpp; sourceTree = "<group>"; };
+		D1926A501D2C5DFC00657C3F /* OGLglfw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLglfw.hpp; path = src/OGLglfw.hpp; sourceTree = "<group>"; };
+		D1926A511D2C5DFC00657C3F /* OGLWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLWindow.cpp; path = src/OGLWindow.cpp; sourceTree = "<group>"; };
+		D1926A521D2C5DFC00657C3F /* OGLWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLWindow.hpp; path = src/OGLWindow.hpp; sourceTree = "<group>"; };
+		D1926A551D2C5E0E00657C3F /* OGLAntTweakBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLAntTweakBar.cpp; path = src/OGLAntTweakBar.cpp; sourceTree = "<group>"; };
+		D1926A561D2C5E0E00657C3F /* OGLAntTweakBar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLAntTweakBar.hpp; path = src/OGLAntTweakBar.hpp; sourceTree = "<group>"; };
+		D1926A581D2C5E6700657C3F /* Uncopyable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Uncopyable.hpp; path = src/Uncopyable.hpp; sourceTree = "<group>"; };
+		D1926A591D2C5E9900657C3F /* OGLVertexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLVertexBuffer.cpp; path = src/OGLVertexBuffer.cpp; sourceTree = "<group>"; };
+		D1926A5A1D2C5E9900657C3F /* OGLVertexBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLVertexBuffer.hpp; path = src/OGLVertexBuffer.hpp; sourceTree = "<group>"; };
+		D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLVertexArray.cpp; path = src/OGLVertexArray.cpp; sourceTree = "<group>"; };
+		D1926A5D1D2D9E6A00657C3F /* OGLVertexArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLVertexArray.hpp; path = src/OGLVertexArray.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,13 +101,13 @@
 		D15B06951D185F9000F77089 /* OGLPlatform */ = {
 			isa = PBXGroup;
 			children = (
+				D1926A491D2C5DD100657C3F /* main.cpp */,
+				D1926A4A1D2C5DD100657C3F /* OGLApplication.cpp */,
+				D1926A4B1D2C5DD100657C3F /* OGLApplication.hpp */,
 				D1926A421D23251200657C3F /* Commons */,
 				D1926A411D2324F700657C3F /* AntTweakBar */,
 				D1926A401D2324DC00657C3F /* GLFW */,
 				D1926A3F1D2324A600657C3F /* OGLCore */,
-				D15B069D1D185FD900F77089 /* OGLApplication.cpp */,
-				D15B069E1D185FD900F77089 /* OGLApplication.hpp */,
-				D15B06961D185F9000F77089 /* main.cpp */,
 			);
 			path = OGLPlatform;
 			sourceTree = "<group>";
@@ -109,10 +115,14 @@
 		D1926A3F1D2324A600657C3F /* OGLCore */ = {
 			isa = PBXGroup;
 			children = (
-				D1926A391D23248D00657C3F /* OGLShader.cpp */,
-				D1926A3A1D23248D00657C3F /* OGLShader.hpp */,
-				D1926A3C1D23249D00657C3F /* OGLProgram.cpp */,
-				D1926A3D1D23249D00657C3F /* OGLProgram.hpp */,
+				D1926A431D2C5DB400657C3F /* OGLProgram.cpp */,
+				D1926A441D2C5DB400657C3F /* OGLProgram.hpp */,
+				D1926A451D2C5DB400657C3F /* OGLShader.cpp */,
+				D1926A461D2C5DB400657C3F /* OGLShader.hpp */,
+				D1926A591D2C5E9900657C3F /* OGLVertexBuffer.cpp */,
+				D1926A5A1D2C5E9900657C3F /* OGLVertexBuffer.hpp */,
+				D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */,
+				D1926A5D1D2D9E6A00657C3F /* OGLVertexArray.hpp */,
 			);
 			name = OGLCore;
 			sourceTree = "<group>";
@@ -120,11 +130,11 @@
 		D1926A401D2324DC00657C3F /* GLFW */ = {
 			isa = PBXGroup;
 			children = (
-				D15B069F1D185FD900F77089 /* OGLWindow.hpp */,
-				D15B06A01D185FD900F77089 /* OGLWindow.cpp */,
-				D15B06A11D185FD900F77089 /* GLFWUtility.hpp */,
-				D1E5DFAC1D1C70E200FA6C52 /* OGLglfw.cpp */,
-				D1E5DFAD1D1C70E200FA6C52 /* OGLglfw.hpp */,
+				D1926A4E1D2C5DFC00657C3F /* GLFWUtility.hpp */,
+				D1926A4F1D2C5DFC00657C3F /* OGLglfw.cpp */,
+				D1926A501D2C5DFC00657C3F /* OGLglfw.hpp */,
+				D1926A511D2C5DFC00657C3F /* OGLWindow.cpp */,
+				D1926A521D2C5DFC00657C3F /* OGLWindow.hpp */,
 			);
 			name = GLFW;
 			sourceTree = "<group>";
@@ -132,8 +142,8 @@
 		D1926A411D2324F700657C3F /* AntTweakBar */ = {
 			isa = PBXGroup;
 			children = (
-				D1E5DFAF1D1C7D5C00FA6C52 /* OGLAntTweakBar.cpp */,
-				D1E5DFB01D1C7D5C00FA6C52 /* OGLAntTweakBar.hpp */,
+				D1926A551D2C5E0E00657C3F /* OGLAntTweakBar.cpp */,
+				D1926A561D2C5E0E00657C3F /* OGLAntTweakBar.hpp */,
 			);
 			name = AntTweakBar;
 			sourceTree = "<group>";
@@ -141,7 +151,7 @@
 		D1926A421D23251200657C3F /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				D15B06A21D185FD900F77089 /* Uncopyable.hpp */,
+				D1926A581D2C5E6700657C3F /* Uncopyable.hpp */,
 			);
 			name = Commons;
 			sourceTree = "<group>";
@@ -202,13 +212,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D15B06A41D185FD900F77089 /* OGLWindow.cpp in Sources */,
-				D1926A3B1D23248D00657C3F /* OGLShader.cpp in Sources */,
-				D15B06971D185F9000F77089 /* main.cpp in Sources */,
-				D1E5DFAE1D1C70E200FA6C52 /* OGLglfw.cpp in Sources */,
-				D1E5DFB11D1C7D5C00FA6C52 /* OGLAntTweakBar.cpp in Sources */,
-				D1926A3E1D23249D00657C3F /* OGLProgram.cpp in Sources */,
-				D15B06A31D185FD900F77089 /* OGLApplication.cpp in Sources */,
+				D1926A471D2C5DB400657C3F /* OGLProgram.cpp in Sources */,
+				D1926A541D2C5DFC00657C3F /* OGLWindow.cpp in Sources */,
+				D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */,
+				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
+				D1926A531D2C5DFC00657C3F /* OGLglfw.cpp in Sources */,
+				D1926A481D2C5DB400657C3F /* OGLShader.cpp in Sources */,
+				D1926A5B1D2C5E9900657C3F /* OGLVertexBuffer.cpp in Sources */,
+				D1926A4D1D2C5DD100657C3F /* OGLApplication.cpp in Sources */,
+				D1926A5E1D2D9E6A00657C3F /* OGLVertexArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@ public:
 	~OGLApplication();
 
 	bool Init();
+    void Render();
 	int Run();
     
     void SetApplicationTitle(const std::string& title) { glfwApp->SetWindowTitle(title); }
