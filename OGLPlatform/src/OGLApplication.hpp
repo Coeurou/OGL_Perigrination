@@ -1,9 +1,11 @@
 #pragma once
 
+#include <GL/glew.h>
 #include "Uncopyable.hpp"
 #include "OGLglfw.hpp"
-#include "OGLAntTweakBar.hpp"
+#include "OGLStage.hpp"
 #include <memory>
+#include <vector>
 
 class OGLApplication : public Uncopyable
 {
@@ -12,13 +14,12 @@ public:
 	~OGLApplication();
 
 	bool Init();
-    void Render();
 	int Run();
     
     void SetApplicationTitle(const std::string& title) { glfwApp->SetWindowTitle(title); }
     
 private:
     std::unique_ptr<OGLglfw> glfwApp;
-    std::unique_ptr<OGLAntTweakBar> atbApp;
+	std::shared_ptr<OGLStage> stage;
 };
 

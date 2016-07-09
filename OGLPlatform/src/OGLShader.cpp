@@ -30,5 +30,5 @@ void OGLShader::SetSource(const std::string& shaderFilePath)
 bool OGLShader::Compile()
 {
 	glCompileShader(shaderID);
-	return false;
+	return true;
 }

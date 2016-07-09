@@ -9,11 +9,7 @@
 #include "OGLObject.hpp"
 
 OGLObject::OGLObject()
-{
-    
-}
+{}
 
 OGLObject::~OGLObject()
-{
-    
-}
+{}

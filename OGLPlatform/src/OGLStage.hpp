@@ -8,15 +8,26 @@
 
 #pragma once
 
-#include <vector>
 #include "OGLObject.hpp"
+#include "OGLAntTweakBar.hpp"
+#include <vector>
+#include <memory>
 
 class OGLStage
 {
 public:
     OGLStage();
-    ~OGLStage();
+    virtual ~OGLStage();
+
+	virtual bool Init(int windowWidth, int windowHeight);
+	virtual void Render(double time) = 0;
+
+protected:
+	std::vector<OGLObject>& GetRenderedObjs() { return renderedObjs; }
+	OGLAntTweakBar* const GetTweakBar() { return atbApp.get(); }
+
 private:
     std::vector<OGLObject> renderedObjs;
+	std::unique_ptr<OGLAntTweakBar> atbApp;
 };
 /* OGLStage_hpp */

@@ -146,6 +146,8 @@
     <ClInclude Include="src\OGLApplication.hpp" />
     <ClInclude Include="src\OGLglfw.hpp" />
     <ClInclude Include="src\OGLObject.hpp" />
+    <ClInclude Include="src\OGLPoint.hpp" />
+    <ClInclude Include="src\OGLPointSize.hpp" />
     <ClInclude Include="src\OGLProgram.hpp" />
     <ClInclude Include="src\OGLShader.hpp" />
     <ClInclude Include="src\OGLStage.hpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="src\OGLApplication.cpp" />
     <ClCompile Include="src\OGLglfw.cpp" />
     <ClCompile Include="src\OGLObject.cpp" />
+    <ClCompile Include="src\OGLPoint.cpp" />
+    <ClCompile Include="src\OGLPointSize.cpp" />
     <ClCompile Include="src\OGLProgram.cpp" />
     <ClCompile Include="src\OGLShader.cpp" />
     <ClCompile Include="src\OGLStage.cpp" />

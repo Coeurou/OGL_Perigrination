@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Stages">
+      <UniqueIdentifier>{6808d925-38b9-4872-bd8d-dcc81097f4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{a5236ead-5027-499f-b8b6-30f01c92f7f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\OGLAntTweakBar.hpp">
@@ -42,14 +48,20 @@
     <ClInclude Include="src\OGLObject.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLStage.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\OGLVertexArray.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\OGLVertexBuffer.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLStage.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLPointSize.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLPoint.hpp">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,14 +89,20 @@
     <ClCompile Include="src\OGLObject.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\OGLStage.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\OGLVertexArray.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLVertexBuffer.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLStage.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLPointSize.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLPoint.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
