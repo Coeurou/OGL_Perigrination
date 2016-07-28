@@ -11,6 +11,15 @@
 #include <GL/glew.h>
 #include <string>
 
+enum SHADER
+{
+	VERTEX,
+	FRAGMENT,
+	GEOMETRY,
+	TESSCTRL,
+	TESSEVAL
+};
+
 class OGLShader
 {
 public:
@@ -18,7 +27,7 @@ public:
 	~OGLShader();
 
 	const GLuint get() const { return shaderID; }
-	void SetSource(const std::string& shaderFilePath);
+	bool SetSource(const std::string& shaderFilePath);
 	bool Compile();
 
 	bool operator<(const OGLShader& rhs) const

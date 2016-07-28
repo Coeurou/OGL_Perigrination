@@ -18,8 +18,7 @@ OGLStage::~OGLStage()
 bool OGLStage::Init(int windowWidth, int windowHeight)
 {
 	bool res = atbApp->InitAntTweakBar("TweakBar", windowWidth, windowHeight);
-	if (!res)
-	{
+	if (!res) {
 		std::cerr << "Error in AntTweakBar initialization" << std::endl;
 	}
 	return res;

@@ -20,7 +20,7 @@ public:
     virtual ~OGLStage();
 
 	virtual bool Init(int windowWidth, int windowHeight);
-	virtual void Render(double time) = 0;
+	virtual void Render(double time) {}
 
 protected:
 	std::vector<OGLObject>& GetRenderedObjs() { return renderedObjs; }

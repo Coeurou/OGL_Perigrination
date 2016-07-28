@@ -8,6 +8,8 @@
 
 #include "OGLShader.hpp"
 #include <fstream>
+#include <iostream>
+#include <vector>
 
 OGLShader::OGLShader(GLenum shaderType)
 {
@@ -19,16 +21,38 @@ OGLShader::~OGLShader()
 	glDeleteShader(shaderID);
 }
 
-void OGLShader::SetSource(const std::string& shaderFilePath)
+bool OGLShader::SetSource(const std::string& shaderFilePath)
 {
 	std::ifstream stream(shaderFilePath);
-	std::string source((std::istreambuf_iterator<char>(stream)), (std::istreambuf_iterator<char>()));
-	auto sourcePtr = source.c_str();
-	glShaderSource(shaderID, 1, &sourcePtr, nullptr);
+	bool res = stream.is_open();
+	if (res) {
+		std::string source((std::istreambuf_iterator<char>(stream)), (std::istreambuf_iterator<char>()));
+		auto sourcePtr = source.c_str();
+		glShaderSource(shaderID, 1, &sourcePtr, nullptr);
+	} 
+	else {
+		std::cerr << "Shader file not found: " << shaderFilePath << std::endl;
+	}
+	return res;
 }
 
 bool OGLShader::Compile()
 {
+	GLint res = GL_FALSE;
+
 	glCompileShader(shaderID);
-	return true;
+	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &res);
+	if (res == GL_FALSE) {
+		GLint logLength = 0;
+		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logLength);
+		std::vector<GLchar> log(logLength);
+		glGetShaderInfoLog(shaderID, logLength, &logLength, &log[0]);
+		for (auto c : log)
+		{
+			std::cerr << c;
+		}
+		std::cerr << std::endl;
+	}
+
+	return (res == GL_TRUE);
 }

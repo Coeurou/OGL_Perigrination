@@ -72,8 +72,9 @@
     <IncludePath>F:\Devs\Librairies\glew-2.0.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2.bin.WIN32\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>F:\Devs\Librairies\glew-1.13.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>F:\Devs\Librairies\glew-1.13.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2\include;F:\Devs\Librairies\tinyxml2;$(IncludePath)</IncludePath>
     <GenerateManifest>true</GenerateManifest>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>F:\Devs\Librairies\glew-1.13.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2\include;$(IncludePath)</IncludePath>
@@ -101,8 +102,8 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>F:\Devs\Librairies\glew-1.13.0\lib\Release\x64;F:\Devs\Librairies\glfw-3.2\lib-vc2015;F:\Devs\Librairies\AntTweakBar\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OpenGL32.Lib;glew32.lib;glfw3.lib;AntTweakBar64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Devs\Librairies\glew-1.13.0\lib\Release\x64;F:\Devs\Librairies\glfw-3.2\lib-vc2015;F:\Devs\Librairies\AntTweakBar\lib;F:\Devs\Librairies\tinyxml2\tinyxml2\bin\x64-Release-Dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenGL32.Lib;glew32.lib;glfw3.lib;AntTweakBar64.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
@@ -141,32 +142,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\FactoryStage.hpp" />
     <ClInclude Include="src\GLFWUtility.hpp" />
+    <ClInclude Include="src\OGLAnimatedTriangle.hpp" />
     <ClInclude Include="src\OGLAntTweakBar.hpp" />
     <ClInclude Include="src\OGLApplication.hpp" />
+    <ClInclude Include="src\OGLApplicationConstants.hpp" />
+    <ClInclude Include="src\OGLApplicationSettings.hpp" />
     <ClInclude Include="src\OGLglfw.hpp" />
     <ClInclude Include="src\OGLObject.hpp" />
     <ClInclude Include="src\OGLPoint.hpp" />
     <ClInclude Include="src\OGLPointSize.hpp" />
     <ClInclude Include="src\OGLProgram.hpp" />
     <ClInclude Include="src\OGLShader.hpp" />
+    <ClInclude Include="src\OGLSimpleTriangle.hpp" />
     <ClInclude Include="src\OGLStage.hpp" />
+    <ClInclude Include="src\OGLTriangle.hpp" />
     <ClInclude Include="src\OGLVertexArray.hpp" />
     <ClInclude Include="src\OGLVertexBuffer.hpp" />
     <ClInclude Include="src\OGLWindow.hpp" />
     <ClInclude Include="src\Uncopyable.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\FactoryStage.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\OGLAnimatedTriangle.cpp" />
     <ClCompile Include="src\OGLAntTweakBar.cpp" />
     <ClCompile Include="src\OGLApplication.cpp" />
+    <ClCompile Include="src\OGLApplicationConstants.cpp" />
+    <ClCompile Include="src\OGLApplicationSettings.cpp" />
     <ClCompile Include="src\OGLglfw.cpp" />
     <ClCompile Include="src\OGLObject.cpp" />
     <ClCompile Include="src\OGLPoint.cpp" />
     <ClCompile Include="src\OGLPointSize.cpp" />
     <ClCompile Include="src\OGLProgram.cpp" />
     <ClCompile Include="src\OGLShader.cpp" />
+    <ClCompile Include="src\OGLSimpleTriangle.cpp" />
     <ClCompile Include="src\OGLStage.cpp" />
+    <ClCompile Include="src\OGLTriangle.cpp" />
     <ClCompile Include="src\OGLVertexArray.cpp" />
     <ClCompile Include="src\OGLVertexBuffer.cpp" />
     <ClCompile Include="src\OGLWindow.cpp" />

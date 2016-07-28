@@ -8,26 +8,27 @@
 
 #include "OGLAntTweakBar.hpp"
 
-
 OGLAntTweakBar::OGLAntTweakBar()
 {}
 
 OGLAntTweakBar::~OGLAntTweakBar()
 {
-    TwTerminate();
+	for (auto bar : tweakBars) {
+		TwDeleteBar(bar);
+	}
 }
 
 bool OGLAntTweakBar::InitAntTweakBar(const std::string& barTitle, int width, int height)
-{
-    bool res = false;
-    
-    res = (TwInit(TW_OPENGL_CORE, NULL) == 1);
+{    
     TwWindowSize(width, height);
     TwBar* bar;
     bar = TwNewBar(barTitle.c_str());
+	auto str = barTitle + " position='0 0'";
+	TwDefine(str.c_str());
+
     AddTweakBar(bar);
     
-    return res;
+    return (bar != nullptr);
 }
 
 void OGLAntTweakBar::AddTweakBar(TwBar* bar)

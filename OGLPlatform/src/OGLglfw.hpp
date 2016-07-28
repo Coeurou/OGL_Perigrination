@@ -41,7 +41,7 @@ private:
         int windowHeight;
         int windowWidth;
         std::string title;
-        GLFWParams() : minorVersion(5), majorVersion(4), msaaSamples(4),
+        GLFWParams() : minorVersion(3), majorVersion(4), msaaSamples(4),
                        windowWidth(1024), windowHeight(720), title("") {}
     } params;
 };
