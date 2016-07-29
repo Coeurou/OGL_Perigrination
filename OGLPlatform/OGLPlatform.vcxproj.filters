@@ -84,6 +84,12 @@
     <ClInclude Include="src\OGLAnimatedTriangle.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
+    <ClInclude Include="src\OGLCube.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLSimpleCube.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -141,6 +147,12 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLAnimatedTriangle.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLCube.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLSimpleCube.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>

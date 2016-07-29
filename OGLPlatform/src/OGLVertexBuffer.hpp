@@ -15,6 +15,8 @@ class OGLVertexBuffer
 public:
     OGLVertexBuffer(GLenum target);
     ~OGLVertexBuffer();
+
+	const GLuint get() const { return bufferID; }
     void Bind();
     
 private:

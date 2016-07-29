@@ -26,41 +26,40 @@ bool OGLObject::InitShaders()
 
 	OGLShader vertexShader(GL_VERTEX_SHADER);
 	OGLShader fragShader(GL_FRAGMENT_SHADER);
-	vertexShader.SetSource(GetShadersSource()[VERTEX]);
+	vertexShader.SetSource(shadersSource[VERTEX]);
 	res = vertexShader.Compile();
-	fragShader.SetSource(GetShadersSource()[FRAGMENT]);
+	fragShader.SetSource(shadersSource[FRAGMENT]);
 	res &= fragShader.Compile();
 
-	if (GetShadersSource().count(TESSCTRL)) {
+	if (shadersSource.count(TESSCTRL)) {
 		OGLShader tessCtrlShader(GL_TESS_CONTROL_SHADER);
-		tessCtrlShader.SetSource(GetShadersSource()[TESSCTRL]);
+		tessCtrlShader.SetSource(shadersSource[TESSCTRL]);
 		if (tessCtrlShader.Compile()) {
-			GetProgram()->Attach(tessCtrlShader.get());
+			program.Attach(tessCtrlShader.get());
 		}
 	}
 
 	if (GetShadersSource().count(TESSEVAL)) {
 		OGLShader tessEvalShader(GL_TESS_EVALUATION_SHADER);
-		tessEvalShader.SetSource(GetShadersSource()[TESSEVAL]);
+		tessEvalShader.SetSource(shadersSource[TESSEVAL]);
 		if (tessEvalShader.Compile()) {
-			GetProgram()->Attach(tessEvalShader.get());
+			program.Attach(tessEvalShader.get());
 		}
 	}
 
 	if (GetShadersSource().count(GEOMETRY)) {
 		OGLShader geometryShader(GL_TESS_CONTROL_SHADER);
-		geometryShader.SetSource(GetShadersSource()[GEOMETRY]);
+		geometryShader.SetSource(shadersSource[GEOMETRY]);
 		if (geometryShader.Compile()) {
-			GetProgram()->Attach(geometryShader.get());
+			program.Attach(geometryShader.get());
 		}
 	}
 
 	if (res) {
-		auto prog = GetProgram();
-		prog->Attach(vertexShader.get());
-		prog->Attach(fragShader.get());
-		prog->Link();
-		prog->Use();
+		program.Attach(vertexShader.get());
+		program.Attach(fragShader.get());
+		program.Link();
+		program.Use();
 	}
 	else {
 		std::cerr << "Can't initialize OGLObject the OpenGL program will be discarded." << std::endl;

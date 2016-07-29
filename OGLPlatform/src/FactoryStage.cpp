@@ -2,6 +2,7 @@
 #include "OGLPointSize.hpp"
 #include "OGLSimpleTriangle.hpp"
 #include "OGLAnimatedTriangle.hpp"
+#include "OGLSimpleCube.hpp"
 
 std::shared_ptr<OGLStage> FactoryStage::CreateStage(STAGES key)
 {
@@ -17,6 +18,9 @@ std::shared_ptr<OGLStage> FactoryStage::CreateStage(STAGES key)
 		break;
 	case ANIMATED_TRIANGLE:
 		return std::make_shared<OGLAnimatedTriangle>();
+		break;
+	case SIMPLE_CUBE:
+		return std::make_shared<OGLSimpleCube>();
 		break;
 	default:
 		return nullptr;
