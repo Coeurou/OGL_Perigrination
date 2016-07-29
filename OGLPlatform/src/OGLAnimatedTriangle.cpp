@@ -1,6 +1,7 @@
 #include "OGLAnimatedTriangle.hpp"
 #include "OGLTriangle.hpp"
 #include <sstream>
+#include <glm/gtc/type_ptr.hpp>
 
 OGLAnimatedTriangle::OGLAnimatedTriangle()
 {
@@ -64,8 +65,8 @@ void OGLAnimatedTriangle::Render(double time)
 	animation.x = cosf(timeElapsed) * 0.5f;
 	animation.y = sinf(timeElapsed) * 0.5f;
 
-	glVertexAttrib4fv(0, animation.data);
-	glVertexAttrib4fv(1, triangleColor.data);
+    glVertexAttrib4fv(0, glm::value_ptr(animation));
+	glVertexAttrib4fv(1, glm::value_ptr(triangleColor));
 
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 	glDrawArrays(GL_PATCHES, 0, 3);

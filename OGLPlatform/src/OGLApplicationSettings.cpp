@@ -1,5 +1,5 @@
 #include "OGLApplicationSettings.hpp"
-#include <tinyxml2.h>
+#include "tinyxml2.h"
 #include <iostream>
 
 OGLApplicationSettings::OGLApplicationSettings()
