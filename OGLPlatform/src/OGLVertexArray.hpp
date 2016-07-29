@@ -15,6 +15,8 @@ class OGLVertexArray
 public:
     OGLVertexArray();
     ~OGLVertexArray();
+
+	const GLuint get() const { return arrayID; }
     void Bind();
     
 private:
