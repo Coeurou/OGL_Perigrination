@@ -19,7 +19,7 @@ bool OGLTriangle::Init()
 	return OGLObject::Init();
 }
 
-void OGLTriangle::Render()
+void OGLTriangle::Render(double time)
 {
 
 }

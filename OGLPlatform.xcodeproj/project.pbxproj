@@ -31,6 +31,10 @@
 		D1E6AEA81D304C8800CAD186 /* OGLObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */; };
 		D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF021D4B1AC10012F548 /* tinyxml2.cpp */; };
 		D1F0AF061D4B1D0B0012F548 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */; };
+		D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */; };
+		D1F0AF0C1D4B20310012F548 /* OGLCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0A1D4B20310012F548 /* OGLCube.cpp */; };
+		D1F0AF0F1D4C0BF20012F548 /* OGLTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0D1D4C0BF20012F548 /* OGLTexture.cpp */; };
+		D1F0AF111D4C0F660012F548 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F0AF101D4C0F660012F548 /* libSOIL.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +97,13 @@
 		D1F0AF021D4B1AC10012F548 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = src/tinyxml2.cpp; sourceTree = "<group>"; };
 		D1F0AF031D4B1AC10012F548 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = src/tinyxml2.h; sourceTree = "<group>"; };
 		D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../../../opt/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLSimpleCube.cpp; path = src/OGLSimpleCube.cpp; sourceTree = "<group>"; };
+		D1F0AF081D4B201B0012F548 /* OGLSimpleCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLSimpleCube.hpp; path = src/OGLSimpleCube.hpp; sourceTree = "<group>"; };
+		D1F0AF0A1D4B20310012F548 /* OGLCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLCube.cpp; path = src/OGLCube.cpp; sourceTree = "<group>"; };
+		D1F0AF0B1D4B20310012F548 /* OGLCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLCube.hpp; path = src/OGLCube.hpp; sourceTree = "<group>"; };
+		D1F0AF0D1D4C0BF20012F548 /* OGLTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLTexture.cpp; path = src/OGLTexture.cpp; sourceTree = "<group>"; };
+		D1F0AF0E1D4C0BF20012F548 /* OGLTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLTexture.hpp; path = src/OGLTexture.hpp; sourceTree = "<group>"; };
+		D1F0AF101D4C0F660012F548 /* libSOIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSOIL.a; path = ../../../../../../../../opt/local/lib/libSOIL.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1F0AF111D4C0F660012F548 /* libSOIL.a in Frameworks */,
 				D1F0AF061D4B1D0B0012F548 /* libGLEW.2.0.0.dylib in Frameworks */,
 				D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */,
 				D15B06A91D18601400F77089 /* libglfw.3.2.dylib in Frameworks */,
@@ -113,6 +125,10 @@
 		D113D9AB1D4B0E5D009A34DC /* Stages */ = {
 			isa = PBXGroup;
 			children = (
+				D1926A601D30499E00657C3F /* OGLStage.cpp */,
+				D1926A611D30499E00657C3F /* OGLStage.hpp */,
+				D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */,
+				D1F0AF081D4B201B0012F548 /* OGLSimpleCube.hpp */,
 				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
 				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
 				D113D9AF1D4B0EB8009A34DC /* OGLAnimatedTriangle.cpp */,
@@ -128,6 +144,10 @@
 		D113D9AC1D4B0E66009A34DC /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */,
+				D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */,
+				D1F0AF0A1D4B20310012F548 /* OGLCube.cpp */,
+				D1F0AF0B1D4B20310012F548 /* OGLCube.hpp */,
 				D113D9B91D4B0EC6009A34DC /* OGLPoint.cpp */,
 				D113D9BA1D4B0EC6009A34DC /* OGLPoint.hpp */,
 				D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */,
@@ -139,6 +159,7 @@
 		D15B068A1D185F9000F77089 = {
 			isa = PBXGroup;
 			children = (
+				D1F0AF101D4C0F660012F548 /* libSOIL.a */,
 				D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */,
 				D13F506D1D1B50CD003E29B9 /* libAntTweakBar.a */,
 				D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */,
@@ -162,7 +183,6 @@
 			children = (
 				D113D9AC1D4B0E66009A34DC /* Objects */,
 				D113D9AB1D4B0E5D009A34DC /* Stages */,
-				D1926A5F1D3048E700657C3F /* OGLApps */,
 				D1926A491D2C5DD100657C3F /* main.cpp */,
 				D1926A4A1D2C5DD100657C3F /* OGLApplication.cpp */,
 				D1926A4B1D2C5DD100657C3F /* OGLApplication.hpp */,
@@ -185,6 +205,8 @@
 				D1926A5A1D2C5E9900657C3F /* OGLVertexBuffer.hpp */,
 				D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */,
 				D1926A5D1D2D9E6A00657C3F /* OGLVertexArray.hpp */,
+				D1F0AF0D1D4C0BF20012F548 /* OGLTexture.cpp */,
+				D1F0AF0E1D4C0BF20012F548 /* OGLTexture.hpp */,
 			);
 			name = OGLCore;
 			sourceTree = "<group>";
@@ -222,17 +244,6 @@
 				D1926A581D2C5E6700657C3F /* Uncopyable.hpp */,
 			);
 			name = Commons;
-			sourceTree = "<group>";
-		};
-		D1926A5F1D3048E700657C3F /* OGLApps */ = {
-			isa = PBXGroup;
-			children = (
-				D1926A601D30499E00657C3F /* OGLStage.cpp */,
-				D1926A611D30499E00657C3F /* OGLStage.hpp */,
-				D1E6AEA61D304C8800CAD186 /* OGLObject.cpp */,
-				D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */,
-			);
-			name = OGLApps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,13 +306,16 @@
 				D1926A471D2C5DB400657C3F /* OGLProgram.cpp in Sources */,
 				D113D9B51D4B0EB8009A34DC /* FactoryStage.cpp in Sources */,
 				D1E6AEA81D304C8800CAD186 /* OGLObject.cpp in Sources */,
+				D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */,
 				D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */,
 				D1926A621D30499E00657C3F /* OGLStage.cpp in Sources */,
 				D1926A541D2C5DFC00657C3F /* OGLWindow.cpp in Sources */,
 				D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */,
 				D113D9C31D4B0ED6009A34DC /* OGLApplicationConstants.cpp in Sources */,
 				D113D9C41D4B0ED6009A34DC /* OGLApplicationSettings.cpp in Sources */,
+				D1F0AF0C1D4B20310012F548 /* OGLCube.cpp in Sources */,
 				D113D9B81D4B0EB8009A34DC /* OGLSimpleTriangle.cpp in Sources */,
+				D1F0AF0F1D4C0BF20012F548 /* OGLTexture.cpp in Sources */,
 				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
 				D113D9BD1D4B0EC6009A34DC /* OGLPoint.cpp in Sources */,
 				D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */,
@@ -401,6 +415,7 @@
 		D15B069B1D185F9000F77089 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;
 				LIBRARY_SEARCH_PATHS = (
@@ -414,6 +429,7 @@
 		D15B069C1D185F9000F77089 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;
 				LIBRARY_SEARCH_PATHS = (

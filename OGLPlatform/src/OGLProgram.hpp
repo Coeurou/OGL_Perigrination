@@ -25,6 +25,6 @@ public:
 
 private:
 	GLuint programID;
-	std::set<OGLShader> shaders;
+	std::set<GLuint> shaders;
 };
 /* OGLProgram_hpp */

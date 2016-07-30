@@ -16,6 +16,7 @@ OGLVertexBuffer::OGLVertexBuffer(GLenum target) : target(target)
 OGLVertexBuffer::~OGLVertexBuffer()
 {
     glDeleteBuffers(1, &bufferID);
+    bufferID = 0;
 }
 
 void OGLVertexBuffer::Bind()

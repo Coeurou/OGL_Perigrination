@@ -9,6 +9,6 @@ public:
 	~OGLPoint();
 
 	bool Init();
-	void Render();
+	void Render(double time);
 };
 

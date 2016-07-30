@@ -73,13 +73,16 @@ void OGLApplication::InitStagesTweakBar()
 	TwDefine(format.str().c_str());
 
 	OGLApplicationParams* params = new OGLApplicationParams(this, STAGES::POINT_SIZE);
-	TwAddButton(mainBar, "PointSize", ChangeStage, (void*)params, " key=1 label='PointSize Example' ");
+	TwAddButton(mainBar, "PointSize", ChangeStage, (void*)params, " label='PointSize Example' ");
 
 	OGLApplicationParams* params1 = new OGLApplicationParams(this, STAGES::SIMPLE_TRIANGLE);
-	TwAddButton(mainBar, "SimpleTriangle", ChangeStage, (void*)params1, " key=2 label='SimpleTriangle Example' ");
+	TwAddButton(mainBar, "SimpleTriangle", ChangeStage, (void*)params1, " label='Simple triangle Example' ");
 
 	OGLApplicationParams* params2 = new OGLApplicationParams(this, STAGES::ANIMATED_TRIANGLE);
-	TwAddButton(mainBar, "AnimatedTriangle", ChangeStage, (void*)params2, " key=3  label='AnimatedTriangle Example' ");
+	TwAddButton(mainBar, "AnimatedTriangle", ChangeStage, (void*)params2, " label='Animated triangle Example' ");
+
+	OGLApplicationParams* params3 = new OGLApplicationParams(this, STAGES::SIMPLE_CUBE);
+	TwAddButton(mainBar, "SimpleCube", ChangeStage, (void*)params3, " label='Simple cube Example' ");
 }
 
 void OGLApplication::LoadSettings()

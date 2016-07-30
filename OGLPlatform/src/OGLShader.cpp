@@ -19,6 +19,7 @@ OGLShader::OGLShader(GLenum shaderType)
 OGLShader::~OGLShader()
 {
 	glDeleteShader(shaderID);
+    shaderID = 0;
 }
 
 bool OGLShader::SetSource(const std::string& shaderFilePath)

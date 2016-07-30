@@ -27,6 +27,8 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 			" label='Dynamic Background' key=b help='Enable dynamic background through time.' ");
 		objRendered = std::make_shared<OGLCube>();
 		res &= objRendered->Init();
+        
+        glEnable(GL_DEPTH_TEST);
 	}
 	return res;
 }
@@ -39,7 +41,7 @@ void OGLSimpleCube::Render(double time)
 		bgColor.g = sinf(timeElapsed) * 0.5f + 0.5f;
 		bgColor.b = 0.5f;
 	}
+    glClear(GL_DEPTH_BUFFER_BIT);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	objRendered->Render();
+	objRendered->Render(time);
 }

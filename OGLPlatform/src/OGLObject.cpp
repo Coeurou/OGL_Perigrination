@@ -22,14 +22,22 @@ bool OGLObject::Init()
 
 bool OGLObject::InitShaders()
 {
-	bool res = false;
+	bool res = true;
 
 	OGLShader vertexShader(GL_VERTEX_SHADER);
 	OGLShader fragShader(GL_FRAGMENT_SHADER);
 	vertexShader.SetSource(shadersSource[VERTEX]);
-	res = vertexShader.Compile();
+    if (!vertexShader.Compile()) {
+        std::cerr << "Vertex Shader compilation failed file: " << shadersSource[VERTEX] << std::endl;
+        res = false;
+    }
+    
+    
 	fragShader.SetSource(shadersSource[FRAGMENT]);
-	res &= fragShader.Compile();
+    if (!fragShader.Compile()) {
+        std::cerr << "Fragment Shader compilation failed file: " << shadersSource[FRAGMENT] << std::endl;
+        res = false;
+    }
 
 	if (shadersSource.count(TESSCTRL)) {
 		OGLShader tessCtrlShader(GL_TESS_CONTROL_SHADER);
@@ -37,6 +45,9 @@ bool OGLObject::InitShaders()
 		if (tessCtrlShader.Compile()) {
 			program.Attach(tessCtrlShader.get());
 		}
+        else {
+            std::cerr << "Tesselaton control Shader compilation failed file: " << shadersSource[TESSCTRL] << std::endl;
+        }
 	}
 
 	if (GetShadersSource().count(TESSEVAL)) {
@@ -45,6 +56,9 @@ bool OGLObject::InitShaders()
 		if (tessEvalShader.Compile()) {
 			program.Attach(tessEvalShader.get());
 		}
+        else {
+            std::cerr << "Tesselaton evaluation Shader compilation failed file: " << shadersSource[TESSEVAL] << std::endl;
+        }
 	}
 
 	if (GetShadersSource().count(GEOMETRY)) {
@@ -53,6 +67,9 @@ bool OGLObject::InitShaders()
 		if (geometryShader.Compile()) {
 			program.Attach(geometryShader.get());
 		}
+        else {
+            std::cerr << "Geometry Shader compilation failed file: " << shadersSource[GEOMETRY] << std::endl;
+        }
 	}
 
 	if (res) {

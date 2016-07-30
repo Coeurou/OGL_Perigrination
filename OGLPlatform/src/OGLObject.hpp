@@ -22,14 +22,14 @@ public:
     virtual ~OGLObject();
 
 	virtual bool Init();
-	virtual void Render() = 0;
+	virtual void Render(double time) = 0;
 
 	void ChangeShader(const std::pair<SHADER, std::string>& pair) { shadersSource[pair.first] = pair.second; }
 
 protected:
 	OGLProgram* GetProgram() { return &program; }
 	OGLVertexArray* GetVAO() { return &vao; }
-	std::vector<OGLVertexBuffer>& GetVBOS() { return vbos; }
+	std::vector<std::shared_ptr<OGLVertexBuffer>>& GetVBOS() { return vbos; }
 	std::map<SHADER, std::string>& GetShadersSource()  { return shadersSource; }
 
 	bool InitShaders();
@@ -37,7 +37,7 @@ protected:
 private:
 	OGLProgram program;
 	OGLVertexArray vao;
-	std::vector<OGLVertexBuffer> vbos;
+    std::vector<std::shared_ptr<OGLVertexBuffer>> vbos;
 	std::map<SHADER, std::string> shadersSource;
 };
 /* OGLObject_hpp */

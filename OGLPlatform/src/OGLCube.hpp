@@ -13,7 +13,7 @@ public:
 	~OGLCube();
 
 	bool Init();
-	void Render();
+	void Render(double time);
 
 private:
 	void ComputeGeometry(float width, float height, float depth, glm::vec3 origin);

@@ -16,6 +16,7 @@ OGLProgram::OGLProgram()
 OGLProgram::~OGLProgram()
 {
 	glDeleteProgram(programID);
+    programID = 0;
 }
 
 void OGLProgram::Attach(GLuint shader)

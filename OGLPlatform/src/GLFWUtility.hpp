@@ -40,4 +40,5 @@ static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
 static void OnWindowResize(GLFWwindow* window, int width, int height)
 {
     TwWindowSize(width, height);
+    glViewport(0, 0, width, height);
 }

@@ -5,7 +5,7 @@
 OGLPoint::OGLPoint()
 {
 	GetShadersSource()[VERTEX] = "firstPoint.vert";
-	GetShadersSource()[FRAGMENT] = "firstPoint.vert";
+	GetShadersSource()[FRAGMENT] = "firstPoint.frag";
 }
 
 
@@ -19,7 +19,7 @@ bool OGLPoint::Init()
 	return OGLObject::Init();
 }
 
-void OGLPoint::Render()
+void OGLPoint::Render(double time)
 {
 
 }

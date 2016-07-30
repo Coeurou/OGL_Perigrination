@@ -16,6 +16,7 @@ OGLVertexArray::OGLVertexArray()
 OGLVertexArray::~OGLVertexArray()
 {
     glDeleteVertexArrays(1, &arrayID);
+    arrayID = 0;
 }
 
 void OGLVertexArray::Bind()
