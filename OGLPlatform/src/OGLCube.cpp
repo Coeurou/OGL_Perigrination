@@ -3,18 +3,27 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-OGLCube::OGLCube()
+OGLCube::OGLCube() : texture(GLI)
 {
     auto vbo(GL_ARRAY_BUFFER);
     GetVBOS().push_back(std::make_shared<OGLVertexBuffer>(vbo));
 }
 
 OGLCube::~OGLCube() 
-{}
-
-std::array<glm::vec3, 6> Quad(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d)
 {
-	std::array<glm::vec3, 6> res = {a, b, c, a, c, d};
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+std::array<OGLVertex, 6> Quad(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d)
+{
+    OGLVertex va{ a, glm::u8vec2(0,0) };
+    OGLVertex vb{ b, glm::u8vec2(1,0) };
+    OGLVertex vc{ c, glm::u8vec2(1,1) };
+    OGLVertex vd{ d, glm::u8vec2(0,1) };
+    std::array<OGLVertex, 6> res = { va, vb, vc,  va, vc, vd };
 	return res;
 }
 
@@ -25,13 +34,19 @@ bool OGLCube::Init()
 	ChangeShader(std::pair<SHADER, std::string>(FRAGMENT, "simpleCube.frag"));
 	bool res = OGLObject::Init();
 
+    res &= texture.LoadTexture("Paper_Crumbled.dds");
+    
     GetVBOS()[0]->Bind();
 	ComputeGeometry(1, 1, 1, glm::vec3(0,0,0.5f));
-    glBufferData(GL_ARRAY_BUFFER, geometry.size() * sizeof(glm::vec3), geometry.data(), GL_STATIC_DRAW);
+    GLsizei bufferSize = (GLsizei)(geometry.size() * sizeof(OGLVertex));
+    glBufferData(GL_ARRAY_BUFFER, bufferSize, geometry.data(), GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, position));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_UNSIGNED_BYTE, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, texCoords));
+    
+    texture.Bind(GL_TEXTURE0);
 	return res;
 }
 
@@ -52,8 +67,8 @@ void OGLCube::ComputeGeometry(float width, float height, float depth, glm::vec3 
 	float halfH = height * 0.5f;
 	float halfD = depth * 0.5f;
 
-	std::array<glm::vec3, 8> vertices = {
-		glm::vec3(origin.x - halfW, origin.y - halfH, origin.z + halfD),
+    std::array<glm::vec3, 8> vertices = {
+        glm::vec3(origin.x - halfW, origin.y - halfH, origin.z + halfD),
 		glm::vec3(origin.x + halfW, origin.y - halfH, origin.z + halfD),
 		glm::vec3(origin.x + halfW, origin.y + halfH, origin.z + halfD),
 		glm::vec3(origin.x - halfW, origin.y + halfH, origin.z + halfD),
@@ -70,7 +85,7 @@ void OGLCube::ComputeGeometry(float width, float height, float depth, glm::vec3 
 	auto top = Quad(vertices[2], vertices[3], vertices[5], vertices[6]);
 	auto bottom = Quad(vertices[0], vertices[4], vertices[7], vertices[1]);
 
-	std::vector<glm::vec3> cubeGeometry;
+	std::vector<OGLVertex> cubeGeometry;
 	cubeGeometry.insert(std::end(cubeGeometry), std::begin(front), std::end(front));
 	cubeGeometry.insert(std::end(cubeGeometry), std::begin(back), std::end(back));
 	cubeGeometry.insert(std::end(cubeGeometry), std::begin(left), std::end(left));

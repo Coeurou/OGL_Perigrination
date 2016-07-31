@@ -24,7 +24,7 @@ public:
 	virtual bool Init();
 	virtual void Render(double time) = 0;
 
-	void ChangeShader(const std::pair<SHADER, std::string>& pair) { shadersSource[pair.first] = pair.second; }
+    void ChangeShader(const std::pair<SHADER, std::string>& pair);
 
 protected:
 	OGLProgram* GetProgram() { return &program; }

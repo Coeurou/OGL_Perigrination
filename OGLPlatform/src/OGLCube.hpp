@@ -1,6 +1,8 @@
 #pragma once
 
 #include "OGLObject.hpp"
+#include "OGLVertex.hpp"
+#include "OGLTexture.hpp"
 #include <array>
 #include <glm/glm.hpp>
 
@@ -14,10 +16,13 @@ public:
 
 	bool Init();
 	void Render(double time);
+    
+    const OGLTexture* GetTexture() const { return &texture; }
 
 private:
 	void ComputeGeometry(float width, float height, float depth, glm::vec3 origin);
 
-	std::vector<glm::vec3> geometry;
+	std::vector<OGLVertex> geometry;
+    OGLTexture texture;
 };
 

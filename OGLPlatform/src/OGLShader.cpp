@@ -7,6 +7,7 @@
 //
 
 #include "OGLShader.hpp"
+#include "OGLApplicationConstants.hpp"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -22,9 +23,9 @@ OGLShader::~OGLShader()
     shaderID = 0;
 }
 
-bool OGLShader::SetSource(const std::string& shaderFilePath)
+bool OGLShader::SetSource(const std::string& shaderFilename)
 {
-	std::ifstream stream(shaderFilePath);
+	std::ifstream stream(ShadersPath + "/" + shaderFilename);
 	bool res = stream.is_open();
 	if (res) {
 		std::string source((std::istreambuf_iterator<char>(stream)), (std::istreambuf_iterator<char>()));
@@ -32,7 +33,7 @@ bool OGLShader::SetSource(const std::string& shaderFilePath)
 		glShaderSource(shaderID, 1, &sourcePtr, nullptr);
 	} 
 	else {
-		std::cerr << "Shader file not found: " << shaderFilePath << std::endl;
+		std::cerr << "Shader file not found: " << shaderFilename << std::endl;
 	}
 	return res;
 }

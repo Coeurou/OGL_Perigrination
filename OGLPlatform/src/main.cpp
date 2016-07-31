@@ -11,7 +11,7 @@ int main(int args, char** argc, char** argv)
 	OGLApplication app;
 	app.SetApplicationTitle("OpenGL Window");
 	if (!app.Init()) {
-		system("pause");
+        std::getchar();
 		return EXIT_FAILURE;
 	}
 	return app.Run();

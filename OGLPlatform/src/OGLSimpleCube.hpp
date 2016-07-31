@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OGLStage.hpp"
+#include "ATBGLEnumWrapper.h"
 #include <glm/glm.hpp>
 #include <memory>
 

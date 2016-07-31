@@ -16,15 +16,17 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 
 	if (res) {
 		auto tweakBar = GetTweakBar();
-		auto barName = TwGetBarName(tweakBar->GetBarByIndex(0));
+        auto stageBar = tweakBar->GetBarByIndex(0);
+		auto barName = TwGetBarName(stageBar);
 		std::stringstream format;
 		format << barName << " " << " label='SimpleCube Example' ";
 
 		TwDefine(format.str().c_str());
-		TwAddVarRW(tweakBar->GetBarByIndex(0), "bgColor", TW_TYPE_COLOR4F, &bgColor,
+		TwAddVarRW(stageBar, "bgColor", TW_TYPE_COLOR4F, &bgColor,
 			" label='Background color' help='Color and transparency of the background.' ");
-		TwAddVarRW(tweakBar->GetBarByIndex(0), "Has dynamic background", TW_TYPE_BOOLCPP, &isDynamicBg,
+		TwAddVarRW(stageBar, "Has dynamic background", TW_TYPE_BOOLCPP, &isDynamicBg,
 			" label='Dynamic Background' key=b help='Enable dynamic background through time.' ");
+
 		objRendered = std::make_shared<OGLCube>();
 		res &= objRendered->Init();
         
@@ -41,7 +43,9 @@ void OGLSimpleCube::Render(double time)
 		bgColor.g = sinf(timeElapsed) * 0.5f + 0.5f;
 		bgColor.b = 0.5f;
 	}
+    
     glClear(GL_DEPTH_BUFFER_BIT);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
+    
 	objRendered->Render(time);
 }

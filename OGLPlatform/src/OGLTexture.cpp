@@ -7,11 +7,10 @@
 //
 
 #include "OGLTexture.hpp"
+#include "OGLApplicationConstants.hpp"
 
-OGLTexture::OGLTexture(GLenum type) : target(type)
-{
-    glGenTextures(1, &textureID);
-}
+OGLTexture::OGLTexture(IMAGE_TYPE thirdPartyType) : loadingMethod(thirdPartyType)
+{}
 
 OGLTexture::~OGLTexture()
 {
@@ -19,22 +18,34 @@ OGLTexture::~OGLTexture()
     textureID = 0;
 }
 
-bool OGLTexture::LoadTexture(std::string imgPath)
+bool OGLTexture::LoadTexture(std::string imgFilename)
 {
-    return false;
+    imgFilename = TexturesPath + "/" + imgFilename;
+    
+    auto texImg = OGLImageFactory::CreateImage(loadingMethod);
+    textureID = texImg->LoadImageFile(imgFilename);
+    
+    bool res = (textureID != 0);
+    if (res) {
+        glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    }
+    return res;
 }
 
-void OGLTexture::ChangeParameter(GLenum parameter, GLint value)
+void OGLTexture::ChangeParameter(GLenum parameter, GLint value) const
 {
     glTexParameteri(target, parameter, value);
 }
 
-void OGLTexture::ChangeParameter(GLenum parameter, GLfloat value)
+void OGLTexture::ChangeParameter(GLenum parameter, GLfloat value) const
 {
     glTexParameterf(target, parameter, value);
 }
 
-void OGLTexture::Bind(GLenum textureUnit)
+void OGLTexture::Bind(GLenum textureUnit) const
 {
     glActiveTexture(textureUnit);
     glBindTexture(target, textureID);

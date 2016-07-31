@@ -10,21 +10,22 @@
 
 #include <GL/glew.h>
 #include <string>
+#include "OGLImageFactory.hpp"
 
 class OGLTexture
 {
 public:
-    OGLTexture(GLenum type);
+    OGLTexture(IMAGE_TYPE thirdPartyType);
     ~OGLTexture();
     
-    bool LoadTexture(std::string imgPath);
-    void ChangeParameter(GLenum parameter, GLint value);
-    void ChangeParameter(GLenum parameter, GLfloat value);
-    void Bind(GLenum textureUnit);
+    bool LoadTexture(std::string imgFilename);
+    void ChangeParameter(GLenum parameter, GLint value) const;
+    void ChangeParameter(GLenum parameter, GLfloat value) const;
+    void Bind(GLenum textureUnit) const;
     
 private:
     GLenum target;
     GLuint textureID;
+    IMAGE_TYPE loadingMethod;
 };
-
 /* OGLTexture_hpp */

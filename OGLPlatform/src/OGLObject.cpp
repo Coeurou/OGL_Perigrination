@@ -15,6 +15,11 @@ OGLObject::OGLObject()
 OGLObject::~OGLObject()
 {}
 
+void OGLObject::ChangeShader(const std::pair<SHADER, std::string> &pair)
+{
+     shadersSource[pair.first] = pair.second;
+}
+
 bool OGLObject::Init()
 {
 	return InitShaders();
