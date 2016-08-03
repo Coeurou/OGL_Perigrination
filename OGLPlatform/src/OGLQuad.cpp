@@ -7,6 +7,8 @@ OGLQuad::OGLQuad(std::string texImgFilename)
 {
     auto vbo(GL_ARRAY_BUFFER);
     GetVBOS().push_back(std::make_shared<OGLVertexBuffer>(vbo));
+	ChangeShader(std::pair<SHADER, std::string>(VERTEX, "simpleQuad.vert"));
+	ChangeShader(std::pair<SHADER, std::string>(FRAGMENT, "simpleQuad.frag"));
 }
 
 OGLQuad::~OGLQuad() 
@@ -20,8 +22,6 @@ OGLQuad::~OGLQuad()
 bool OGLQuad::Init()
 {
 	GetVAO()->Bind();
-	ChangeShader(std::pair<SHADER,std::string>(VERTEX, "simpleQuad.vert"));
-	ChangeShader(std::pair<SHADER, std::string>(FRAGMENT, "simpleQuad.frag"));
 	bool res = OGLObject::Init();
 
     res &= texture.LoadTexture(imgFilename);
