@@ -21,7 +21,7 @@ public:
 	void Attach(GLuint shader);
 	void Detach(GLuint shader);
 	void Link();
-	void Use();
+	void Use() const;
 
 private:
 	GLuint programID;

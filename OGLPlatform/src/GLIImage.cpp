@@ -17,16 +17,18 @@ GLIImage::GLIImage()
 GLIImage::~GLIImage()
 {}
 
-GLuint GLIImage::LoadImageFile(std::string imgPath)
+bool GLIImage::LoadImageFile(const std::string& imgPath)
 {
-    GLuint textureID = 0;
+    textureID = 0;
     gli::texture texture = gli::load(imgPath);
-    if(texture.empty())
-        std::cerr << "Cannot load image file:" << imgPath << std::endl;
-    
+	if (texture.empty()) {
+		std::cerr << "Cannot load image file:" << imgPath << std::endl;
+		return false;
+	}
+
     gli::gl GL(gli::gl::PROFILE_GL33);
     gli::gl::format const texFormat = GL.translate(texture.format(), texture.swizzles());
-    GLuint target = GL.translate(texture.target());
+    target = (GLenum)GL.translate(texture.target());
     
     glGenTextures(1, &textureID);
     glBindTexture(target, textureID);
@@ -39,7 +41,8 @@ GLuint GLIImage::LoadImageFile(std::string imgPath)
     
     glm::tvec3<GLsizei> const extent(texture.extent());
     GLsizei const faceTotal = static_cast<GLsizei>(texture.layers() * texture.faces());
-    
+	nbFaces = (int)faceTotal;
+
     switch(texture.target())
     {
         case gli::TARGET_1D:
@@ -135,5 +138,5 @@ GLuint GLIImage::LoadImageFile(std::string imgPath)
         }
     }
 
-    return textureID;
+    return (textureID != 0);
 }

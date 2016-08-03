@@ -19,7 +19,7 @@ OGLVertexArray::~OGLVertexArray()
     arrayID = 0;
 }
 
-void OGLVertexArray::Bind()
+void OGLVertexArray::Bind() const
 {
     glBindVertexArray(arrayID);
 }

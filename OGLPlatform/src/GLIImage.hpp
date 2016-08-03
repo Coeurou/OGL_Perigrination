@@ -16,5 +16,5 @@ public:
     GLIImage();
     ~GLIImage();
     
-    GLuint LoadImageFile(std::string imgPath);
+    bool LoadImageFile(const std::string& imgPath);
 }; /* GLIImage_hpp */

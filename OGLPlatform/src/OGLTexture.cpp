@@ -23,8 +23,12 @@ bool OGLTexture::LoadTexture(std::string imgFilename)
     imgFilename = TexturesPath + "/" + imgFilename;
     
     auto texImg = OGLImageFactory::CreateImage(loadingMethod);
-    textureID = texImg->LoadImageFile(imgFilename);
-    
+    texImg->LoadImageFile(imgFilename);
+
+	textureID = texImg->GetTextureID();
+	target = texImg->GetTarget();
+	nbTexturesInArray = texImg->GetNbFaces();
+
     bool res = (textureID != 0);
     if (res) {
         glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

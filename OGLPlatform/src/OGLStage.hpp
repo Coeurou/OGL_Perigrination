@@ -23,11 +23,11 @@ public:
 	virtual void Render(double time) {}
 
 protected:
-	std::vector<OGLObject>& GetRenderedObjs() { return renderedObjs; }
+	std::vector<std::unique_ptr<OGLObject>>& GetRenderedObjs() { return renderedObjs; }
 	OGLAntTweakBar* const GetTweakBar() { return atbApp.get(); }
 
 private:
-    std::vector<OGLObject> renderedObjs;
+    std::vector<std::unique_ptr<OGLObject>> renderedObjs;
 	std::unique_ptr<OGLAntTweakBar> atbApp;
 };
 /* OGLStage_hpp */

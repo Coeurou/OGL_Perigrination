@@ -18,6 +18,14 @@ public:
     OGLImage() {}
     virtual ~OGLImage() {}
     
-    virtual GLuint LoadImageFile(std::string imgPath) = 0;
+    virtual bool LoadImageFile(const std::string& imgPath) = 0;
+	GLuint GetTextureID() const { return textureID; }
+	GLenum GetTarget() const { return target; }
+	int GetNbFaces() const { return nbFaces; }
+
+protected:
+	GLuint textureID;
+	GLenum target;
+	int nbFaces;
 };
 /* OGLImage_hpp */

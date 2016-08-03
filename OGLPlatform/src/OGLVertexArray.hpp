@@ -17,7 +17,7 @@ public:
     ~OGLVertexArray();
 
 	const GLuint get() const { return arrayID; }
-    void Bind();
+    void Bind() const;
     
 private:
     GLuint arrayID;

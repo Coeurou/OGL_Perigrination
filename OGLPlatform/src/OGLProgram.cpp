@@ -36,7 +36,7 @@ void OGLProgram::Link()
 	glLinkProgram(programID);
 }
 
-void OGLProgram::Use()
+void OGLProgram::Use() const
 {
 	glUseProgram(programID);
 }

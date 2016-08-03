@@ -11,7 +11,7 @@
 #include <GL/glew.h>
 #include <AntTweakBar.h>
 
-enum TWTextureParams
+/*enum TWTextureParams
 {
     NONE = 0,
     TW_TEXTURE_MODE = GL_DEPTH_STENCIL_TEXTURE_MODE,
@@ -33,9 +33,22 @@ enum TWTextureParams
     TW_TEXTURE_WRAP_R = GL_TEXTURE_WRAP_R,
     TW_TEXTURE_BORDER_COLOR = GL_TEXTURE_BORDER_COLOR,
     TW_TEXTURE_SWIZZLE_RGBA = GL_TEXTURE_SWIZZLE_RGBA
+};*/
+
+enum class TWTextureFiltering
+{
+	TW_TEXTURE_MIN_FILTER = GL_TEXTURE_MIN_FILTER,
+	TW_TEXTURE_MAG_FILTER = GL_TEXTURE_MAG_FILTER
 };
 
-enum TWTextureParamsValue
+enum class TWTextureWrapping
+{
+	TW_TEXTURE_WRAP_S = GL_TEXTURE_WRAP_S,
+	TW_TEXTURE_WRAP_T = GL_TEXTURE_WRAP_T,
+	TW_TEXTURE_WRAP_R = GL_TEXTURE_WRAP_R
+};
+
+/*enum TWTextureParamsValue
 {
     TW_DEPTH_COMPONENT = GL_DEPTH_COMPONENT,
     // TW_TEXTURE_COMPARE_FUNC
@@ -62,11 +75,47 @@ enum TWTextureParamsValue
     TW_MIRRORED_REPEAT = GL_MIRRORED_REPEAT,
     TW_REPEAT = GL_REPEAT,
     TW_MIRROR_CLAMP_TO_EDGE = GL_MIRROR_CLAMP_TO_EDGE
+};*/
+
+enum class TWTextureFilteringValue
+{
+	TW_NEAREST = GL_NEAREST,
+	TW_LINEAR = GL_LINEAR,
+	TW_NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
+	TW_LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
+	TW_NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
+	TW_LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR
 };
 
-extern const TwEnumVal textureParamsEV[];
+enum class TWTextureWrappingValue
+{
+	TW_REPEAT = GL_REPEAT,
+	TW_CLAMP_TO_EDGE = GL_CLAMP_TO_EDGE,
+	TW_CLAMP_TO_BORDER = GL_CLAMP_TO_BORDER,
+	TW_MIRRORED_REPEAT = GL_MIRRORED_REPEAT,
+	TW_MIRROR_CLAMP_TO_EDGE = GL_MIRROR_CLAMP_TO_EDGE
+};
 
-extern const TwEnumVal textureParamsValueEV[];
+//extern const int TEXTURE_PARAMS_COUNT;
 
-extern const int TEXTURE_PARAMS_COUNT;
+class ATBGLEnumWrapper
+{
+public:
+	ATBGLEnumWrapper();
+	~ATBGLEnumWrapper();
+
+	static ATBGLEnumWrapper* GetInstance()
+	{
+		if (instance == nullptr) {
+			instance = new ATBGLEnumWrapper();
+		}
+		return instance;
+	}
+
+	TwType TW_TEXTURE_FILTER;
+	TwType TW_TEXTURE_WRAP;
+	
+private:	
+	static ATBGLEnumWrapper* instance;
+};
 /* ATBGLEnumWrapper_h */

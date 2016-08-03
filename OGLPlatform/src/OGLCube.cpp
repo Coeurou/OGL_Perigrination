@@ -1,4 +1,5 @@
 #include "OGLCube.hpp"
+#include "OGLUtils.hpp"
 #include <utility>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,16 +18,6 @@ OGLCube::~OGLCube()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-std::array<OGLVertex, 6> Quad(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d)
-{
-    OGLVertex va{ a, glm::u8vec2(0,0) };
-    OGLVertex vb{ b, glm::u8vec2(1,0) };
-    OGLVertex vc{ c, glm::u8vec2(1,1) };
-    OGLVertex vd{ d, glm::u8vec2(0,1) };
-    std::array<OGLVertex, 6> res = { va, vb, vc,  va, vc, vd };
-	return res;
-}
-
 bool OGLCube::Init()
 {
 	GetVAO()->Bind();
@@ -37,7 +28,7 @@ bool OGLCube::Init()
     res &= texture.LoadTexture("Paper_Crumbled.dds");
     
     GetVBOS()[0]->Bind();
-	ComputeGeometry(1, 1, 1, glm::vec3(0,0,0.5f));
+	ComputeGeometry(glm::vec3(0,0,0.5f));
     GLsizei bufferSize = (GLsizei)(geometry.size() * sizeof(OGLVertex));
     glBufferData(GL_ARRAY_BUFFER, bufferSize, geometry.data(), GL_STATIC_DRAW);
     
@@ -51,17 +42,11 @@ bool OGLCube::Init()
 }
 
 void OGLCube::Render(double time)
-{
-    float angle = (float)time * 45.0f; // 45° per second
-    glm::mat4 rotationMat = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
-                            glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) *
-                            glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f,0.0f));
-    GLint rotationLocation = glGetUniformLocation(GetProgram()->get(), "rotationMatrix");
-    glUniformMatrix4fv(rotationLocation, 1, GL_FALSE, glm::value_ptr(rotationMat));
+{    
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void OGLCube::ComputeGeometry(float width, float height, float depth, glm::vec3 origin)
+void OGLCube::ComputeGeometry(glm::vec3 origin)
 {
 	float halfW = width * 0.5f;
 	float halfH = height * 0.5f;

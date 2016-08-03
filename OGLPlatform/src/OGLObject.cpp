@@ -9,7 +9,7 @@
 #include "OGLObject.hpp"
 #include <iostream>
 
-OGLObject::OGLObject()
+OGLObject::OGLObject() : width(1), height(1), depth(1)
 {}
 
 OGLObject::~OGLObject()

@@ -20,7 +20,7 @@ public:
     const OGLTexture* GetTexture() const { return &texture; }
 
 private:
-	void ComputeGeometry(float width, float height, float depth, glm::vec3 origin);
+	void ComputeGeometry(glm::vec3 origin);
 
 	std::vector<OGLVertex> geometry;
     OGLTexture texture;
