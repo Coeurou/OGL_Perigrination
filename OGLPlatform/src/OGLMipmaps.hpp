@@ -16,4 +16,7 @@ public:
 
 	bool Init(int windowWidth, int windowHeight);
 	void Render(double time);
+    
+private:
+    bool InitGUI();
 };

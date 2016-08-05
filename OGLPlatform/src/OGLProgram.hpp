@@ -11,8 +11,9 @@
 #include <GL/glew.h>
 #include <set>
 #include "OGLShader.hpp"
+#include "OGLResource.hpp"
 
-class OGLProgram
+class OGLProgram : public OGLResource
 {
 public:
 	OGLProgram();

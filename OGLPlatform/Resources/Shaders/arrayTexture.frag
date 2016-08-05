@@ -1,12 +1,13 @@
-#version 430 core
+#version 410 core
 
 in vec2 vsTexCoords;
-in flat int nbTextures;
+flat in int renderInd;
+
 out vec4 fColor;
 
 uniform sampler2DArray sampler;
 
 void main()
 {
-	fColor = texture(sampler, vec3(vsTexCoords, float(nbTextures)));
+	fColor = texture(sampler, vec3(vsTexCoords, float(renderInd)));
 }

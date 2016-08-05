@@ -1,25 +1,14 @@
 #pragma once
 
-#include "OGLObject.hpp"
-#include "OGLVertex.hpp"
-#include "OGLTexture.hpp"
-#include <glm/glm.hpp>
+#include "OGLObjResizable.hpp"
+#include <array>
 
-class OGLQuad : public OGLObject
+class OGLQuad : public OGLObjResizable // TODO a templater par OGLShape<size_t nb vertices>
 {
 public:
-	OGLQuad(std::string texImgFilename);
+	OGLQuad();
 	~OGLQuad();
 
-	bool Init();
-	void Render(double time);
-
-	const OGLTexture* GetTexture() const { return &texture; }
-
-private:
-	void ComputeGeometry(glm::vec3 origin);	
-
-	std::vector<OGLVertex> geometry;
-	OGLTexture texture;
-	std::string imgFilename;
+    bool InitVertices(glm::vec3 origin);
+    bool InitVertices(std::array<OGLVertex, 4> data);
 };

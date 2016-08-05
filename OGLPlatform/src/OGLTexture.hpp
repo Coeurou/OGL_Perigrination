@@ -11,8 +11,9 @@
 #include <GL/glew.h>
 #include <string>
 #include "OGLImageFactory.hpp"
+#include "OGLResource.hpp"
 
-class OGLTexture
+class OGLTexture : public OGLResource
 {
 public:
     OGLTexture(IMAGE_TYPE thirdPartyType);

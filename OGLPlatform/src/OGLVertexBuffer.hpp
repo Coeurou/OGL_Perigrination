@@ -9,14 +9,16 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "OGLResource.hpp"
 
-class OGLVertexBuffer
+class OGLVertexBuffer : public OGLResource
 {
 public:
     OGLVertexBuffer(GLenum target);
     ~OGLVertexBuffer();
 
-	const GLuint get() const { return bufferID; }
+    const GLuint get() const { return bufferID; }
+    const GLuint getTarget() const { return target; }
     void Bind();
     
 private:

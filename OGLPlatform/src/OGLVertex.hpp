@@ -13,6 +13,6 @@
 struct OGLVertex
 {
     glm::vec3 position;
-    glm::u8vec2 texCoords;
+    glm::vec2 texCoords;
 };
 /* OGLVertex_hpp */

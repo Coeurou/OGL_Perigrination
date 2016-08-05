@@ -1,13 +1,14 @@
 #pragma once
 
-#include "OGLObject.hpp"
+#include "OGLObjResizable.hpp"
+#include <array>
 
-class OGLTriangle : public OGLObject
+class OGLTriangle : public OGLObjResizable
 {
 public:
 	OGLTriangle();
 	~OGLTriangle();
 
-	bool Init();
-	void Render(double time);
+    bool InitVertices(glm::vec3 origin);
+    bool InitVertices(std::array<OGLVertex,3> data);
 };

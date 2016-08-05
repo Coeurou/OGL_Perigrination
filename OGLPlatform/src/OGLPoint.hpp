@@ -1,14 +1,33 @@
 #pragma once
 
-#include "OGLObject.hpp"
+#include "OGLObjResizable.hpp"
+#include <GL/glew.h>
 
-class OGLPoint : public OGLObject
+class OGLPoint : public OGLObjResizable
 {
 public:
-	OGLPoint();
+    OGLPoint();
+	OGLPoint(float size);
 	~OGLPoint();
+    
+    bool InitVertices(glm::vec3 origin);
+    
+    virtual void SetWidth(float newWidth)
+    {
+        width = newWidth;
+        glPointSize(width);
+    }
+    virtual void SetHeight(float newHeight)
+    {
+        width = newHeight;
+        glPointSize(width);
+    }
 
-	bool Init();
-	void Render(double time);
+    virtual void SetDepth(float newDepth)
+    {
+        width = newDepth;
+        glPointSize(width);
+    }
+
 };
 

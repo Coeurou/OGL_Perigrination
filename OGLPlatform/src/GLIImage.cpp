@@ -67,7 +67,6 @@ bool GLIImage::LoadImageFile(const std::string& imgPath)
             std::cerr << "Texture target not found in gli::texture::target.";
             break;
     }
-    
     for(std::size_t layer = 0; layer < texture.layers(); ++layer) {
         for(std::size_t face = 0; face < texture.faces(); ++face) {
             for(std::size_t level = 0; level < texture.levels(); ++level) {

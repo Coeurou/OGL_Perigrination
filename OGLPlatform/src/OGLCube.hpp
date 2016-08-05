@@ -1,28 +1,17 @@
 #pragma once
 
-#include "OGLObject.hpp"
-#include "OGLVertex.hpp"
-#include "OGLTexture.hpp"
+#include "OGLObjResizable.hpp"
 #include <array>
-#include <glm/glm.hpp>
 
 enum SIZE { CUBE = 36 };
 
-class OGLCube : public OGLObject
+class OGLCube : public OGLObjResizable // A templater voir OGLQuad
 {
 public:
 	OGLCube();
 	~OGLCube();
 
-	bool Init();
-	void Render(double time);
-    
-    const OGLTexture* GetTexture() const { return &texture; }
-
-private:
-	void ComputeGeometry(glm::vec3 origin);
-
-	std::vector<OGLVertex> geometry;
-    OGLTexture texture;
+    bool InitVertices(glm::vec3 origin);
+    bool InitVertices(std::array<glm::vec3, 8> data);
 };
 

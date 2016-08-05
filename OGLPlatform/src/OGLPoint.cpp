@@ -3,23 +3,19 @@
 
 
 OGLPoint::OGLPoint()
-{
-	GetShadersSource()[VERTEX] = "firstPoint.vert";
-	GetShadersSource()[FRAGMENT] = "firstPoint.frag";
-}
+{}
 
+OGLPoint::OGLPoint(float size)
+{
+    width = size;
+    glPointSize(width);
+}
 
 OGLPoint::~OGLPoint()
-{
-}
+{}
 
-bool OGLPoint::Init()
+bool OGLPoint::InitVertices(glm::vec3 origin)
 {
-	GetVAO()->Bind();	
-	return OGLObject::Init();
-}
-
-void OGLPoint::Render(double time)
-{
-
+    vertices.push_back(OGLVertex{ origin, glm::vec2() });
+    return (vertices.size() == 1);
 }

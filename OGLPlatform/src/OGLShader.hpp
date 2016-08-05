@@ -10,17 +10,9 @@
 
 #include <GL/glew.h>
 #include <string>
+#include "OGLResource.hpp"
 
-enum SHADER
-{
-	VERTEX,
-	FRAGMENT,
-	GEOMETRY,
-	TESSCTRL,
-	TESSEVAL
-};
-
-class OGLShader
+class OGLShader : public OGLResource
 {
 public:
 	OGLShader(GLenum shaderType);

@@ -9,8 +9,9 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "OGLResource.hpp"
 
-class OGLVertexArray
+class OGLVertexArray : public OGLResource
 {
 public:
     OGLVertexArray();
