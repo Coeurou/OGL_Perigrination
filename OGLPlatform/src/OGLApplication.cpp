@@ -87,7 +87,7 @@ void OGLApplication::InitStagesTweakBar()
 	OGLApplicationParams* params4 = new OGLApplicationParams(this, STAGES::MIPMAPS);
 	TwAddButton(mainBar, "Mipmaps", ChangeStage, (void*)params4, " label='Mipmaps Example' ");
 
-	OGLApplicationParams* params5 = new OGLApplicationParams(this, STAGES::ARRAY_TEXTURE);
+	OGLApplicationParams* params5 = new OGLApplicationParams(this, STAGES::MIX_TEXTURE);
 	TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params5, " label='Array texture Example' ");
 }
 

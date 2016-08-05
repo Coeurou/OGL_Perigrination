@@ -117,7 +117,13 @@
     <ClInclude Include="src\OGLQuad.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLArrayTexture.hpp">
+    <ClInclude Include="src\OGLObjResizable.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLResource.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLMixTexture.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
   </ItemGroup>
@@ -142,9 +148,6 @@
     </ClCompile>
     <ClCompile Include="src\OGLPoint.cpp">
       <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLObject.cpp">
-      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLProgram.cpp">
       <Filter>Core</Filter>
@@ -203,7 +206,7 @@
     <ClCompile Include="src\OGLQuad.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\OGLArrayTexture.cpp">
+    <ClCompile Include="src\OGLMixTexture.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>

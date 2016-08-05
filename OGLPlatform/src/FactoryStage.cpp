@@ -4,7 +4,7 @@
 #include "OGLAnimatedTriangle.hpp"
 #include "OGLSimpleCube.hpp"
 #include "OGLMipmaps.hpp"
-#include "OGLArrayTexture.hpp"
+#include "OGLMixTexture.hpp"
 
 std::shared_ptr<OGLStage> FactoryStage::CreateStage(STAGES key)
 {
@@ -27,8 +27,8 @@ std::shared_ptr<OGLStage> FactoryStage::CreateStage(STAGES key)
 	case MIPMAPS:
 		return std::make_shared<OGLMipmaps>();
 		break;
-	case ARRAY_TEXTURE:
-		return std::make_shared<OGLArrayTexture>();
+	case MIX_TEXTURE:
+		return std::make_shared<OGLMixTexture>();
 		break;
 	default:
 		return nullptr;

@@ -157,17 +157,19 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLApplication.hpp" />
     <ClInclude Include="src\OGLApplicationConstants.hpp" />
     <ClInclude Include="src\OGLApplicationSettings.hpp" />
-    <ClInclude Include="src\OGLArrayTexture.hpp" />
+    <ClInclude Include="src\OGLMixTexture.hpp" />
     <ClInclude Include="src\OGLCube.hpp" />
     <ClInclude Include="src\OGLglfw.hpp" />
     <ClInclude Include="src\OGLImage.hpp" />
     <ClInclude Include="src\OGLImageFactory.hpp" />
     <ClInclude Include="src\OGLMipmaps.hpp" />
     <ClInclude Include="src\OGLObject.hpp" />
+    <ClInclude Include="src\OGLObjResizable.hpp" />
     <ClInclude Include="src\OGLPoint.hpp" />
     <ClInclude Include="src\OGLPointSize.hpp" />
     <ClInclude Include="src\OGLProgram.hpp" />
     <ClInclude Include="src\OGLQuad.hpp" />
+    <ClInclude Include="src\OGLResource.hpp" />
     <ClInclude Include="src\OGLShader.hpp" />
     <ClInclude Include="src\OGLSimpleCube.hpp" />
     <ClInclude Include="src\OGLSimpleTriangle.hpp" />
@@ -191,12 +193,11 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLApplication.cpp" />
     <ClCompile Include="src\OGLApplicationConstants.cpp" />
     <ClCompile Include="src\OGLApplicationSettings.cpp" />
-    <ClCompile Include="src\OGLArrayTexture.cpp" />
+    <ClCompile Include="src\OGLMixTexture.cpp" />
     <ClCompile Include="src\OGLCube.cpp" />
     <ClCompile Include="src\OGLglfw.cpp" />
     <ClCompile Include="src\OGLImageFactory.cpp" />
     <ClCompile Include="src\OGLMipmaps.cpp" />
-    <ClCompile Include="src\OGLObject.cpp" />
     <ClCompile Include="src\OGLPoint.cpp" />
     <ClCompile Include="src\OGLPointSize.cpp" />
     <ClCompile Include="src\OGLProgram.cpp" />

@@ -11,7 +11,7 @@ enum STAGES
 	ANIMATED_TRIANGLE,
 	SIMPLE_CUBE,
 	MIPMAPS,
-	ARRAY_TEXTURE
+	MIX_TEXTURE
 };
 
 class FactoryStage : public Uncopyable
