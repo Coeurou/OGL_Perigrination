@@ -8,6 +8,7 @@
 
 #include "OGLTexture.hpp"
 #include "OGLApplicationConstants.hpp"
+#include <iostream>
 
 OGLTexture::OGLTexture(IMAGE_TYPE thirdPartyType) : loadingMethod(thirdPartyType)
 {}
@@ -34,6 +35,9 @@ bool OGLTexture::LoadTexture(std::string imgFilename)
         glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
+    else {
+        std::cerr << "Texture " << imgFilename << " loading failed" << std::endl;
+    }
     return res;
 }
 
@@ -46,7 +50,6 @@ void OGLTexture::ChangeParameter(GLenum parameter, GLfloat value) const
 {
     glTexParameterf(target, parameter, value);
 }
-
 void OGLTexture::Bind(GLenum textureUnit) const
 {
     glActiveTexture(textureUnit);

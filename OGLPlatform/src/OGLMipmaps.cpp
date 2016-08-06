@@ -59,27 +59,25 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         
         auto wallTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
         wallTexture->LoadTexture("Wall.dds");
-        wallTexture->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-        wallTexture->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
         textures.push_back(wallTexture);
         
         auto ceilingTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
         ceilingTexture->LoadTexture("Ceiling.dds");
-        ceilingTexture->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-        ceilingTexture->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
         textures.push_back(ceilingTexture);
         
         auto wallTextureR = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
         wallTextureR->LoadTexture("Wall.dds");
-        wallTextureR->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-        wallTextureR->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
         textures.push_back(wallTextureR);
         
         auto floorTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
         floorTexture->LoadTexture("Floor.dds");
-        floorTexture->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
-        floorTexture->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
         textures.push_back(floorTexture);
+        
+        auto sampler = std::make_shared<OGLSampler>();
+        sampler->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
+        sampler->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
+        sampler->Bind(0);
+        samplers.push_back(sampler);
         
 		renderedObjs.push_back(std::make_unique<OGLQuad>());
 
@@ -108,7 +106,10 @@ void OGLMipmaps::Render(double time)
 	glm::vec4 bgColor(0.2f, 0.18f, 0.18f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
-		
+	
+    samplers[0]->ChangeParameter(GL_TEXTURE_MIN_FILTER, (GLint)texMinFilterVal);
+    samplers[0]->ChangeParameter(GL_TEXTURE_MAG_FILTER, (GLint)texMagFilterVal);
+    
 	for (size_t i = 0; i < textures.size(); i++)
 	{
 		GLint mvpLocation = glGetUniformLocation(programs[0]->get(), "MVP");
@@ -120,8 +121,6 @@ void OGLMipmaps::Render(double time)
 			glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) * rot;
 		glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
 
-		textures[i]->ChangeParameter(GL_TEXTURE_MIN_FILTER, (GLint)texMinFilterVal);
-		textures[i]->ChangeParameter(GL_TEXTURE_MAG_FILTER, (GLint)texMagFilterVal);
 		glBindTexture(textures[i]->getTarget(), textures[i]->get());
         
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

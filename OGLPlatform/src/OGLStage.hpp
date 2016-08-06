@@ -14,6 +14,7 @@
 #include "OGLVertexArray.hpp"
 #include "OGLVertexBuffer.hpp"
 #include "OGLTexture.hpp"
+#include "OGLSampler.hpp"
 #include "OGLAntTweakBar.hpp"
 #include <vector>
 #include <memory>
@@ -36,6 +37,7 @@ protected:
     std::vector<std::shared_ptr<OGLShader>> shaders;
     std::vector<std::shared_ptr<OGLProgram>> programs;
     std::vector<std::shared_ptr<OGLTexture>> textures;
+    std::vector<std::shared_ptr<OGLSampler>> samplers;
 	std::unique_ptr<OGLAntTweakBar> atbApp;
 };
 /* OGLStage_hpp */

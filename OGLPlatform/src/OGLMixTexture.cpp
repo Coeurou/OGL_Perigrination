@@ -1,6 +1,7 @@
 #include "OGLMixTexture.hpp"
 #include "OGLUtils.hpp"
 #include "OGLQuad.hpp"
+#include "OGLCube.hpp"
 #include <sstream>
 #include <random>
 #include <glm/gtc/type_ptr.hpp>
@@ -16,11 +17,95 @@ OGLMixTexture::~OGLMixTexture()
 {
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
+    
+    glDisable(GL_DEPTH_TEST);
 }
 
 bool OGLMixTexture::InitGUI()
 {
     return true;
+}
+
+bool OGLMixTexture::InitShaders()
+{
+    bool res = true;
+    
+    OGLShader vertexShader(GL_VERTEX_SHADER);
+    vertexShader.SetSource("multiTexture.vert");
+    res &= vertexShader.Compile();
+    
+    OGLShader fragmentShader(GL_FRAGMENT_SHADER);
+    fragmentShader.SetSource("multiTexture.frag");
+    res &= fragmentShader.Compile();
+    
+    auto program = std::make_shared<OGLProgram>();
+    program->Attach(vertexShader.get());
+    program->Attach(fragmentShader.get());
+    program->Link();
+    program->Use();
+    programs.push_back(program);
+
+    return res;
+}
+
+std::shared_ptr<OGLTexture> CreateTexture(std::string imgFilename)
+{
+    auto texture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+    if (!texture->LoadTexture(imgFilename)) {
+        return nullptr;
+    }
+    texture->ChangeParameter(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    texture->ChangeParameter(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    return texture;
+}
+
+bool OGLMixTexture::InitTextures()
+{
+    auto textureQuadA = CreateTexture("Halo.dds");
+    if (textureQuadA != nullptr)
+        textures.push_back(textureQuadA);
+    
+    auto textureQuadB = CreateTexture("Light.dds");
+    if (textureQuadB != nullptr)
+        textures.push_back(textureQuadB);
+    
+    auto textureCubeA = CreateTexture("Ceiling.dds");
+    if (textureCubeA != nullptr)
+        textures.push_back(textureCubeA);
+    
+    auto textureCubeB = CreateTexture("Grass.dds");
+    if (textureCubeB != nullptr)
+        textures.push_back(textureCubeB);
+    
+    return (textures.size() == 4);
+}
+
+bool OGLMixTexture::InitGeometry()
+{
+    renderedObjs.push_back(std::make_unique<OGLQuad>());
+    renderedObjs[0]->InitVertices(glm::vec3());
+    
+    renderedObjs.push_back(std::make_unique<OGLCube>());
+    renderedObjs[1]->InitVertices(glm::vec3());
+    
+    return (renderedObjs.size() == 2);
+}
+
+bool OGLMixTexture::InitVBO()
+{
+    auto vbo = std::make_shared<OGLVertexBuffer>(GL_ARRAY_BUFFER);
+    vbo->Bind();
+    auto quad = renderedObjs[0]->GetVertices();
+    auto cube = renderedObjs[1]->GetVertices();
+    glBufferData(GL_ARRAY_BUFFER, sizeof(OGLVertex) * (quad.size() + cube.size()), nullptr, GL_STATIC_DRAW);
+    
+    auto offset = sizeof(OGLVertex) * quad.size();
+    glBufferSubData(GL_ARRAY_BUFFER, 0, offset, quad.data());
+    glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(OGLVertex) * cube.size(), cube.data());
+    vbos.push_back(vbo);
+    
+    return (vbo != 0);
 }
 
 bool OGLMixTexture::Init(int windowWidth, int windowHeight)
@@ -34,69 +119,56 @@ bool OGLMixTexture::Init(int windowWidth, int windowHeight)
         vao->Bind();
         vaos.push_back(vao);
         
-        OGLShader vertexShader(GL_VERTEX_SHADER);
-        vertexShader.SetSource("multiTexture.vert");
-        res &= vertexShader.Compile();
+        res &= InitShaders();
         
-        OGLShader fragmentShader(GL_FRAGMENT_SHADER);
-        fragmentShader.SetSource("multiTexture.frag");
-        res &= fragmentShader.Compile();
+        GLint samplerALocation = glGetUniformLocation(programs[0]->get(), "samplerA");
+        glUniform1i(samplerALocation, 0);
+        GLint samplerBLocation = glGetUniformLocation(programs[0]->get(), "samplerB");
+        glUniform1i(samplerBLocation, 1);
         
-        auto program = std::make_shared<OGLProgram>();
-        program->Attach(vertexShader.get());
-        program->Attach(fragmentShader.get());
-        program->Link();
-        program->Use();
-        programs.push_back(program);
+        mvpLocation = glGetUniformLocation(programs[0]->get(), "MVP");
+        mixLocation = glGetUniformLocation(programs[0]->get(), "opacity");
         
-        auto textureA = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
-        res &= textureA->LoadTexture("light.dds");
-		textureA->Bind(GL_TEXTURE0);
-		textureA->ChangeParameter(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		textureA->ChangeParameter(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        textures.push_back(textureA);
-		GLint samplerALocation = glGetUniformLocation(program->get(), "samplerA");
-		glUniform1i(samplerALocation, 0);
-
-		auto textureB = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
-		res &= textureB->LoadTexture("halo.dds");
-		textureB->Bind(GL_TEXTURE1);
-		textureB->ChangeParameter(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		textureB->ChangeParameter(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		textures.push_back(textureB);
-		GLint samplerBLocation = glGetUniformLocation(program->get(), "samplerB");
-		glUniform1i(samplerBLocation, 1);
-
-        renderedObjs.push_back(std::make_unique<OGLQuad>());
-        renderedObjs[0]->InitVertices(glm::vec3());
-        
-        auto vbo = std::make_shared<OGLVertexBuffer>(GL_ARRAY_BUFFER);
-        vbo->Bind();
-        auto quad = renderedObjs[0]->GetVertices();
-        glBufferData(GL_ARRAY_BUFFER, sizeof(OGLVertex) * quad.size(), quad.data(), GL_STATIC_DRAW);
-        vbos.push_back(vbo);
+        res &= InitTextures();
+        res &= InitGeometry();
+        res &= InitVBO();
         
         glEnableVertexAttribArray(0); // TODO A placer dans le VAO c'est lui qui doit gerer les vertexattrib du vertexShader
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, position));
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, texCoords));
         
-		auto mvpLoc = glGetUniformLocation(program->get(), "MVP");
-		mixLocation = glGetUniformLocation(program->get(), "opacity");
-		glm::mat4 MVP = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
-						glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
-		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(MVP));
+        glEnable(GL_DEPTH_TEST);
 	}
 	return res;
 }
 
 void OGLMixTexture::Render(double time)
 {
-	glm::vec4 bgColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT);
+    
+	glm::vec4 bgColor(1.0f, 0.87f, 0.41f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
-	float mix = sinf((float)time * 0.2f) * 0.5f + 0.5f;
+	float mix = sinf((float)time * 0.33f) * 0.5f + 0.5f;
     glUniform1f(mixLocation, mix);
-        
+    
+    // Draw quad
+    glm::mat4 MVP = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
+    glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
+    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
+    
+    textures[1]->Bind(GL_TEXTURE1);
+    textures[0]->Bind(GL_TEXTURE0);
+    
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    // Draw cube
+    MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
+           glm::rotate(glm::mat4(1.0f), mix * 20.0f, glm::vec3(0,1,0));
+    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
+    
+    textures[3]->Bind(GL_TEXTURE1);
+    textures[2]->Bind(GL_TEXTURE0);
+    
+    glDrawArrays(GL_TRIANGLES, 4, 36);
 }

@@ -8,7 +8,8 @@
 class OGLMixTexture : public OGLStage
 {
 	GLint mixLocation = 0;
-
+    GLint mvpLocation = 0;
+    
 public:
 	OGLMixTexture();
 	~OGLMixTexture();
@@ -18,4 +19,8 @@ public:
     
 private:
     bool InitGUI();
+    bool InitShaders();
+    bool InitTextures();
+    bool InitGeometry();
+    bool InitVBO();
 };

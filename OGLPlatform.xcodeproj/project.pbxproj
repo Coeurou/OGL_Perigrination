@@ -15,7 +15,6 @@
 		D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */; };
 		D113D9C31D4B0ED6009A34DC /* OGLApplicationConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9BF1D4B0ED6009A34DC /* OGLApplicationConstants.cpp */; };
 		D113D9C41D4B0ED6009A34DC /* OGLApplicationSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9C11D4B0ED6009A34DC /* OGLApplicationSettings.cpp */; };
-		D134A40A1D52820B0029C42A /* OGLArrayTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4041D52820B0029C42A /* OGLArrayTexture.cpp */; };
 		D134A40B1D52820B0029C42A /* OGLMipmaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4061D52820B0029C42A /* OGLMipmaps.cpp */; };
 		D134A40C1D52820B0029C42A /* OGLQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4081D52820B0029C42A /* OGLQuad.cpp */; };
 		D13541871D4D623400B01378 /* OGLImageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13541851D4D623400B01378 /* OGLImageFactory.cpp */; };
@@ -32,6 +31,8 @@
 		D1926A5B1D2C5E9900657C3F /* OGLVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A591D2C5E9900657C3F /* OGLVertexBuffer.cpp */; };
 		D1926A5E1D2D9E6A00657C3F /* OGLVertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A5C1D2D9E6A00657C3F /* OGLVertexArray.cpp */; };
 		D1926A621D30499E00657C3F /* OGLStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A601D30499E00657C3F /* OGLStage.cpp */; };
+		D1D4038A1D56379600DCC53F /* OGLSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D403881D56379600DCC53F /* OGLSampler.cpp */; };
+		D1D7BFF81D554C42009352D8 /* OGLMixTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */; };
 		D1DE70271D4D5DD3009A5159 /* GLIImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DE70251D4D5DD3009A5159 /* GLIImage.cpp */; };
 		D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */; };
 		D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF021D4B1AC10012F548 /* tinyxml2.cpp */; };
@@ -71,8 +72,6 @@
 		D113D9C11D4B0ED6009A34DC /* OGLApplicationSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLApplicationSettings.cpp; path = src/OGLApplicationSettings.cpp; sourceTree = "<group>"; };
 		D113D9C21D4B0ED6009A34DC /* OGLApplicationSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLApplicationSettings.hpp; path = src/OGLApplicationSettings.hpp; sourceTree = "<group>"; };
 		D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libAntTweakBar.dylib; path = ../../../../../../../../opt/local/lib/libAntTweakBar.dylib; sourceTree = "<group>"; };
-		D134A4041D52820B0029C42A /* OGLArrayTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLArrayTexture.cpp; path = src/OGLArrayTexture.cpp; sourceTree = "<group>"; };
-		D134A4051D52820B0029C42A /* OGLArrayTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLArrayTexture.hpp; path = src/OGLArrayTexture.hpp; sourceTree = "<group>"; };
 		D134A4061D52820B0029C42A /* OGLMipmaps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLMipmaps.cpp; path = src/OGLMipmaps.cpp; sourceTree = "<group>"; };
 		D134A4071D52820B0029C42A /* OGLMipmaps.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLMipmaps.hpp; path = src/OGLMipmaps.hpp; sourceTree = "<group>"; };
 		D134A4081D52820B0029C42A /* OGLQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLQuad.cpp; path = src/OGLQuad.cpp; sourceTree = "<group>"; };
@@ -111,6 +110,10 @@
 		D1926A5D1D2D9E6A00657C3F /* OGLVertexArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLVertexArray.hpp; path = src/OGLVertexArray.hpp; sourceTree = "<group>"; };
 		D1926A601D30499E00657C3F /* OGLStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLStage.cpp; path = src/OGLStage.cpp; sourceTree = "<group>"; };
 		D1926A611D30499E00657C3F /* OGLStage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLStage.hpp; path = src/OGLStage.hpp; sourceTree = "<group>"; };
+		D1D403881D56379600DCC53F /* OGLSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLSampler.cpp; path = src/OGLSampler.cpp; sourceTree = "<group>"; };
+		D1D403891D56379600DCC53F /* OGLSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLSampler.hpp; path = src/OGLSampler.hpp; sourceTree = "<group>"; };
+		D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLMixTexture.cpp; path = src/OGLMixTexture.cpp; sourceTree = "<group>"; };
+		D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLMixTexture.hpp; path = src/OGLMixTexture.hpp; sourceTree = "<group>"; };
 		D1DE70251D4D5DD3009A5159 /* GLIImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLIImage.cpp; path = src/GLIImage.cpp; sourceTree = "<group>"; };
 		D1DE70261D4D5DD3009A5159 /* GLIImage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLIImage.hpp; path = src/GLIImage.hpp; sourceTree = "<group>"; };
 		D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLObject.hpp; path = src/OGLObject.hpp; sourceTree = "<group>"; };
@@ -143,8 +146,8 @@
 		D113D9AB1D4B0E5D009A34DC /* Stages */ = {
 			isa = PBXGroup;
 			children = (
-				D134A4041D52820B0029C42A /* OGLArrayTexture.cpp */,
-				D134A4051D52820B0029C42A /* OGLArrayTexture.hpp */,
+				D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */,
+				D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */,
 				D134A4061D52820B0029C42A /* OGLMipmaps.cpp */,
 				D134A4071D52820B0029C42A /* OGLMipmaps.hpp */,
 				D1926A601D30499E00657C3F /* OGLStage.cpp */,
@@ -245,6 +248,8 @@
 				D13541851D4D623400B01378 /* OGLImageFactory.cpp */,
 				D13541861D4D623400B01378 /* OGLImageFactory.hpp */,
 				D1814D581D542B4500E1F4F2 /* OGLResource.hpp */,
+				D1D403881D56379600DCC53F /* OGLSampler.cpp */,
+				D1D403891D56379600DCC53F /* OGLSampler.hpp */,
 			);
 			name = OGLCore;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 				D113D9B71D4B0EB8009A34DC /* OGLPointSize.cpp in Sources */,
 				D1926A471D2C5DB400657C3F /* OGLProgram.cpp in Sources */,
 				D113D9B51D4B0EB8009A34DC /* FactoryStage.cpp in Sources */,
+				D1D7BFF81D554C42009352D8 /* OGLMixTexture.cpp in Sources */,
 				D1843C6E1D4D764200D077CE /* ATBGLEnumWrapper.cpp in Sources */,
 				D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */,
 				D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */,
@@ -357,7 +363,6 @@
 				D134A40C1D52820B0029C42A /* OGLQuad.cpp in Sources */,
 				D113D9C41D4B0ED6009A34DC /* OGLApplicationSettings.cpp in Sources */,
 				D1F0AF0C1D4B20310012F548 /* OGLCube.cpp in Sources */,
-				D134A40A1D52820B0029C42A /* OGLArrayTexture.cpp in Sources */,
 				D113D9B81D4B0EB8009A34DC /* OGLSimpleTriangle.cpp in Sources */,
 				D1F0AF0F1D4C0BF20012F548 /* OGLTexture.cpp in Sources */,
 				D13541871D4D623400B01378 /* OGLImageFactory.cpp in Sources */,
@@ -367,6 +372,7 @@
 				D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */,
 				D1926A531D2C5DFC00657C3F /* OGLglfw.cpp in Sources */,
 				D113D9B61D4B0EB8009A34DC /* OGLAnimatedTriangle.cpp in Sources */,
+				D1D4038A1D56379600DCC53F /* OGLSampler.cpp in Sources */,
 				D1926A481D2C5DB400657C3F /* OGLShader.cpp in Sources */,
 				D1926A5B1D2C5E9900657C3F /* OGLVertexBuffer.cpp in Sources */,
 				D1926A4D1D2C5DD100657C3F /* OGLApplication.cpp in Sources */,
