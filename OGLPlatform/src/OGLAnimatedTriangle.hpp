@@ -1,10 +1,10 @@
 #pragma once
 
-#include "OGLStage.hpp"
+#include "Stage.hpp"
 #include <glm/glm.hpp>
 #include <memory>
 
-class OGLAnimatedTriangle : public OGLStage
+class OGLAnimatedTriangle : public gs::Stage
 {
 	bool isDynamicBg = false;
 	bool polygonMode = false;

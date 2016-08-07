@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OGLStage.hpp"
+#include "Stage.hpp"
 #include <glm/glm.hpp>
 
-class OGLPointSize : public OGLStage
+class OGLPointSize : public gs::Stage
 {
 	bool isDynamicBg = false;
 	glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);

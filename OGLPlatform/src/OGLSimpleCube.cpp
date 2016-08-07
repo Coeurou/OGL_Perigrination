@@ -1,6 +1,11 @@
 #include "OGLSimpleCube.hpp"
 #include "OGLCube.hpp"
-#include "OGLVertex.hpp"
+#include "Program.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
+#include "Vertex.hpp"
+#include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
 #include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -40,7 +45,7 @@ bool OGLSimpleCube::InitGUI()
 
 bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 {
-	bool res = OGLStage::Init(windowWidth, windowHeight);
+	bool res = gs::Stage::Init(windowWidth, windowHeight);
 
 	if (res) {
         res &= InitGUI();
@@ -48,18 +53,18 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 		renderedObjs.push_back(std::make_unique<OGLCube>());
         res &= renderedObjs[0]->InitVertices(glm::vec3());
         
-        auto vao = std::make_shared<OGLVertexArray>();
-        vao->Bind();
+        auto vao = std::make_shared<gs::VertexArray>();
+        vao->BindVAO();
         vaos.push_back(vao);
         
-        OGLShader vertexShader(GL_VERTEX_SHADER);
-        auto program = std::make_shared<OGLProgram>();
+        gs::Shader vertexShader(GL_VERTEX_SHADER);
+        auto program = std::make_shared<gs::Program>();
         
         vertexShader.SetSource("simpleCube.vert");
         res &= vertexShader.Compile();
         program->Attach(vertexShader.get());
         
-        OGLShader fragmentShader(GL_FRAGMENT_SHADER);
+        gs::Shader fragmentShader(GL_FRAGMENT_SHADER);
         fragmentShader.SetSource("simpleCube.frag");
         res &= fragmentShader.Compile();
         program->Attach(fragmentShader.get());
@@ -68,22 +73,22 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
         program->Use();
         programs.push_back(program);
         
-        auto texture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+        auto texture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
         res &= texture->LoadTexture("Paper_Crumbled.dds");
-        glBindTexture(texture->getTarget(), texture->get());
+        glBindTexture(texture->GetTarget(), texture->get());
         textures.push_back(texture);
         
-        auto vbo = std::make_shared<OGLVertexBuffer>(GL_ARRAY_BUFFER);
-        vbo->Bind();
+        auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+        vbo->BindVBO();
         auto data = renderedObjs[0]->GetVertices();
-        glBufferData(GL_ARRAY_BUFFER, sizeof(OGLVertex) * 36, data.data(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * 36, data.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, position));
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, texCoords));
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
         glEnable(GL_DEPTH_TEST);
 	}
 	return res;

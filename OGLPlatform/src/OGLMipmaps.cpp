@@ -1,5 +1,12 @@
 #include "OGLMipmaps.hpp"
 #include "OGLQuad.hpp"
+#include "Program.hpp"
+#include "Shader.hpp"
+#include "Sampler.hpp"
+#include "Texture.hpp"
+#include "Vertex.hpp"
+#include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
 #include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,23 +39,23 @@ bool OGLMipmaps::InitGUI()
 
 bool OGLMipmaps::Init(int windowWidth, int windowHeight)
 {
-	bool res = OGLStage::Init(windowWidth, windowHeight);
+    bool res = gs::Stage::Init(windowWidth, windowHeight);
 
 	if (res) {
         res &= InitGUI();
         
-        auto vao = std::make_shared<OGLVertexArray>();
-        vao->Bind();
+        auto vao = std::make_shared<gs::VertexArray>();
+        vao->BindVAO();
         vaos.push_back(vao);
         
-        OGLShader vertexShader(GL_VERTEX_SHADER);
-        auto program = std::make_shared<OGLProgram>();
+        gs::Shader vertexShader(GL_VERTEX_SHADER);
+        auto program = std::make_shared<gs::Program>();
         
         vertexShader.SetSource("simpleQuad.vert");
         res &= vertexShader.Compile();
         program->Attach(vertexShader.get());
         
-        OGLShader fragmentShader(GL_FRAGMENT_SHADER);
+        gs::Shader fragmentShader(GL_FRAGMENT_SHADER);
         fragmentShader.SetSource("simpleQuad.frag");
         res &= fragmentShader.Compile();
         program->Attach(fragmentShader.get());
@@ -57,26 +64,26 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         program->Use();
         programs.push_back(program);
         
-        auto wallTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+        auto wallTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
         wallTexture->LoadTexture("Wall.dds");
         textures.push_back(wallTexture);
         
-        auto ceilingTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+        auto ceilingTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
         ceilingTexture->LoadTexture("Ceiling.dds");
         textures.push_back(ceilingTexture);
         
-        auto wallTextureR = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+        auto wallTextureR = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
         wallTextureR->LoadTexture("Wall.dds");
         textures.push_back(wallTextureR);
         
-        auto floorTexture = std::make_shared<OGLTexture>(IMAGE_TYPE::GLI);
+        auto floorTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
         floorTexture->LoadTexture("Floor.dds");
         textures.push_back(floorTexture);
         
-        auto sampler = std::make_shared<OGLSampler>();
+        auto sampler = std::make_shared<gs::Sampler>();
         sampler->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
         sampler->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
-        sampler->Bind(0);
+        sampler->BindSampler(0);
         samplers.push_back(sampler);
         
 		renderedObjs.push_back(std::make_unique<OGLQuad>());
@@ -85,16 +92,16 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         renderedObjs[0]->SetHeight(2);
         res &= renderedObjs[0]->InitVertices(glm::vec3());
         
-        auto vbo = std::make_shared<OGLVertexBuffer>(GL_ARRAY_BUFFER);
-        vbo->Bind();
+        auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+        vbo->BindVBO();
         auto geomData = renderedObjs[0]->GetVertices();
-        glBufferData(GL_ARRAY_BUFFER, sizeof(OGLVertex) * geomData.size(), geomData.data(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * geomData.size(), geomData.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, position));
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(OGLVertex), (void*)offsetof(OGLVertex, texCoords));
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
         
         glEnable(GL_DEPTH_TEST);
 	}
@@ -121,7 +128,7 @@ void OGLMipmaps::Render(double time)
 			glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) * rot;
 		glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
 
-		glBindTexture(textures[i]->getTarget(), textures[i]->get());
+		glBindTexture(textures[i]->GetTarget(), textures[i]->get());
         
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}

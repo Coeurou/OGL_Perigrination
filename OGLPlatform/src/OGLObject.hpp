@@ -8,9 +8,11 @@
 
 #pragma once
 
-#include "OGLVertex.hpp"
+#include "Vertex.hpp"
 #include <vector>
 
+namespace gs
+{
 class OGLObject
 {
 public:
@@ -18,9 +20,10 @@ public:
     virtual ~OGLObject() {}
     
     virtual bool InitVertices(glm::vec3 origin) = 0;
-    std::vector<OGLVertex> GetVertices() const { return vertices; }
+    std::vector<Vertex> GetVertices() const { return vertices; }
     
 protected:
-    std::vector<OGLVertex> vertices;
+    std::vector<Vertex> vertices;
 };
+}
 /* OGLObject_hpp */

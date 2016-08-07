@@ -5,8 +5,10 @@
 #include "OGLSimpleCube.hpp"
 #include "OGLMipmaps.hpp"
 #include "OGLMixTexture.hpp"
+#include "Stage.hpp"
 
-std::shared_ptr<OGLStage> FactoryStage::CreateStage(STAGES key)
+
+std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 {
 	switch (key)
 	{

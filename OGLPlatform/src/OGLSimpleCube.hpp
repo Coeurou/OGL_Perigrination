@@ -1,12 +1,12 @@
 #pragma once
 
-#include "OGLStage.hpp"
+#include "Stage.hpp"
 #include "ATBGLEnumWrapper.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <memory>
 
-class OGLSimpleCube : public OGLStage
+class OGLSimpleCube : public gs::Stage
 {
 	bool isDynamicBg = false;
 	bool autoRotate = false;

@@ -1,7 +1,12 @@
 #pragma once
-#include "OGLStage.hpp"
+
 #include <map>
 #include <memory>
+#include "Uncopyable.hpp"
+
+namespace gs {
+    class Stage;
+}
 
 enum STAGES
 {
@@ -17,7 +22,7 @@ enum STAGES
 class FactoryStage : public Uncopyable
 {
 public:
-	static std::shared_ptr<OGLStage> CreateStage(STAGES key);
+	static std::shared_ptr<gs::Stage> CreateStage(STAGES key);
 
 private:
 	FactoryStage() {}

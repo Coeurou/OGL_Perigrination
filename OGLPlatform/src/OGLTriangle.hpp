@@ -10,5 +10,5 @@ public:
 	~OGLTriangle();
 
     bool InitVertices(glm::vec3 origin);
-    bool InitVertices(std::array<OGLVertex,3> data);
+    bool InitVertices(std::array<gs::Vertex,3> data);
 };

@@ -12,7 +12,7 @@
 #include <AntTweakBar.h>
 #include <vector>
 
-class OGLAntTweakBar : private Uncopyable
+class OGLAntTweakBar : public Uncopyable
 {
     
 public:

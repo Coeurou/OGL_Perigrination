@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "OGLObject.hpp"
 
-class OGLObjResizable : public OGLObject
+class OGLObjResizable : public gs::OGLObject
 {
 public:
     OGLObjResizable() : width(1), height(1), depth(1) {}

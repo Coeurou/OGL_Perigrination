@@ -1,5 +1,5 @@
 //
-//  OGLVertex.hpp
+//  Vertex.hpp
 //  OGLPlatform
 //
 //  Created by Guillaume Trollé on 30/07/2016.
@@ -10,9 +10,12 @@
 
 #include <glm/glm.hpp>
 
-struct OGLVertex
+namespace gs
 {
-    glm::vec3 position;
-    glm::vec2 texCoords;
-};
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec2 texCoords;
+    };
+}
 /* OGLVertex_hpp */

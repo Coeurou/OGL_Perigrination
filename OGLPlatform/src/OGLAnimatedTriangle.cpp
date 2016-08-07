@@ -1,8 +1,8 @@
 #include "OGLAnimatedTriangle.hpp"
 #include "OGLTriangle.hpp"
-#include "OGLShader.hpp"
-#include "OGLProgram.hpp"
-#include "OGLVertexArray.hpp"
+#include "Shader.hpp"
+#include "Program.hpp"
+#include "VertexArray.hpp"
 #include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -45,29 +45,29 @@ bool OGLAnimatedTriangle::InitGUI()
 
 bool OGLAnimatedTriangle::Init(int windowWidth, int windowHeight)
 {
-	bool res = OGLStage::Init(windowWidth, windowHeight);
+    bool res = gs::Stage::Init(windowWidth, windowHeight);
 
 	if (res) {
         res &= InitGUI();
 
-        auto vertexShader = std::make_shared<OGLShader>(GL_VERTEX_SHADER);
-        auto program = std::make_shared<OGLProgram>();
+        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
+        auto program = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("animatedTriangle.vert");
         res &= vertexShader->Compile();
         program->Attach(vertexShader->get());
         
-        auto fragmentShader = std::make_shared<OGLShader>(GL_FRAGMENT_SHADER);
+        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
         fragmentShader->SetSource("animatedTriangle.frag");
         res &= fragmentShader->Compile();
         program->Attach(fragmentShader->get());
         
-        auto tcsShader = std::make_shared<OGLShader>(GL_TESS_CONTROL_SHADER);
+        auto tcsShader = std::make_shared<gs::Shader>(GL_TESS_CONTROL_SHADER);
         tcsShader->SetSource("animatedTriangle.tcs");
         res &= tcsShader->Compile();
         program->Attach(tcsShader->get());
         
-        auto tesShader = std::make_shared<OGLShader>(GL_TESS_EVALUATION_SHADER);
+        auto tesShader = std::make_shared<gs::Shader>(GL_TESS_EVALUATION_SHADER);
         tesShader->SetSource("animatedTriangle.tes");
         res &= tesShader->Compile();
         program->Attach(tesShader->get());
@@ -75,8 +75,8 @@ bool OGLAnimatedTriangle::Init(int windowWidth, int windowHeight)
         program->Link();
         program->Use();
         
-        auto vao = std::make_shared<OGLVertexArray>();
-        vao->Bind();
+        auto vao = std::make_shared<gs::VertexArray>();
+        vao->BindVAO();
         
         programs.push_back(program);
         vaos.push_back(vao);

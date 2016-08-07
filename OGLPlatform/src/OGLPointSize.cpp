@@ -1,7 +1,9 @@
 #include "OGLPointSize.hpp"
 #include "OGLPoint.hpp"
-#include "OGLShader.hpp"
-#include "OGLProgram.hpp"
+#include "Shader.hpp"
+#include "Program.hpp"
+#include "VertexArray.hpp"
+#include "OGLObjResizable.hpp"
 #include <sstream>
 
 OGLPointSize::OGLPointSize()
@@ -28,15 +30,15 @@ bool OGLPointSize::InitGUI()
 
 bool OGLPointSize::Init(int windowWidth, int windowHeight)
 {
-	bool res = OGLStage::Init(windowWidth, windowHeight);
+    bool res = gs::Stage::Init(windowWidth, windowHeight);
 
 	if (res) {
         res &= InitGUI();
         
 		renderedObjs.push_back(std::make_unique<OGLPoint>(40));
-        auto vertexShader = std::make_shared<OGLShader>(GL_VERTEX_SHADER);
-        auto fragmentShader = std::make_shared<OGLShader>(GL_FRAGMENT_SHADER);
-        auto program = std::make_shared<OGLProgram>();
+        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
+        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+        auto program = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("firstPoint.vert");
         res &= vertexShader->Compile();
@@ -48,8 +50,8 @@ bool OGLPointSize::Init(int windowWidth, int windowHeight)
         program->Use();
         
         programs.push_back(program);
-        auto vao = std::make_shared<OGLVertexArray>();
-        vao->Bind();
+        auto vao = std::make_shared<gs::VertexArray>();
+        vao->BindVAO();
         vaos.push_back(vao);
 	}
 	return res;

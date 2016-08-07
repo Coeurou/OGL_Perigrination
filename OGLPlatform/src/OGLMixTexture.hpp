@@ -1,11 +1,11 @@
 #pragma once
 
-#include "OGLStage.hpp"
+#include "Stage.hpp"
 #include "ATBGLEnumWrapper.h"
 #include <vector>
 #include <memory>
 
-class OGLMixTexture : public OGLStage
+class OGLMixTexture : public gs::Stage
 {
 	GLint mixLocation = 0;
     GLint mvpLocation = 0;

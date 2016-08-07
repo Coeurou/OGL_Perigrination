@@ -1,11 +1,11 @@
 #pragma once
 
-#include "OGLStage.hpp"
+#include "Stage.hpp"
 #include "ATBGLEnumWrapper.h"
 #include <vector>
 #include <memory>
 
-class OGLMipmaps : public OGLStage
+class OGLMipmaps : public gs::Stage
 {
 	TWTextureFilteringValue texMinFilterVal = TWTextureFilteringValue::TW_NEAREST;
 	TWTextureFilteringValue texMagFilterVal = TWTextureFilteringValue::TW_NEAREST;

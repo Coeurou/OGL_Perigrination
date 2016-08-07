@@ -7,9 +7,9 @@
 //
 
 #pragma once
-#include "OGLImage.hpp"
+#include "Image.hpp"
 
-class GLIImage : public OGLImage
+class GLIImage : public gs::Image
 {
     
 public:
