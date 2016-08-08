@@ -1,10 +1,17 @@
 #pragma once
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "Vertex.hpp"
 #include <array>
 #include <vector>
 #include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
+
+extern glm::mat4 projection;
+extern float fov;
+extern float nearDistance;
+extern float farDistance;
 
 static std::array<gs::Vertex, 6> Quad(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d)
 {

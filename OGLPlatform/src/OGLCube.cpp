@@ -1,5 +1,5 @@
 #include "OGLCube.hpp"
-#include "OGLUtils.hpp"
+#include "OGLUtility.hpp"
 
 OGLCube::OGLCube()
 {}

@@ -1,4 +1,5 @@
 #include "OGLMipmaps.hpp"
+#include "OGLUtility.hpp"
 #include "OGLQuad.hpp"
 #include "Program.hpp"
 #include "Shader.hpp"
@@ -124,7 +125,7 @@ void OGLMipmaps::Render(double time)
 		glm::quat trans(glm::vec3( 0.0f, glm::radians(90.0f), glm::radians(i * 90.0f)));
 		glm::mat4 rot = glm::toMat4(trans);
 
-		glm::mat4 MVP = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
+		glm::mat4 MVP = projection *
 			glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) * rot;
 		glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
 

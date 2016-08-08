@@ -33,7 +33,7 @@ namespace gs
         Context(ContextParams cParams) : params(cParams) {}
         virtual ~Context() {}
         
-        virtual bool InitContext() = 0;
+		virtual bool InitContext() { return true; }
         ContextParams GetContextParams() const { return params; }
         void SetContextParams(ContextParams newParams) { params = newParams; }
         

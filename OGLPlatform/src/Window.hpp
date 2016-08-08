@@ -12,13 +12,13 @@ namespace gs
     {
     public:
         Window() : context(nullptr) {}
-        Window(gs::Context ctxt) : context(nullptr) {}
+        Window(gs::Context* ctxt) : context(nullptr) {}
         virtual ~Window() {}
         
         int GetWindowWidth() const { return context->GetContextParams().windowWidth; }
         int GetWindowHeight() const { return context->GetContextParams().windowHeight; }
         void SetWindowTitle(const std::string& wTitle) { title = wTitle; }
-        virtual bool CreateWindow();
+		virtual bool CreateWindow() { return true; }
         
     protected:
         std::string title;

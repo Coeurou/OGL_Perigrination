@@ -5,7 +5,7 @@
 
 namespace gs
 {
-    class Vertex;
+    struct Vertex;
 }
 
 class OGLQuad : public OGLObjResizable // TODO a templater par OGLShape<size_t nb vertices>

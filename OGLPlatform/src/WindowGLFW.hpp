@@ -9,22 +9,22 @@
 #pragma once
 
 #include "Window.hpp"
+#include <GLFW/glfw3.h>
 #include <memory>
 #include <functional>
 
 class GLFWContext;
-class GLFWwindow;
 
-class GLFWWindow : public gs::Window
+class WindowGLFW : public gs::Window
 {
 public:
-    GLFWWindow();
-    GLFWWindow(GLFWContext ctxt);
-    ~GLFWWindow();
+    WindowGLFW();
+    WindowGLFW(GLFWContext* ctxt);
+    ~WindowGLFW();
     
-    GLFWwindow* get() const { return window.get(); }
+    GLFWwindow* get() const { return window; }
     bool CreateWindow();
     
 private:
-    std::unique_ptr<GLFWwindow> window;
+    GLFWwindow* window;
 };

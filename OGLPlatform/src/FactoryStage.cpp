@@ -5,6 +5,7 @@
 #include "OGLSimpleCube.hpp"
 #include "OGLMipmaps.hpp"
 #include "OGLMixTexture.hpp"
+#include "OGLRipplePlane.hpp"
 #include "Stage.hpp"
 
 
@@ -31,6 +32,9 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 		break;
 	case MIX_TEXTURE:
 		return std::make_shared<OGLMixTexture>();
+		break;
+	case RIPPLE:
+		return std::make_shared<OGLRipplePlane>();
 		break;
 	default:
 		return nullptr;

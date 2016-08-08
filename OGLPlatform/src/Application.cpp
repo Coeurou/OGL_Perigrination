@@ -1,10 +1,15 @@
+#include "Application.hpp"
+#include "Stage.hpp"
+#include "ATBResource.hpp"
+#include "OGLAntTweakBar.hpp"
+#include "GLFWContext.hpp"
+#include "WindowGLFW.hpp"
+#include "GLFWUtility.hpp"
+#include "OGLApplicationConstants.hpp"
 #include <iostream>
 #include <sstream>
-#include <functional>
-#include "Application.hpp"
-#include "GLFWContext.hpp"
-#include "GLFWWindow.hpp"
-#include "OGLApplicationConstants.hpp"
+
+ATBResource atbHandle;
 
 namespace gs
 {
@@ -13,19 +18,18 @@ namespace gs
     {}
     
     Application::~Application()
-    {
-        TwTerminate();
-    }
+    {}
     
     bool Application::Init()
     {
         LoadSettings();
-        gs::Context* context = new GLFWContext();
+		GLFWContext* context = new GLFWContext();
         bool res = context->InitContext();
         if (!res) {
             return res;
         }
-        //window = std::make_unique<GLFWWindow>(*context);
+        window = std::make_unique<WindowGLFW>(context);
+		res &= window->CreateWindow();
         glewExperimental = GL_TRUE;
         GLenum resGLEW = glewInit();
         res &= (resGLEW == GLEW_OK);
@@ -35,10 +39,14 @@ namespace gs
             return res;
         }
         
-        res &= (TwInit(TW_OPENGL_CORE, NULL) == 1);
+        res &= atbHandle.InitATB();
         atbApp->InitAntTweakBar("Stages", window->GetWindowWidth(), window->GetWindowHeight());
         InitStagesTweakBar();
         
+		InitCallbacks();
+
+		projection = glm::perspective(fov, window->GetWindowWidth() / (float)window->GetWindowHeight(), nearDistance, farDistance);
+
         return res;
     }
     
@@ -92,8 +100,22 @@ namespace gs
         TwAddButton(mainBar, "Mipmaps", ChangeStage, (void*)params4, " label='Mipmaps Example' ");
         
         OGLApplicationParams* params5 = new OGLApplicationParams(this, STAGES::MIX_TEXTURE);
-        TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params5, " label='Array texture Example' ");
+        TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params5, " label='Multi-Texturing Example' ");
+
+		OGLApplicationParams* params6 = new OGLApplicationParams(this, STAGES::RIPPLE);
+		TwAddButton(mainBar, "ripplePlane", ChangeStage, (void*)params6, " label='Ripple Plane Example' ");
     }
+
+	void Application::InitCallbacks()
+	{
+		glfwSetErrorCallback(OnGLFWError);
+		glfwSetKeyCallback(window->get(), OnKeyDown);
+		glfwSetCharCallback(window->get(), OnCharPressed);
+		glfwSetScrollCallback(window->get(), OnMouseWheel);
+		glfwSetCursorPosCallback(window->get(), OnMouseMove);
+		glfwSetWindowSizeCallback(window->get(), OnWindowResize);
+		glfwSetMouseButtonCallback(window->get(), OnMouseButtonClick);
+	}
     
     void Application::LoadSettings()
     {

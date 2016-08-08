@@ -2,15 +2,19 @@
 
 #include <GL/glew.h>
 #include "Uncopyable.hpp"
-#include "GLFWWindow.hpp"
-#include "Stage.hpp"
+#include "WindowGLFW.hpp"
 #include "FactoryStage.hpp"
 #include "ApplicationSettings.hpp"
+#include <AntTweakBar.h>
 #include <memory>
 #include <vector>
 
+class OGLAntTweakBar;
+
 namespace gs
 {
+	class Stage;
+
     class Application : public Uncopyable
     {
     public:
@@ -24,11 +28,12 @@ namespace gs
         
     private:
         void InitStagesTweakBar();
+		void InitCallbacks();
         void LoadSettings();
         static void TW_CALL ChangeStage(void* newStage);
         void ChangeStage(STAGES newStage);
         
-        std::unique_ptr<GLFWWindow> window;
+        std::unique_ptr<WindowGLFW> window;
         std::shared_ptr<Stage> stage;
         std::unique_ptr<OGLAntTweakBar> atbApp;
         ApplicationSettings settings;

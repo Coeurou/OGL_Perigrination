@@ -27,15 +27,6 @@
     <ClInclude Include="src\OGLAntTweakBar.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLApplication.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLglfw.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLWindow.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\Uncopyable.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -48,28 +39,10 @@
     <ClInclude Include="src\OGLPoint.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLShader.hpp">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLVertexArray.hpp">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLVertexBuffer.hpp">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\OGLObject.hpp">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLProgram.hpp">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLStage.hpp">
-      <Filter>Stages</Filter>
-    </ClInclude>
     <ClInclude Include="src\FactoryStage.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLApplicationSettings.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\OGLApplicationConstants.hpp">
@@ -90,25 +63,10 @@
     <ClInclude Include="src\OGLSimpleCube.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLImage.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLImageFactory.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLTexture.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLVertex.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\ATBGLEnumWrapper.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\GLIImage.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="src\OGLUtils.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\OGLMipmaps.hpp">
@@ -120,10 +78,67 @@
     <ClInclude Include="src\OGLObjResizable.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLResource.hpp">
+    <ClInclude Include="src\OGLMixTexture.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application.hpp">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLMixTexture.hpp">
+    <ClInclude Include="src\OpenGLInfos.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Program.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sampler.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shader.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stage.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vertex.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexArray.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexBuffer.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ApplicationSettings.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Context.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImageFactory.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLFWContext.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowGLFW.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ATBResource.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLUtility.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLRipplePlane.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,40 +149,13 @@
     <ClCompile Include="src\OGLAntTweakBar.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\OGLApplication.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLglfw.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLWindow.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\OGLPointSize.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLPoint.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\OGLProgram.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLShader.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLVertexArray.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLVertexBuffer.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLStage.cpp">
-      <Filter>Stages</Filter>
-    </ClCompile>
     <ClCompile Include="src\FactoryStage.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLApplicationSettings.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLApplicationConstants.cpp">
@@ -188,12 +176,6 @@
     <ClCompile Include="src\OGLSimpleCube.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
-    <ClCompile Include="src\OGLImageFactory.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLTexture.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="src\ATBGLEnumWrapper.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -207,6 +189,51 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLMixTexture.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGLInfos.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Program.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sampler.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stage.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexArray.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexBuffer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ApplicationSettings.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImageFactory.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLFWContext.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowGLFW.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLUtility.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLRipplePlane.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>

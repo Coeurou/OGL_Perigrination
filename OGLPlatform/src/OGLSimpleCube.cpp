@@ -1,4 +1,5 @@
 #include "OGLSimpleCube.hpp"
+#include "OGLUtility.hpp"
 #include "OGLCube.hpp"
 #include "Program.hpp"
 #include "Shader.hpp"
@@ -113,7 +114,7 @@ void OGLSimpleCube::Render(double time)
     }
     glm::mat4 rotationMatrix = glm::toMat4(rotationAxis);
     
-    glm::mat4 rotationMat = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
+    glm::mat4 rotationMat = projection *
     glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) *
     rotationMatrix;
     

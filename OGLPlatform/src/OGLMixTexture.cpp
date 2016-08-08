@@ -1,5 +1,5 @@
 #include "OGLMixTexture.hpp"
-#include "OGLUtils.hpp"
+#include "OGLUtility.hpp"
 #include "OGLQuad.hpp"
 #include "OGLCube.hpp"
 #include "Program.hpp"
@@ -160,7 +160,7 @@ void OGLMixTexture::Render(double time)
     glUniform1f(mixLocation, mix);
     
     // Draw quad
-    glm::mat4 MVP = glm::perspective(45.0f, 1024.0f / 720.0f, 0.1f, 100.f) *
+    glm::mat4 MVP = projection *
     glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
     glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
     
