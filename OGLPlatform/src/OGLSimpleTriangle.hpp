@@ -2,7 +2,6 @@
 
 #include "Stage.hpp"
 #include <glm/glm.hpp>
-#include <memory>
 
 class OGLSimpleTriangle : public gs::Stage
 {

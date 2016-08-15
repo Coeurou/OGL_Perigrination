@@ -17,7 +17,11 @@ enum STAGES
 	SIMPLE_CUBE,
 	MIPMAPS,
 	MIX_TEXTURE,
-	RIPPLE
+	RIPPLE,
+    GEOMETRYSHADER,
+    MODELMAT,
+    INSTANCEDRAW,
+    CAMERA
 };
 
 class FactoryStage : public Uncopyable

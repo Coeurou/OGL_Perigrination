@@ -1,10 +1,11 @@
 #pragma once
 
+#include <GL/glew.h>
 #include "Stage.hpp"
 
 class OGLRipplePlane : public gs::Stage
 {
-	bool polygonMode;
+    GLint timeLocation = 0;
 
 public:
 	OGLRipplePlane();

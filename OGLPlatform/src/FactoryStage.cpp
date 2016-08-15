@@ -6,6 +6,10 @@
 #include "OGLMipmaps.hpp"
 #include "OGLMixTexture.hpp"
 #include "OGLRipplePlane.hpp"
+#include "OGLGeometryShader.hpp"
+#include "OGLModelMatrix.hpp"
+#include "OGLInstancedDraw.hpp"
+#include "OGLCameraStage.hpp"
 #include "Stage.hpp"
 
 
@@ -36,6 +40,18 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 	case RIPPLE:
 		return std::make_shared<OGLRipplePlane>();
 		break;
+    case GEOMETRYSHADER:
+        return std::make_shared<OGLGeometryShader>();
+        break;
+    case MODELMAT:
+        return std::make_shared<OGLModelMatrix>();
+        break;
+    case INSTANCEDRAW:
+        return std::make_shared<OGLInstancedDraw>();
+        break;
+    case CAMERA:
+        return std::make_shared<OGLCameraStage>();
+        break;
 	default:
 		return nullptr;
 		break;

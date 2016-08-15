@@ -104,6 +104,18 @@ namespace gs
 
 		OGLApplicationParams* params6 = new OGLApplicationParams(this, STAGES::RIPPLE);
 		TwAddButton(mainBar, "ripplePlane", ChangeStage, (void*)params6, " label='Ripple Plane Example' ");
+        
+        OGLApplicationParams* params7 = new OGLApplicationParams(this, STAGES::GEOMETRYSHADER);
+        TwAddButton(mainBar, "GeomShader", ChangeStage, (void*)params7, " label='Geometry Shader Example' ");
+        
+        OGLApplicationParams* params8 = new OGLApplicationParams(this, STAGES::MODELMAT);
+        TwAddButton(mainBar, "ModelMat", ChangeStage, (void*)params8, " label='Model Matrix Example' ");
+        
+        OGLApplicationParams* params9 = new OGLApplicationParams(this, STAGES::INSTANCEDRAW);
+        TwAddButton(mainBar, "InstanceDraw", ChangeStage, (void*)params9, " label='Instanced Draw Example' ");
+        
+        OGLApplicationParams* params10 = new OGLApplicationParams(this, STAGES::CAMERA);
+        TwAddButton(mainBar, "Camera", ChangeStage, (void*)params10, " label='Free Camera Example' ");
     }
 
 	void Application::InitCallbacks()

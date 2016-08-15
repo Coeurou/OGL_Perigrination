@@ -8,6 +8,7 @@
 #include "Vertex.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
+#include "Camera.hpp"
 #include <sstream>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
