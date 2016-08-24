@@ -61,7 +61,7 @@ bool OGLCameraStage::Init(int windowWidth, int windowHeight)
         res &= fragmentShader->Compile();
         programTex->Attach(fragmentShader->get());
         
-        programTex->Link();
+		res &= programTex->Link();
 		programTex->Use();
         programs.push_back(programTex);
 
@@ -76,7 +76,7 @@ bool OGLCameraStage::Init(int windowWidth, int windowHeight)
 		res &= fragmentShaderBlend->Compile();
 		programBlend->Attach(fragmentShaderBlend->get());
 
-		programBlend->Link();
+		res &= programBlend->Link();
 		programBlend->Use();
 		programs.push_back(programBlend);
         

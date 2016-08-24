@@ -48,7 +48,7 @@ bool OGLMixTexture::InitShaders()
     auto program = std::make_shared<gs::Program>();
     program->Attach(vertexShader.get());
     program->Attach(fragmentShader.get());
-    program->Link();
+	res &= program->Link();
     program->Use();
     programs.push_back(program);
 

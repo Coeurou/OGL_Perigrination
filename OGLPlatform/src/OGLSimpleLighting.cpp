@@ -62,7 +62,7 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
         res &= fragmentShader->Compile();
         programTex->Attach(fragmentShader->get());
         
-        programTex->Link();
+		res &= programTex->Link();
 		programTex->Use();
         programs.push_back(programTex);
 

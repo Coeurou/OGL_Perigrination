@@ -58,7 +58,7 @@ bool OGLIndexedDraw::Init(int windowWidth, int windowHeight)
         
         program->Attach(vertexShader->get());
         program->Attach(fragmentShader->get());
-        program->Link();
+		res &= program->Link();
         program->Use();
         
         programs.push_back(program);

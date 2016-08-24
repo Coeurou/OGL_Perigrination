@@ -55,7 +55,7 @@ bool OGLAnimatedPyramids::Init(int windowWidth, int windowHeight)
         res &= fragmentShader->Compile();
         program->Attach(fragmentShader->get());
         
-        program->Link();
+        res &= program->Link();
         program->Use();
 
 		view = glm::lookAt(glm::vec3(0, 2, -10), glm::vec3(0), glm::vec3(0, 1, 0));

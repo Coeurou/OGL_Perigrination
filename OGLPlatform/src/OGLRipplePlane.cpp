@@ -55,7 +55,7 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
 	res &= fShader->Compile();
 	program->Attach(fShader->get());
 
-	program->Link();
+	res &= program->Link();
 	program->Use();
 	programs.push_back(program);
 

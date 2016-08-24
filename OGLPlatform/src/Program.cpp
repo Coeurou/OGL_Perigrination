@@ -7,6 +7,8 @@
 //
 
 #include "Program.hpp"
+#include <vector>
+#include <iostream>
 
 namespace gs
 {
@@ -33,9 +35,25 @@ namespace gs
         glDetachShader(programID, shader);
     }
     
-    void Program::Link()
+    bool Program::Link()
     {
-        glLinkProgram(programID);
+		GLint res = GL_FALSE;
+
+		glLinkProgram(programID);
+		glGetProgramiv(programID, GL_LINK_STATUS, &res);
+		if (res == GL_FALSE) {
+			GLint logLength = 0;
+			glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logLength);
+			std::vector<GLchar> log(logLength);
+			glGetProgramInfoLog(programID, logLength, &logLength, &log[0]);
+			for (auto c : log)
+			{
+				std::cerr << c;
+			}
+			std::cerr << std::endl;
+		}
+
+		return (res == GL_TRUE);
     }
     
     void Program::Use() const

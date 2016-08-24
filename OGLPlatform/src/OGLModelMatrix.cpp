@@ -71,7 +71,7 @@ bool OGLModelMatrix::Init(int windowWidth, int windowHeight)
         res &= fragmentShader.Compile();
         program->Attach(fragmentShader.get());
         
-        program->Link();
+		res &= program->Link();
         program->Use();
         programs.push_back(program);
         

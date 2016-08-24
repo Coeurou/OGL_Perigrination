@@ -53,7 +53,7 @@ bool OGLGeometryShader::Init(int windowWidth, int windowHeight)
         fShader->SetSource("geomColor.frag");
 		res &= fShader->Compile();
         program->Attach(fShader->get());
-        program->Link();
+		res &= program->Link();
         program->Use();
         programs.push_back(program);
         

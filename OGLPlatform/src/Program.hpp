@@ -22,7 +22,7 @@ namespace gs
         const GLuint get() const { return programID; };
         void Attach(GLuint shader);
         void Detach(GLuint shader);
-        void Link();
+        bool Link();
         void Use() const;
         
     private:
