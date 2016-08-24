@@ -1,20 +1,24 @@
 #pragma once
 
 #include "Stage.hpp"
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <memory>
+#include <array>
 
-class OGLAnimatedTriangle : public gs::Stage
+class OGLAnimatedPyramids : public gs::Stage
 {
 	bool isDynamicBg = false;
-	bool polygonMode = false;
 	glm::vec4 bgColor = glm::vec4(1.0f, 1.0f, 0.5f, 1.0f);
-	glm::vec4 triangleColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec2 animation = glm::vec2(0.0f, 0.0f);
+	float speed = 2.0f;
+	GLint mvLocation = 0;
+	GLint projLocation = 0;
+	std::array<glm::mat4, 5> modelView;
+	glm::mat4 view;
 
 public:
-	OGLAnimatedTriangle();
-	~OGLAnimatedTriangle();
+	OGLAnimatedPyramids();
+	~OGLAnimatedPyramids();
 
 	bool Init(int windowWidth, int windowHeight);
 	void Render(double time);

@@ -10,21 +10,21 @@
 
 #include <GL/glew.h>
 #include "Stage.hpp"
+#include "Light.hpp"
 #include "Camera.hpp"
 
-class OGLCameraStage : public gs::Stage
+class OGLSimpleLighting : public gs::Stage
 {
 	const int NB_CUBE = 5;
 
     gs::Camera camera;
-	GLint mvpLocationTex = 0;
-	GLint mvpLocationBlend = 0;
-	GLint uColorLocation = 0;
-	std::vector<glm::vec4> blendColors = std::vector<glm::vec4>(NB_CUBE);
+	GLint mvpLocation = 0;
+	GLint normalMatrixLocation = 0;
+	gs::DirectionnalLight light;
     
 public:
-    OGLCameraStage();
-    ~OGLCameraStage();
+	OGLSimpleLighting();
+    ~OGLSimpleLighting();
     
     bool Init(int windowWidth, int windowHeight);
     void Render(double time);

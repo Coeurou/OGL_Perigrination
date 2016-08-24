@@ -13,19 +13,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace gs
-{
-    
-    float rX = 0.0f;
-    float rY = 0.0f;
-    float mouseX = 0.0f;
-    float mouseY = 0.0f;
-    float oldX = 0.0f;
-    float oldY = 0.0f;
-    
-    std::vector<glm::vec2> mouseHistory(10, glm::vec2(0.0f));
-    const size_t MOUSE_HISTORY_BUFFER_SIZE = 10;
-    const float MOUSE_FILTER_WEIGHT = 0.75f;
-    
+{ 
     Camera::Camera() : speed(0.1f), nearDistance(0.1f), farDistance(100.0f), fov(45.0f),
                        up(glm::vec3(0.0f, 1.0f, 0.0f)), right(glm::vec3(1.0f, 0.0f, 0.0f)),
                        target(glm::vec3(0.0f, 0.0f, 1.0f)), forward(glm::vec3(0.0f, 0.0f, 1.0f))
@@ -62,35 +50,31 @@ namespace gs
             this->OnWindowResized(args);
         });
         EventManager::GetInstance().Unsubscribe(std::make_pair(EventType::ET_WINDOW_RESIZED, resizeEventFun));
-
     }
     
     void Camera::Update()
     {
+		double currentTime = glfwGetTime();
+		deltaTime = currentTime - lastTime;
+		lastTime = currentTime;
         view = glm::lookAt(position, target, up);
     }
     
     void Camera::Move(const glm::vec3& dir)
     {
-        position += dir;
-        target += dir;
-        Update();
+        position += dir * (float)deltaTime;
+        target = position + forward;
     }
     
     void Camera::Rotate(const glm::vec3& rot)
-    {
-        glm::mat4 r = glm::mat4(1.0f);
-        r = glm::rotate(r, rot.z, glm::vec3(0.0f, 0.0f, 1.0f));
-        r = glm::rotate(r, rot.y, glm::vec3(0.0f, 1.0f, 0.0f));
-        r = glm::rotate(r, rot.x, glm::vec3(1.0f, 0.0f, 0.0f));
-        
-        up = r * glm::vec4(up, 0);
-        forward = r * glm::vec4(forward, 0);
-        right = glm::cross(up, forward);
-        
+    {   
+        forward = glm::vec3(cos(rot.x) * sin(rot.y), sin(rot.x), cos(rot.x) * cos(rot.y));
+		glm::normalize(forward);
+        right = glm::vec3(sin(rot.y - glm::half_pi<float>()), 0, cos(rot.y - glm::half_pi<float>()));
+		glm::normalize(right);
+		up = glm::cross(right, forward);
+
         target = position + forward;
-        
-        Update();
     }
     
     void Camera::SetupProjection(float fovy, float aspectRatio, float near, float far)
@@ -157,49 +141,24 @@ namespace gs
         }
     }
     
-    void filterMouseMoves()
-    {
-        for (int i = MOUSE_HISTORY_BUFFER_SIZE - 1; i > 0; --i) {
-            mouseHistory[i] = mouseHistory[i - 1];
-        }
-        mouseHistory[0] = glm::vec2(rX, rY);
-        float averageX = 0.0f,  averageY = 0.0f, averageTotal = 0.0f,
-        currentWeight = 1.0f;
-        for (int i = 0; i < MOUSE_HISTORY_BUFFER_SIZE; ++i) {
-            glm::vec2 tmp = mouseHistory[i];
-            averageX += tmp.x * currentWeight;
-            averageY += tmp.y * currentWeight;
-            averageTotal += currentWeight;
-            currentWeight *= MOUSE_FILTER_WEIGHT;
-        }
-        mouseX = averageX / averageTotal;
-        mouseY = averageY / averageTotal;
-    }
-    
     void Camera::OnMouseMoved(const EventArgs& args)
     {
         const auto& mouseEvent = static_cast<const MouseEventArgs&>(args);
         
+		int deltaX = mouseEvent.posX - mousePos.x;
+		int deltaY = mouseEvent.posY - mousePos.y;
+
+		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
+
+		// On mouse button release
         if (mouseEvent.state == 0) {
-            oldX = 0;
-            oldY = 0;
             return;
         }
-        
-        if (oldX == 0 && oldY == 0) {
-            oldX = mouseEvent.posX;
-            oldY = mouseEvent.posY;
-        }
-        
-        rX += (mouseEvent.posX - oldX) * 0.2f;
-        rY += (mouseEvent.posY - oldY) * 0.2f;
+
+		horizontalAngle += deltaX;
+		verticalAngle += deltaY;
             
-        filterMouseMoves();
-            
-        oldX = mouseEvent.posX;
-        oldY = mouseEvent.posY;
-            
-        Rotate(glm::vec3(glm::radians(mouseY * speed), glm::radians(mouseX * speed), 0.0f));
+        Rotate(glm::vec3(glm::radians(-verticalAngle * (float)deltaTime * speed), glm::radians(-horizontalAngle * (float)deltaTime * speed), 0.0f));
     }
     
     void Camera::OnWindowResized(const EventArgs& args)

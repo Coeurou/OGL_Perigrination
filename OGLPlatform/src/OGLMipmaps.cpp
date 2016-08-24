@@ -96,7 +96,7 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         
         auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
-        auto geomData = renderedObjs[0]->GetVertices();
+        auto& geomData = renderedObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * geomData.size(), geomData.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         

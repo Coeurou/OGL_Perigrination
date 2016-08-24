@@ -8,9 +8,9 @@
 
 class OGLModelMatrix : public gs::Stage
 {
-    GLint rX = 0.0f;
-    GLint rY = 0.0f;
-    GLint rZ = 0.0f;
+    GLint rX = 0;
+    GLint rY = 0;
+    GLint rZ = 0;
     glm::vec3 tVector = glm::vec3(0.0f, 0.0f, -2.0f);
 
 public:

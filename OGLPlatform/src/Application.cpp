@@ -90,32 +90,32 @@ namespace gs
         OGLApplicationParams* params1 = new OGLApplicationParams(this, STAGES::SIMPLE_TRIANGLE);
         TwAddButton(mainBar, "SimpleTriangle", ChangeStage, (void*)params1, " label='Simple triangle Example' ");
         
-        OGLApplicationParams* params2 = new OGLApplicationParams(this, STAGES::ANIMATED_TRIANGLE);
-        TwAddButton(mainBar, "AnimatedTriangle", ChangeStage, (void*)params2, " label='Animated triangle Example' ");
+        OGLApplicationParams* params2 = new OGLApplicationParams(this, STAGES::ANIMATED_PYRAMIDS);
+        TwAddButton(mainBar, "AnimatedPyramids", ChangeStage, (void*)params2, " label='Animated pyramids Example' ");
         
-        OGLApplicationParams* params3 = new OGLApplicationParams(this, STAGES::SIMPLE_CUBE);
-        TwAddButton(mainBar, "SimpleCube", ChangeStage, (void*)params3, " label='Simple cube Example' ");
+        OGLApplicationParams* params3 = new OGLApplicationParams(this, STAGES::MODELMAT);
+		TwAddButton(mainBar, "ModelMat", ChangeStage, (void*)params3, " label='Model Matrix Example' ");
         
         OGLApplicationParams* params4 = new OGLApplicationParams(this, STAGES::MIPMAPS);
-        TwAddButton(mainBar, "Mipmaps", ChangeStage, (void*)params4, " label='Mipmaps Example' ");
-        
-        OGLApplicationParams* params5 = new OGLApplicationParams(this, STAGES::MIX_TEXTURE);
-        TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params5, " label='Multi-Texturing Example' ");
+        TwAddButton(mainBar, "Mipmaps", ChangeStage, (void*)params4, " label='Mipmaps Example' ");        
 
-		OGLApplicationParams* params6 = new OGLApplicationParams(this, STAGES::RIPPLE);
-		TwAddButton(mainBar, "ripplePlane", ChangeStage, (void*)params6, " label='Ripple Plane Example' ");
+		OGLApplicationParams* params5 = new OGLApplicationParams(this, STAGES::RIPPLE);
+		TwAddButton(mainBar, "ripplePlane", ChangeStage, (void*)params5, " label='Ripple Plane Example' ");
         
-        OGLApplicationParams* params7 = new OGLApplicationParams(this, STAGES::GEOMETRYSHADER);
-        TwAddButton(mainBar, "GeomShader", ChangeStage, (void*)params7, " label='Geometry Shader Example' ");
+        OGLApplicationParams* params6 = new OGLApplicationParams(this, STAGES::GEOMETRYSHADER);
+        TwAddButton(mainBar, "GeomShader", ChangeStage, (void*)params6, " label='Geometry Shader Example' ");
         
-        OGLApplicationParams* params8 = new OGLApplicationParams(this, STAGES::MODELMAT);
-        TwAddButton(mainBar, "ModelMat", ChangeStage, (void*)params8, " label='Model Matrix Example' ");
+        OGLApplicationParams* params7 = new OGLApplicationParams(this, STAGES::INDEXEDDRAW);
+        TwAddButton(mainBar, "IndexDraw", ChangeStage, (void*)params7, " label='Indexed Draw Example' ");
         
-        OGLApplicationParams* params9 = new OGLApplicationParams(this, STAGES::INSTANCEDRAW);
-        TwAddButton(mainBar, "InstanceDraw", ChangeStage, (void*)params9, " label='Instanced Draw Example' ");
-        
-        OGLApplicationParams* params10 = new OGLApplicationParams(this, STAGES::CAMERA);
-        TwAddButton(mainBar, "Camera", ChangeStage, (void*)params10, " label='Free Camera Example' ");
+        OGLApplicationParams* params8 = new OGLApplicationParams(this, STAGES::CAMERA);
+        TwAddButton(mainBar, "Camera", ChangeStage, (void*)params8, " label='Free Camera Example' ");
+
+		OGLApplicationParams* params9 = new OGLApplicationParams(this, STAGES::SIMPLE_LIGHT);
+		TwAddButton(mainBar, "Light", ChangeStage, (void*)params9, " label='Diffuse lighting Example' ");
+
+		OGLApplicationParams* params10 = new OGLApplicationParams(this, STAGES::MIX_TEXTURE);
+		TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params10, " label='Multi-Texturing Example' ");
     }
 
 	void Application::InitCallbacks()

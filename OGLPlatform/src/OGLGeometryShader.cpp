@@ -40,18 +40,18 @@ bool OGLGeometryShader::Init(int windowWidth, int windowHeight)
         res &= InitGUI();
         auto vShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
         vShader->SetSource("simplePosition.vert");
-        vShader->Compile();
+        res &= vShader->Compile();
         auto program = std::make_shared<gs::Program>();
         program->Attach(vShader->get());
         
         auto gShader = std::make_shared<gs::Shader>(GL_GEOMETRY_SHADER);
         gShader->SetSource("doubleVertices.geom");
-        gShader->Compile();
+		res &= gShader->Compile();
         program->Attach(gShader->get());
         
         auto fShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
         fShader->SetSource("geomColor.frag");
-        fShader->Compile();
+		res &= fShader->Compile();
         program->Attach(fShader->get());
         program->Link();
         program->Use();

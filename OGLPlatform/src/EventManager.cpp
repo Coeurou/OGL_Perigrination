@@ -7,6 +7,7 @@
 //
 
 #include "EventManager.hpp"
+#include <algorithm>
 
 namespace gs
 {

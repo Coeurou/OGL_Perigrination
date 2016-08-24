@@ -25,6 +25,7 @@ public:
     virtual void SetWidth(float newWidth) { width = newWidth; }
     virtual void SetHeight(float newHeight) { height = newHeight; }
     virtual void SetDepth(float newDepth) { depth = newDepth; }
+	virtual void SetSize(float size) { width = size; height = size; depth = size; }
     
 protected:
     float width;

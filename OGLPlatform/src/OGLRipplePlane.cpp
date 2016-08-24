@@ -85,7 +85,7 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
 	vbos.push_back(vbo);
     
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
 	auto ibo = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
 	ibo->BindVBO();

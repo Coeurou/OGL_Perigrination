@@ -16,6 +16,12 @@ namespace gs
     
     class Camera
     {
+		double lastTime = 0;
+		double deltaTime = 0;
+		glm::ivec2 mousePos;
+		float horizontalAngle = 0.0f;	// angle on Y axis (gaze left to right)
+		float verticalAngle = 0.0f;		// angle on X axis (gaze uup to down)
+
     public:
         Camera();
         virtual ~Camera();
@@ -24,6 +30,7 @@ namespace gs
         void Move(const glm::vec3& dir);
         void Rotate(const glm::vec3& rot);
         void SetupProjection(float fovy, float aspectRatio, float near = 0.1f, float far = 100.0f);
+
         void OnKeyPressed(const EventArgs& args);
         void OnMouseMoved(const EventArgs& args);
         void OnWindowResized(const EventArgs& args);
@@ -37,7 +44,6 @@ namespace gs
         void SetUpVector(const glm::vec3& dir) { up = dir; Update(); }
         
     protected:
-        glm::vec3 orientation;
         glm::vec3 position;        
         glm::vec3 target;
         

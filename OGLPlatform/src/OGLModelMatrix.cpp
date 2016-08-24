@@ -82,7 +82,7 @@ bool OGLModelMatrix::Init(int windowWidth, int windowHeight)
         
         auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
-        auto data = renderedObjs[0]->GetVertices();
+        auto& data = renderedObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * 36, data.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         

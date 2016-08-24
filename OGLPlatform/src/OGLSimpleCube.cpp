@@ -81,7 +81,7 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
         
         auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
-        auto data = renderedObjs[0]->GetVertices();
+        auto& data = renderedObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * 36, data.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         
@@ -118,7 +118,7 @@ void OGLSimpleCube::Render(double time)
     glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f)) *
     rotationMatrix;
     
-    GLint rotationLocation = glGetUniformLocation(programs[0]->get(), "rotationMatrix");
+    GLint rotationLocation = glGetUniformLocation(programs[0]->get(), "MVP");
     glUniformMatrix4fv(rotationLocation, 1, GL_FALSE, glm::value_ptr(rotationMat));
     
     glDrawArrays(GL_TRIANGLES, 0, 36);

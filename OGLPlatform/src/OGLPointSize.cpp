@@ -67,7 +67,7 @@ void OGLPointSize::Render(double time)
     }
     glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
     
-    renderedObjs[0]->SetWidth(((int)time % 90)+1);
+    renderedObjs[0]->SetWidth(((int)time % 90)+1.0f);
     
 	glDrawArrays(GL_POINTS, 0, 1);
 }

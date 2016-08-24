@@ -54,9 +54,6 @@
     <ClInclude Include="src\OGLTriangle.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\OGLAnimatedTriangle.hpp">
-      <Filter>Stages</Filter>
-    </ClInclude>
     <ClInclude Include="src\OGLCube.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -141,6 +138,33 @@
     <ClInclude Include="src\OGLRipplePlane.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
+    <ClInclude Include="src\OGLCameraStage.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLGeometryShader.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLModelMatrix.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventManager.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLAnimatedPyramids.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLIndexedDraw.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLSimpleLighting.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Light.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -166,9 +190,6 @@
     </ClCompile>
     <ClCompile Include="src\OGLTriangle.cpp">
       <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OGLAnimatedTriangle.cpp">
-      <Filter>Stages</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLCube.cpp">
       <Filter>Objects</Filter>
@@ -234,6 +255,30 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLRipplePlane.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLCameraStage.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLGeometryShader.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLModelMatrix.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLAnimatedPyramids.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLIndexedDraw.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLSimpleLighting.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>

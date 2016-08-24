@@ -15,11 +15,18 @@ extern float farDistance;
 
 static std::array<gs::Vertex, 6> Quad(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d)
 {
-	gs::Vertex va{ a, glm::u8vec2(0,0) };
-	gs::Vertex vb{ b, glm::u8vec2(1,0) };
-	gs::Vertex vc{ c, glm::u8vec2(1,1) };
-	gs::Vertex vd{ d, glm::u8vec2(0,1) };
+	auto normalABC = glm::normalize(glm::cross(b - a, c - a));
+	auto normalACD = glm::normalize(glm::cross(c - a, d - a));
+
+	gs::Vertex va{ a, glm::u8vec2(1,1) };
+	gs::Vertex vb{ b, glm::u8vec2(0,1) };
+	gs::Vertex vc{ c, glm::u8vec2(0,0) };
+	gs::Vertex vd{ d, glm::u8vec2(1,0) };
 	std::array<gs::Vertex, 6> res = { va, vb, vc,  va, vc, vd };
+
+	for (size_t i = 0; i < res.size(); i++)	{
+		res[i].normal = (i > 2) ? normalACD : normalABC;
+	}
 	return res;
 }
 

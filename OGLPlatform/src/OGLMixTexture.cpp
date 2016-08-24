@@ -103,8 +103,8 @@ bool OGLMixTexture::InitVBO()
 {
     auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
     vbo->BindVBO();
-    auto quad = renderedObjs[0]->GetVertices();
-    auto cube = renderedObjs[1]->GetVertices();
+    auto& quad = renderedObjs[0]->GetVertices();
+    auto& cube = renderedObjs[1]->GetVertices();
     glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * (quad.size() + cube.size()), nullptr, GL_STATIC_DRAW);
     
     auto offset = sizeof(gs::Vertex) * quad.size();

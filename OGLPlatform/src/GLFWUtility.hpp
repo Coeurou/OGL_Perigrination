@@ -54,13 +54,11 @@ static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int
                 break;
             default:
                 break;
-        }
-        
-        int width, height = 0;
-        
-        glfwGetWindowSize(window, &width, &height);
-        gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_KEY_PRESSED, gs::KeyEventArgs(key, width, height));
+        }        
     }
+	int width, height = 0;
+	glfwGetWindowSize(window, &width, &height);
+	gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_KEY_PRESSED, gs::KeyEventArgs(key, width, height));
 }
 
 static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
@@ -70,8 +68,7 @@ static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
 
 static void OnWindowResize(GLFWwindow* window, int width, int height)
 {
-    TwWindowSize(width, height);
     glViewport(0, 0, width, height);
     gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_WINDOW_RESIZED, gs::ResizeEventArgs(width, height));
-    
+	TwWindowSize(width, height);
 }

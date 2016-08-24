@@ -1,15 +1,16 @@
 #include "FactoryStage.hpp"
 #include "OGLPointSize.hpp"
 #include "OGLSimpleTriangle.hpp"
-#include "OGLAnimatedTriangle.hpp"
+#include "OGLAnimatedPyramids.hpp"
 #include "OGLSimpleCube.hpp"
 #include "OGLMipmaps.hpp"
 #include "OGLMixTexture.hpp"
 #include "OGLRipplePlane.hpp"
 #include "OGLGeometryShader.hpp"
 #include "OGLModelMatrix.hpp"
-#include "OGLInstancedDraw.hpp"
+#include "OGLIndexedDraw.hpp"
 #include "OGLCameraStage.hpp"
+#include "OGLSimpleLighting.hpp"
 #include "Stage.hpp"
 
 
@@ -25,11 +26,8 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 	case SIMPLE_TRIANGLE:
 		return std::make_shared<OGLSimpleTriangle>();
 		break;
-	case ANIMATED_TRIANGLE:
-		return std::make_shared<OGLAnimatedTriangle>();
-		break;
-	case SIMPLE_CUBE:
-		return std::make_shared<OGLSimpleCube>();
+	case ANIMATED_PYRAMIDS:
+		return std::make_shared<OGLAnimatedPyramids>();
 		break;
 	case MIPMAPS:
 		return std::make_shared<OGLMipmaps>();
@@ -46,12 +44,15 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
     case MODELMAT:
         return std::make_shared<OGLModelMatrix>();
         break;
-    case INSTANCEDRAW:
-        return std::make_shared<OGLInstancedDraw>();
+    case INDEXEDDRAW:
+        return std::make_shared<OGLIndexedDraw>();
         break;
     case CAMERA:
         return std::make_shared<OGLCameraStage>();
         break;
+	case SIMPLE_LIGHT:
+		return std::make_shared<OGLSimpleLighting>();
+		break;
 	default:
 		return nullptr;
 		break;

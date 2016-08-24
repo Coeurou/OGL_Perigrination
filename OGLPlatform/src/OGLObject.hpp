@@ -20,7 +20,7 @@ public:
     virtual ~OGLObject() {}
     
     virtual bool InitVertices(glm::vec3 origin) = 0;
-    std::vector<Vertex> GetVertices() const { return vertices; }
+    const std::vector<Vertex>& GetVertices() const { return vertices; }
     
 protected:
     std::vector<Vertex> vertices;
