@@ -17,6 +17,9 @@ namespace gs
     
     VertexArray::~VertexArray()
     {
+		for (GLuint index : attributes) {
+			glDisableVertexAttribArray(index);
+		}
         glDeleteVertexArrays(1, &arrayID);
         arrayID = 0;
     }
@@ -25,4 +28,11 @@ namespace gs
     {
         glBindVertexArray(arrayID);
     }
+
+	void VertexArray::AddAttribute(GLuint attribLocation, int size, GLenum type, bool normalized, int stride, const void* offset)
+	{
+		glEnableVertexAttribArray(attribLocation);
+		glVertexAttribPointer(attribLocation, size, type, normalized, stride, offset);
+		attributes.push_back(attribLocation);
+	}
 }

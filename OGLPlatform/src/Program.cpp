@@ -7,6 +7,7 @@
 //
 
 #include "Program.hpp"
+#include "Shader.hpp"
 #include <vector>
 #include <iostream>
 
@@ -17,11 +18,24 @@ namespace gs
         programID = glCreateProgram();
     }
     
-    Program::~Program()
+	Program::~Program()
     {
         glDeleteProgram(programID);
         programID = 0;
     }
+
+	bool Program::CreateShader(GLenum shaderType, const std::string& source)
+	{
+		Shader shader(shaderType);
+		shader.SetSource(source);
+		if (shader.Compile()) {
+			Attach(shader.get());
+			return true;
+		} 
+		else {
+			return false;
+		}
+	}
     
     void Program::Attach(GLuint shader)
     {
@@ -60,4 +74,9 @@ namespace gs
     {
         glUseProgram(programID);
     }
+	bool Program::AddUniform(const std::string & name)
+	{		
+		uniformLocations[name] = glGetUniformLocation(programID, name.c_str());
+		return (uniformLocations[name] != -1);
+	}
 }

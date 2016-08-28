@@ -9,6 +9,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <vector>
 #include "OGLResource.hpp"
 
 namespace gs
@@ -21,9 +22,11 @@ namespace gs
         
         const GLuint get() const { return arrayID; }
         void BindVAO() const;
+		void AddAttribute(GLuint attribLocation, int size, GLenum type, bool normalized, int stride, const void* offset);
         
     private:
         GLuint arrayID;
+		std::vector<GLuint> attributes;
     };
 }
 /* VertexArray_hpp */

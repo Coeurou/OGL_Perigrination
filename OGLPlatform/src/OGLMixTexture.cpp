@@ -22,10 +22,8 @@ OGLMixTexture::OGLMixTexture()
 
 OGLMixTexture::~OGLMixTexture()
 {
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(0);
-    
-    glDisable(GL_DEPTH_TEST);
+	glDisable(GL_PRIMITIVE_RESTART);
+	glDisable(GL_DEPTH_TEST);
 }
 
 bool OGLMixTexture::InitGUI()
@@ -37,20 +35,17 @@ bool OGLMixTexture::InitShaders()
 {
     bool res = true;
     
-    gs::Shader vertexShader(GL_VERTEX_SHADER);
-    vertexShader.SetSource("multiTexture.vert");
-    res &= vertexShader.Compile();
-    
-    gs::Shader fragmentShader(GL_FRAGMENT_SHADER);
-    fragmentShader.SetSource("multiTexture.frag");
-    res &= fragmentShader.Compile();
-    
     auto program = std::make_shared<gs::Program>();
-    program->Attach(vertexShader.get());
-    program->Attach(fragmentShader.get());
+	res &= program->CreateShader(GL_VERTEX_SHADER, "multiTexture.vert");
+	res &= program->CreateShader(GL_FRAGMENT_SHADER, "multiTexture.frag");
 	res &= program->Link();
-    program->Use();
     programs.push_back(program);
+
+	/*auto programGround = std::make_shared<gs::Program>();
+	res &= programGround->CreateShader(GL_VERTEX_SHADER, "heightmap.vert");
+	res &= programGround->CreateShader(GL_FRAGMENT_SHADER, "heightmap.frag");
+	res &= programGround->Link();
+	programs.push_back(programGround);*/
 
     return res;
 }
@@ -101,17 +96,73 @@ bool OGLMixTexture::InitGeometry()
 
 bool OGLMixTexture::InitVBO()
 {
+	auto vao = std::make_shared<gs::VertexArray>();
+	vao->BindVAO();
+	vaos.push_back(vao);
+
     auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
     vbo->BindVBO();
     auto& quad = renderedObjs[0]->GetVertices();
     auto& cube = renderedObjs[1]->GetVertices();
+
     glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * (quad.size() + cube.size()), nullptr, GL_STATIC_DRAW);
     
     auto offset = sizeof(gs::Vertex) * quad.size();
     glBufferSubData(GL_ARRAY_BUFFER, 0, offset, quad.data());
     glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(gs::Vertex) * cube.size(), cube.data());
     vbos.push_back(vbo);
-    
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	/*auto vaoGround = std::make_shared<gs::VertexArray>();
+	vaoGround->BindVAO();
+	vaos.push_back(vaoGround);
+
+	auto vboGround = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+	vboGround->BindVBO();
+
+	std::vector<glm::vec3> groundVertices;
+	std::default_random_engine generator;
+	std::uniform_real_distribution<float> distribution(0.0f, 15.0f);
+	for (size_t i = 0; i < nbVertices; i++) {
+		for (size_t j = 0; j < nbVertices; j++) {
+			float x = ((float)j / (nbVertices-1) * 2 - 1) * halfWorldSize;
+			float y = distribution(generator);
+			float z = ((float)i / (nbVertices-1) * 2 - 1) * halfWorldSize;
+			groundVertices.push_back(glm::vec3(x, y, z));
+		}
+	}
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * groundVertices.size(), groundVertices.data(), GL_STATIC_DRAW);
+	vbos.push_back(vboGround);
+
+	auto iboGround = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
+	iboGround->BindVBO();
+
+	GLushort restartIndex = std::numeric_limits<unsigned short>::max();
+	std::vector<GLushort> indices;
+	for (GLushort i = 0; i < nbVertices-1; i++) {
+		for (GLushort j = 0; j < nbVertices-1; j++) {
+			GLushort i0 = j + i * nbVertices;
+			GLushort i1 = i0 + nbVertices;
+			GLushort i2 = i0 + 1;
+			GLushort i3 = i1 + 1;
+
+			if (j == 0) {
+				indices.push_back(i0);
+				indices.push_back(i1);
+			}
+			indices.push_back(i2);
+			indices.push_back(i3);
+			if (j == nbVertices - 2) {
+				indices.push_back(restartIndex);
+			}
+		}
+	}
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
+	vbos.push_back(iboGround);
+
+	glEnable(GL_PRIMITIVE_RESTART);
+	glPrimitiveRestartIndex(restartIndex);*/
     return (vbo != 0);
 }
 
@@ -122,28 +173,36 @@ bool OGLMixTexture::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
         
-        auto vao = std::make_shared<gs::VertexArray>();
-        vao->BindVAO();
-        vaos.push_back(vao);
-        
         res &= InitShaders();
         
-        GLint samplerALocation = glGetUniformLocation(programs[0]->get(), "samplerA");
-        glUniform1i(samplerALocation, 0);
-        GLint samplerBLocation = glGetUniformLocation(programs[0]->get(), "samplerB");
-        glUniform1i(samplerBLocation, 1);
-        
-        mvpLocation = glGetUniformLocation(programs[0]->get(), "MVP");
-        mixLocation = glGetUniformLocation(programs[0]->get(), "opacity");
-        
+		programs[0]->Use();
+		res &= programs[0]->AddUniform("samplerA");
+        glUniform1i(programs[0]->GetUniform("samplerA"), 0);
+		res &= programs[0]->AddUniform("samplerB");
+        glUniform1i(programs[0]->GetUniform("samplerB"), 1);        
+		res &= programs[0]->AddUniform("MVP");
+		res &= programs[0]->AddUniform("opacity");
+
+		/*programs[1]->Use();
+		res &= programs[1]->AddUniform("MVP");
+		res &= programs[1]->AddUniform("heightDivider");
+		glUniform1f(programs[1]->GetUniform("heightDivider"), 15.0f);*/
+
         res &= InitTextures();
         res &= InitGeometry();
         res &= InitVBO();
         
-        glEnableVertexAttribArray(0); // TODO A placer dans le VAO c'est lui qui doit gerer les vertexattrib du vertexShader
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
+		vaos[0]->BindVAO();
+		vaos[0]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
+		vaos[0]->AddAttribute(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
+		
+		/*vaos[1]->BindVAO();
+		vaos[1]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);*/
+
+		camera.SetPosition(glm::vec3(0, 10, -5));
+		camera.SetTarget(glm::vec3(0, 10, 0));
+		camera.SetSpeed(12.0f);
+		camera.SetupProjection(45.0f, windowWidth / (float)windowHeight);
         
         glEnable(GL_DEPTH_TEST);
 	}
@@ -154,28 +213,40 @@ void OGLMixTexture::Render(double time)
 {
     glClear(GL_DEPTH_BUFFER_BIT);
     
+	camera.Update();
+
 	glm::vec4 bgColor(1.0f, 0.87f, 0.41f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
+	
+	/*vaos[1]->BindVAO();
+	// Draw ground
+	programs[1]->Use();
+	glm::mat4 MVP = camera.GetViewProjectionMatrix();
+	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	vbos[1]->BindVBO();
+	glDrawElements(GL_TRIANGLE_STRIP, (int)((nbVertices-1)*2*nbVertices+nbVertices-1), GL_UNSIGNED_SHORT, nullptr);*/
+
+    // Draw quad    
+	glm::mat4 MVP = camera.GetViewProjectionMatrix();
+	vaos[0]->BindVAO();
+	programs[0]->Use();
 	float mix = sinf((float)time * 0.33f) * 0.5f + 0.5f;
-    glUniform1f(mixLocation, mix);
-    
-    // Draw quad
-    glm::mat4 MVP = projection *
-    glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -5.0f));
-    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
-    
-    textures[1]->BindTexture(GL_TEXTURE1);
+    glUniform1f(programs[0]->GetUniform("opacity"), mix);
+	vbos[0]->BindVBO();
+	textures[1]->BindTexture(GL_TEXTURE1);
     textures[0]->BindTexture(GL_TEXTURE0);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	MVP = glm::scale(MVP, glm::vec3(2000));
+	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     // Draw cube
-    MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
+    /*MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
            glm::rotate(glm::mat4(1.0f), mix * 20.0f, glm::vec3(0,1,0));
-    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
+    glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
     
     textures[3]->BindTexture(GL_TEXTURE1);
     textures[2]->BindTexture(GL_TEXTURE0);
     
-    glDrawArrays(GL_TRIANGLES, 4, 36);
+    glDrawArrays(GL_TRIANGLES, 4, 36);*/
 }

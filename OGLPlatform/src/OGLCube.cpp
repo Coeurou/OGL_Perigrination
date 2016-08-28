@@ -13,8 +13,8 @@ bool OGLCube::InitVertices(std::array<glm::vec3, 8> data)
     auto back = Quad(data[4], data[7], data[6], data[5]);
     auto left = Quad(data[0], data[4], data[5], data[3]);
     auto right = Quad(data[7], data[1], data[2], data[6]);
-    auto top = Quad(data[5], data[6], data[2], data[3]);
-    auto bottom = Quad(data[0], data[1], data[7], data[4]);
+    auto top = Quad(data[6], data[5], data[3], data[2]);
+    auto bottom = Quad(data[1], data[0], data[4], data[7]);
     
     vertices.insert(std::end(vertices), std::begin(front), std::end(front));
     vertices.insert(std::end(vertices), std::begin(back), std::end(back));

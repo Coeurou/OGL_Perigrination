@@ -20,6 +20,10 @@ class OGLSimpleLighting : public gs::Stage
     gs::Camera camera;
 	GLint mvpLocation = 0;
 	GLint normalMatrixLocation = 0;
+	GLint lightColorLoc = 0;
+	GLint lightDirLoc = 0;
+	GLint ambientLoc = 0;
+	GLint diffuseLoc = 0;
 	gs::DirectionnalLight light;
     
 public:

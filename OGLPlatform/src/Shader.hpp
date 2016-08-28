@@ -19,7 +19,7 @@ namespace gs
     public:
         Shader(GLenum shaderType);
         ~Shader();
-        
+
         const GLuint get() const { return shaderID; }
         bool SetSource(const std::string& shaderFilename);
         bool Compile();

@@ -37,6 +37,10 @@ bool OGLSimpleLighting::InitGUI()
     std::stringstream format;
     format << barName << " " << " label='Free camera Example' ";
     
+	TwAddVarRW(tweakBar, "lightDir", TW_TYPE_DIR3F, &light.direction, "label='Direction' group='Light'");
+	TwAddVarRW(tweakBar, "lightColor", TW_TYPE_COLOR3F, &light.color, "label='Color' group='Light'");
+	TwAddVarRW(tweakBar, "lightAmb", TW_TYPE_FLOAT, &light.ambientIntensity, "label='Ambient Intensity' group='Light' min='0' max='1' step='0.05'");
+	TwAddVarRW(tweakBar, "lightDiff", TW_TYPE_FLOAT, &light.diffuseIntensity, "label='Diffuse Intensity' group='Light' min='0' max='1' step='0.05'");
     TwDefine(format.str().c_str());
     
     return true;
@@ -73,14 +77,10 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 		light.ambientIntensity = 0.2f;
 		light.diffuseIntensity = 0.8f;
 
-		GLint lightColorLoc = glGetUniformLocation(programTex->get(), "light.color");
-		glUniform3fv(lightColorLoc, 1, glm::value_ptr(light.color));
-		GLint lightDirLoc = glGetUniformLocation(programTex->get(), "light.direction");
-		glUniform3fv(lightDirLoc, 1, glm::value_ptr(light.direction));
-		GLint ambientLoc = glGetUniformLocation(programTex->get(), "light.ambientIntensity");
-		glUniform1f(ambientLoc, light.ambientIntensity);
-		GLint diffuseLoc = glGetUniformLocation(programTex->get(), "light.diffuseIntensity");
-		glUniform1f(diffuseLoc, light.diffuseIntensity);
+		lightColorLoc = glGetUniformLocation(programTex->get(), "light.color");
+		lightDirLoc = glGetUniformLocation(programTex->get(), "light.direction");
+		ambientLoc = glGetUniformLocation(programTex->get(), "light.ambientIntensity");
+		diffuseLoc = glGetUniformLocation(programTex->get(), "light.diffuseIntensity");
         
 		//Texture setup
 		auto textureFloor = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
@@ -146,6 +146,12 @@ void OGLSimpleLighting::Render(double time)
 	model = glm::scale(model, glm::vec3(8.0f));
 
 	glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(camera.GetViewProjectionMatrix() * model));
+
+	glUniform3fv(lightColorLoc, 1, glm::value_ptr(light.color));
+	glUniform3fv(lightDirLoc, 1, glm::value_ptr(light.direction));
+	glUniform1f(ambientLoc, light.ambientIntensity);
+	glUniform1f(diffuseLoc, light.diffuseIntensity);
+
     glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
 
 	textures[1]->BindTexture(GL_TEXTURE0);

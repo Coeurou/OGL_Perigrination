@@ -68,11 +68,10 @@ namespace gs
     
     void Camera::Rotate(const glm::vec3& rot)
     {   
-        forward = glm::vec3(cos(rot.x) * sin(rot.y), sin(rot.x), cos(rot.x) * cos(rot.y));
+        forward = glm::vec3(cosf(rot.x) * sinf(rot.y), sinf(rot.x), cosf(rot.x) * cosf(rot.y));
 		glm::normalize(forward);
-        right = glm::vec3(sin(rot.y - glm::half_pi<float>()), 0, cos(rot.y - glm::half_pi<float>()));
+		right = glm::cross(up, forward);
 		glm::normalize(right);
-		up = glm::cross(right, forward);
 
         target = position + forward;
     }
@@ -121,10 +120,10 @@ namespace gs
                 Move(-forward * speed);
                 break;
             case GLFW_KEY_D:
-                Move(right * speed);
+                Move(-right * speed);
                 break;
             case GLFW_KEY_A:
-                Move(-right * speed);
+                Move(right * speed);
                 break;
             case GLFW_KEY_Q:
                 Move(up * speed);

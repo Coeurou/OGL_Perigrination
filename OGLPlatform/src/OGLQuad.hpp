@@ -15,5 +15,5 @@ public:
 	~OGLQuad();
 
     bool InitVertices(glm::vec3 origin);
-    bool InitVertices(std::array<gs::Vertex, 4> data);
+    //bool InitVertices(std::array<gs::Vertex, 4> data);
 };
