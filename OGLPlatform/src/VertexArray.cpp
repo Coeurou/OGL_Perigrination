@@ -17,6 +17,7 @@ namespace gs
     
     VertexArray::~VertexArray()
     {
+        glBindVertexArray(arrayID);
 		for (GLuint index : attributes) {
 			glDisableVertexAttribArray(index);
 		}

@@ -41,11 +41,11 @@ bool OGLMixTexture::InitShaders()
 	res &= program->Link();
     programs.push_back(program);
 
-	/*auto programGround = std::make_shared<gs::Program>();
+	auto programGround = std::make_shared<gs::Program>();
 	res &= programGround->CreateShader(GL_VERTEX_SHADER, "heightmap.vert");
 	res &= programGround->CreateShader(GL_FRAGMENT_SHADER, "heightmap.frag");
 	res &= programGround->Link();
-	programs.push_back(programGround);*/
+	programs.push_back(programGround);
 
     return res;
 }
@@ -114,7 +114,7 @@ bool OGLMixTexture::InitVBO()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	/*auto vaoGround = std::make_shared<gs::VertexArray>();
+	auto vaoGround = std::make_shared<gs::VertexArray>();
 	vaoGround->BindVAO();
 	vaos.push_back(vaoGround);
 
@@ -161,8 +161,11 @@ bool OGLMixTexture::InitVBO()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
 	vbos.push_back(iboGround);
 
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
 	glEnable(GL_PRIMITIVE_RESTART);
-	glPrimitiveRestartIndex(restartIndex);*/
+	glPrimitiveRestartIndex(restartIndex);
     return (vbo != 0);
 }
 
@@ -183,21 +186,23 @@ bool OGLMixTexture::Init(int windowWidth, int windowHeight)
 		res &= programs[0]->AddUniform("MVP");
 		res &= programs[0]->AddUniform("opacity");
 
-		/*programs[1]->Use();
+		programs[1]->Use();
 		res &= programs[1]->AddUniform("MVP");
 		res &= programs[1]->AddUniform("heightDivider");
-		glUniform1f(programs[1]->GetUniform("heightDivider"), 15.0f);*/
+		glUniform1f(programs[1]->GetUniform("heightDivider"), 15.0f);
 
         res &= InitTextures();
         res &= InitGeometry();
         res &= InitVBO();
         
 		vaos[0]->BindVAO();
+        vbos[0]->BindVBO();
 		vaos[0]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
 		vaos[0]->AddAttribute(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
 		
-		/*vaos[1]->BindVAO();
-		vaos[1]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);*/
+		vaos[1]->BindVAO();
+        vbos[1]->BindVBO();
+		vaos[1]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
 		camera.SetPosition(glm::vec3(0, 10, -5));
 		camera.SetTarget(glm::vec3(0, 10, 0));
@@ -218,35 +223,36 @@ void OGLMixTexture::Render(double time)
 	glm::vec4 bgColor(1.0f, 0.87f, 0.41f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
 	
-	/*vaos[1]->BindVAO();
+	vaos[1]->BindVAO();
+    vbos[1]->BindVBO();
+    vbos[2]->BindVBO();
 	// Draw ground
 	programs[1]->Use();
 	glm::mat4 MVP = camera.GetViewProjectionMatrix();
 	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 	vbos[1]->BindVBO();
-	glDrawElements(GL_TRIANGLE_STRIP, (int)((nbVertices-1)*2*nbVertices+nbVertices-1), GL_UNSIGNED_SHORT, nullptr);*/
+	glDrawElements(GL_TRIANGLE_STRIP, (int)((nbVertices-1)*2*nbVertices+nbVertices-1), GL_UNSIGNED_SHORT, nullptr);
 
     // Draw quad    
-	glm::mat4 MVP = camera.GetViewProjectionMatrix();
 	vaos[0]->BindVAO();
+    vbos[0]->BindVBO();
 	programs[0]->Use();
 	float mix = sinf((float)time * 0.33f) * 0.5f + 0.5f;
     glUniform1f(programs[0]->GetUniform("opacity"), mix);
-	vbos[0]->BindVBO();
 	textures[1]->BindTexture(GL_TEXTURE1);
     textures[0]->BindTexture(GL_TEXTURE0);
     
-	MVP = glm::scale(MVP, glm::vec3(2000));
+	MVP = glm::scale(MVP, glm::vec3(10, 20, 1));
 	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     // Draw cube
-    /*MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
+    MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
            glm::rotate(glm::mat4(1.0f), mix * 20.0f, glm::vec3(0,1,0));
     glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
     
     textures[3]->BindTexture(GL_TEXTURE1);
     textures[2]->BindTexture(GL_TEXTURE0);
     
-    glDrawArrays(GL_TRIANGLES, 4, 36);*/
+    glDrawArrays(GL_TRIANGLES, 4, 36);
 }
