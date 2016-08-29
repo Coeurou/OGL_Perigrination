@@ -22,6 +22,7 @@ namespace gs
         ~Texture();
         
         bool LoadTexture(std::string imgFilename);
+		bool LoadCubemap(const std::initializer_list<std::string>& imgFilenames);
         void ChangeParameter(GLenum parameter, GLint value) const;
         void ChangeParameter(GLenum parameter, GLfloat value) const;
         void BindTexture(GLenum textureUnit) const;

@@ -17,4 +17,5 @@ public:
     ~GLIImage();
     
     bool LoadImageFile(const std::string& imgPath);
+	bool LoadCubemapFile(const std::vector<std::string>& imgPaths);
 }; /* GLIImage_hpp */

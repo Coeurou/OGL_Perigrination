@@ -10,6 +10,7 @@
 
 #include <GL/glew.h>
 #include <string>
+#include <vector>
 
 namespace gs
 {
@@ -19,7 +20,8 @@ namespace gs
         Image() {}
         virtual ~Image() {}
         
-        virtual bool LoadImageFile(const std::string& imgPath) = 0;
+		virtual bool LoadImageFile(const std::string& imgPath) = 0;
+		virtual bool LoadCubemapFile(const std::vector<std::string>& imgPath) = 0;
         GLuint GetTextureID() const { return textureID; }
         GLenum GetTarget() const { return target; }
         int GetNbFaces() const { return nbFaces; }

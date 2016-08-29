@@ -11,6 +11,7 @@
 #include "OGLIndexedDraw.hpp"
 #include "OGLCameraStage.hpp"
 #include "OGLSimpleLighting.hpp"
+#include "OGLSkybox.hpp"
 #include "Stage.hpp"
 
 
@@ -52,6 +53,9 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
         break;
 	case SIMPLE_LIGHT:
 		return std::make_shared<OGLSimpleLighting>();
+		break;
+	case SKYBOX:
+		return std::make_shared<OGLSkybox>();
 		break;
 	default:
 		return nullptr;

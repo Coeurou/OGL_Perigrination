@@ -42,8 +42,8 @@ bool OGLMixTexture::InitShaders()
     programs.push_back(program);
 
 	auto programGround = std::make_shared<gs::Program>();
-	res &= programGround->CreateShader(GL_VERTEX_SHADER, "heightmap.vert");
-	res &= programGround->CreateShader(GL_FRAGMENT_SHADER, "heightmap.frag");
+	res &= programGround->CreateShader(GL_VERTEX_SHADER, "heightmapWave.vert");
+	res &= programGround->CreateShader(GL_FRAGMENT_SHADER, "heightmapWave.frag");
 	res &= programGround->Link();
 	programs.push_back(programGround);
 
@@ -104,12 +104,22 @@ bool OGLMixTexture::InitVBO()
     vbo->BindVBO();
     auto& quad = renderedObjs[0]->GetVertices();
     auto& cube = renderedObjs[1]->GetVertices();
+	std::vector<glm::vec3> pyramidPositions { glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, -0.5f), glm::vec3(-0.5f, 0.0f, 0.5f), glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f) };
+	std::vector<gs::Vertex> pyramidVertices{ gs::Vertex{ pyramidPositions[0], glm::vec2(0,0) }, gs::Vertex { pyramidPositions[1], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) },
+											 gs::Vertex{ pyramidPositions[0], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[2], glm::vec2(0,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) },
+											 gs::Vertex{ pyramidPositions[2], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[3], glm::vec2(0,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) },
+											 gs::Vertex{ pyramidPositions[1], glm::vec2(0,0) }, gs::Vertex{ pyramidPositions[3], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) }, 
+		gs::Vertex{ pyramidPositions[0], glm::vec2(0,0) }, gs::Vertex{ pyramidPositions[1], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[2], glm::vec2(0,1) }, 
+		gs::Vertex{ pyramidPositions[1], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[2], glm::vec2(0,1) }, gs::Vertex{ pyramidPositions[3], glm::vec2(1,1) }, };
+	
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * (quad.size() + cube.size()), nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * (quad.size() + cube.size() + pyramidVertices.size()), nullptr, GL_STATIC_DRAW);
     
-    auto offset = sizeof(gs::Vertex) * quad.size();
-    glBufferSubData(GL_ARRAY_BUFFER, 0, offset, quad.data());
-    glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(gs::Vertex) * cube.size(), cube.data());
+    auto offsetCube = sizeof(gs::Vertex) * quad.size();
+	auto offsetPyramid = offsetCube + sizeof(gs::Vertex) * cube.size();
+    glBufferSubData(GL_ARRAY_BUFFER, 0, offsetCube, quad.data());
+	glBufferSubData(GL_ARRAY_BUFFER, offsetCube, sizeof(gs::Vertex) * cube.size(), cube.data());
+	glBufferSubData(GL_ARRAY_BUFFER, offsetPyramid, sizeof(gs::Vertex) * pyramidVertices.size(), pyramidVertices.data());
     vbos.push_back(vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -189,6 +199,7 @@ bool OGLMixTexture::Init(int windowWidth, int windowHeight)
 		programs[1]->Use();
 		res &= programs[1]->AddUniform("MVP");
 		res &= programs[1]->AddUniform("heightDivider");
+		res &= programs[1]->AddUniform("time");
 		glUniform1f(programs[1]->GetUniform("heightDivider"), 15.0f);
 
         res &= InitTextures();
@@ -230,6 +241,7 @@ void OGLMixTexture::Render(double time)
 	programs[1]->Use();
 	glm::mat4 MVP = camera.GetViewProjectionMatrix();
 	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glUniform1f(programs[1]->GetUniform("time"), (float)time);
 	vbos[1]->BindVBO();
 	glDrawElements(GL_TRIANGLE_STRIP, (int)((nbVertices-1)*2*nbVertices+nbVertices-1), GL_UNSIGNED_SHORT, nullptr);
 
@@ -242,17 +254,27 @@ void OGLMixTexture::Render(double time)
 	textures[1]->BindTexture(GL_TEXTURE1);
     textures[0]->BindTexture(GL_TEXTURE0);
     
-	MVP = glm::scale(MVP, glm::vec3(10, 20, 1));
+	MVP = glm::translate(MVP, glm::vec3(0, 10, 0));
 	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     
     // Draw cube
-    MVP *= glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f)) *
-           glm::rotate(glm::mat4(1.0f), mix * 20.0f, glm::vec3(0,1,0));
-    glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	auto model = glm::translate(glm::mat4(1.0f), glm::vec3(-3.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, mix * 20.0f, glm::vec3(0,1,0));
+    glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
     
     textures[3]->BindTexture(GL_TEXTURE1);
     textures[2]->BindTexture(GL_TEXTURE0);
     
-    glDrawArrays(GL_TRIANGLES, 4, 36);
+	glDrawArrays(GL_TRIANGLES, 4, 36);
+
+	for (size_t i = 0; i < 6; i++)
+	{
+		float sign = (i % 2) * 2 - 1;
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(sinf((float)time + i * glm::half_pi<float>()) * 10.0f, 10.0f, i * 20.0f));
+		model = glm::rotate(model, glm::radians(45.0f * (float)time), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(8));
+		glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
+		glDrawArrays(GL_TRIANGLES, 40, 18);
+	}
 }

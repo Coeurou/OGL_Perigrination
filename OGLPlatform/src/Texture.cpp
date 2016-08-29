@@ -10,6 +10,7 @@
 #include "Image.hpp"
 #include "OGLApplicationConstants.hpp"
 #include <iostream>
+#include <vector>
 
 namespace gs
 {
@@ -43,6 +44,34 @@ namespace gs
         }
         return res;
     }
+
+	bool Texture::LoadCubemap(const std::initializer_list<std::string>& imgFilenames)
+	{
+		bool res = true;
+		std::vector<std::string> imgPaths;
+		for (auto& imgFilename : imgFilenames) {
+			imgPaths.push_back(TexturesPath + "/" + imgFilename);
+		}
+
+		auto texImg = ImageFactory::CreateImage(loadingMethod);
+		texImg->LoadCubemapFile(imgPaths);
+
+		textureID = texImg->GetTextureID();
+		target = texImg->GetTarget();
+		nbTexturesInArray = texImg->GetNbFaces();
+
+		res &= (textureID != 0);
+		if (res) {
+			glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+		else {
+			std::cerr << "Cubemap " << *imgFilenames.begin() << " loading failed" << std::endl;
+		}
+		return res;
+	}
     
     void Texture::ChangeParameter(GLenum parameter, GLint value) const
     {

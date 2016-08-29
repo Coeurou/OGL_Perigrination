@@ -116,6 +116,9 @@ namespace gs
 
 		OGLApplicationParams* params10 = new OGLApplicationParams(this, STAGES::MIX_TEXTURE);
 		TwAddButton(mainBar, "ArrayTex", ChangeStage, (void*)params10, " label='Multi-Texturing Example' ");
+		
+		OGLApplicationParams* params11 = new OGLApplicationParams(this, STAGES::SKYBOX);
+		TwAddButton(mainBar, "Skybox", ChangeStage, (void*)params11, " label='Skybox Example' ");
     }
 
 	void Application::InitCallbacks()

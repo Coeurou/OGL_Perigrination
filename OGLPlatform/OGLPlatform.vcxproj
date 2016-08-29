@@ -165,6 +165,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLModelMatrix.hpp" />
     <ClInclude Include="src\OGLRipplePlane.hpp" />
     <ClInclude Include="src\OGLSimpleLighting.hpp" />
+    <ClInclude Include="src\OGLSkybox.hpp" />
     <ClInclude Include="src\OGLUtility.hpp" />
     <ClInclude Include="src\WindowGLFW.hpp" />
     <ClInclude Include="src\GLIImage.hpp" />
@@ -210,6 +211,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLModelMatrix.cpp" />
     <ClCompile Include="src\OGLRipplePlane.cpp" />
     <ClCompile Include="src\OGLSimpleLighting.cpp" />
+    <ClCompile Include="src\OGLSkybox.cpp" />
     <ClCompile Include="src\OGLUtility.cpp" />
     <ClCompile Include="src\WindowGLFW.cpp" />
     <ClCompile Include="src\GLIImage.cpp" />

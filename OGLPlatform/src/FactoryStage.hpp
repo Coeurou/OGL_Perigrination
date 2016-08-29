@@ -21,7 +21,8 @@ enum STAGES
     MODELMAT,
     INDEXEDDRAW,
     CAMERA,
-	SIMPLE_LIGHT
+	SIMPLE_LIGHT,
+	SKYBOX
 };
 
 class FactoryStage : public Uncopyable

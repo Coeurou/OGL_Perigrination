@@ -139,3 +139,58 @@ bool GLIImage::LoadImageFile(const std::string& imgPath)
 
     return (textureID != 0);
 }
+
+bool GLIImage::LoadCubemapFile(const std::vector<std::string>& imgPaths)
+{
+	textureID = 0;
+	glGenTextures(1, &textureID);
+	target = GL_TEXTURE_CUBE_MAP;
+	glBindTexture(target, textureID);
+	int face = 0;
+
+	for (auto& imgPath : imgPaths) {
+		gli::texture texture = gli::load(imgPath);
+		if (texture.empty()) {
+			std::cerr << "Cannot load image file:" << imgPath << std::endl;
+			return false;
+		}
+
+		gli::gl GL(gli::gl::PROFILE_GL33);
+		gli::gl::format const texFormat = GL.translate(texture.format(), texture.swizzles());
+
+		glTexParameteri(target, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(texture.levels() - 1));
+		glTexParameteri(target, GL_TEXTURE_SWIZZLE_R, texFormat.Swizzles[0]);
+		glTexParameteri(target, GL_TEXTURE_SWIZZLE_G, texFormat.Swizzles[1]);
+		glTexParameteri(target, GL_TEXTURE_SWIZZLE_B, texFormat.Swizzles[2]);
+		glTexParameteri(target, GL_TEXTURE_SWIZZLE_A, texFormat.Swizzles[3]);
+
+		glm::tvec3<GLsizei> const extent(texture.extent());
+		GLsizei const faceTotal = static_cast<GLsizei>(texture.layers() * texture.faces());
+		nbFaces = (int)faceTotal;
+
+		if (face == 0) {
+			glTexStorage2D(target, static_cast<GLint>(texture.levels()), texFormat.Internal,
+				extent.x, texture.target() == gli::TARGET_2D ? extent.y : faceTotal);
+		}
+
+		target = static_cast<GLenum>(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face);
+		if (gli::is_compressed(texture.format()))
+			glCompressedTexSubImage2D(target, 0,
+				0, 0,
+				extent.x,
+				extent.y,
+				texFormat.Internal,
+				static_cast<GLsizei>(texture.size(0)),
+				texture.data(0, 0, 0));
+		else
+			glTexSubImage2D(target, 0,
+				0, 0,
+				extent.x,
+				extent.y,
+				texFormat.External, texFormat.Type,
+				texture.data(0, 0, 0));
+		face++;
+	}
+	return (textureID != 0);
+}
