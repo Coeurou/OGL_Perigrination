@@ -124,7 +124,7 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 
 		// Camera setup
         camera.SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
-        camera.SetSpeed(12.0f);
+        camera.SetSpeed(8.0f);
         camera.SetupProjection(45.0f, windowWidth/(float)windowHeight);
 
 		// OpenGL setup

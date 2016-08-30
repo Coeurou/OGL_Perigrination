@@ -7,6 +7,7 @@
 #include "OGLCube.hpp"
 #include <sstream>
 #include <initializer_list>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 OGLSkybox::OGLSkybox()
@@ -22,7 +23,7 @@ bool OGLSkybox::InitGUI()
     auto tweakBar = atbApp->GetBarByIndex(0);
     auto barName = TwGetBarName(tweakBar);
     std::stringstream format;
-    format << barName << " " << " label='SimpleTriangle Example' help='This example use GL_TRIANGLES.' ";
+    format << barName << " " << " label='Simple skybox Example' ";
     
     TwDefine(format.str().c_str());
     
@@ -65,17 +66,26 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		camera.SetSpeed(15.0f);
 	}
 	glEnable(GL_DEPTH_TEST);
+
 	return res;
 }
 
 void OGLSkybox::Render(double time)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    
+    int oldCullMode, oldDepthFunc;
+    glGetIntegerv(GL_CULL_FACE_MODE, &oldCullMode);
+    glGetIntegerv(GL_DEPTH_FUNC, &oldDepthFunc);
+    
+    glCullFace(GL_FRONT_FACE);
+    glDepthFunc(GL_LEQUAL);
 	camera.Update();
 	
 	glm::mat4 MVP = camera.GetViewProjectionMatrix();
-	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-
+    glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(glm::translate(MVP, camera.GetPosition())));
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+    
+    glCullFace(oldCullMode);
+    glDepthFunc(oldDepthFunc);
 }

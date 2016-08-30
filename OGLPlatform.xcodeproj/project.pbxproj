@@ -14,6 +14,7 @@
 		D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */; };
 		D113D9C31D4B0ED6009A34DC /* OGLApplicationConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9BF1D4B0ED6009A34DC /* OGLApplicationConstants.cpp */; };
 		D113D9C41D4B0ED6009A34DC /* ApplicationSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D113D9C11D4B0ED6009A34DC /* ApplicationSettings.cpp */; };
+		D12DC4A31D74A43200C2140D /* OGLSkybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D12DC4A11D74A43200C2140D /* OGLSkybox.cpp */; };
 		D131DAA51D58FB3100A129CE /* OGLRipplePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */; };
 		D131DAAA1D58FB4400A129CE /* OGLUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D131DAA61D58FB4400A129CE /* OGLUtility.cpp */; };
 		D131DAAE1D58FB6600A129CE /* WindowGLFW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D131DAAC1D58FB6600A129CE /* WindowGLFW.cpp */; };
@@ -79,6 +80,8 @@
 		D113D9C01D4B0ED6009A34DC /* OGLApplicationConstants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLApplicationConstants.hpp; path = src/OGLApplicationConstants.hpp; sourceTree = "<group>"; };
 		D113D9C11D4B0ED6009A34DC /* ApplicationSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ApplicationSettings.cpp; path = src/ApplicationSettings.cpp; sourceTree = "<group>"; };
 		D113D9C21D4B0ED6009A34DC /* ApplicationSettings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ApplicationSettings.hpp; path = src/ApplicationSettings.hpp; sourceTree = "<group>"; };
+		D12DC4A11D74A43200C2140D /* OGLSkybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLSkybox.cpp; path = src/OGLSkybox.cpp; sourceTree = "<group>"; };
+		D12DC4A21D74A43200C2140D /* OGLSkybox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLSkybox.hpp; path = src/OGLSkybox.hpp; sourceTree = "<group>"; };
 		D131DAA21D58FB0700A129CE /* ATBResource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ATBResource.hpp; path = src/ATBResource.hpp; sourceTree = "<group>"; };
 		D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRipplePlane.cpp; path = src/OGLRipplePlane.cpp; sourceTree = "<group>"; };
 		D131DAA41D58FB3100A129CE /* OGLRipplePlane.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRipplePlane.hpp; path = src/OGLRipplePlane.hpp; sourceTree = "<group>"; };
@@ -178,32 +181,34 @@
 		D113D9AB1D4B0E5D009A34DC /* Stages */ = {
 			isa = PBXGroup;
 			children = (
-				D1BCF1E21D73113A00744215 /* OGLIndexedDraw.cpp */,
-				D1BCF1E31D73113A00744215 /* OGLIndexedDraw.hpp */,
-				D1BCF1E41D73113A00744215 /* OGLSimpleLighting.cpp */,
-				D1BCF1E51D73113A00744215 /* OGLSimpleLighting.hpp */,
 				D1BCF1DC1D73110600744215 /* OGLAnimatedPyramids.cpp */,
 				D1BCF1DD1D73110600744215 /* OGLAnimatedPyramids.hpp */,
 				D1BCF1DE1D73110600744215 /* OGLCameraStage.cpp */,
 				D1BCF1DF1D73110600744215 /* OGLCameraStage.hpp */,
 				D131DAAF1D5A55C300A129CE /* OGLGeometryShader.cpp */,
 				D131DAB01D5A55C300A129CE /* OGLGeometryShader.hpp */,
-				D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */,
-				D131DAA41D58FB3100A129CE /* OGLRipplePlane.hpp */,
-				D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */,
-				D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */,
+				D1BCF1E21D73113A00744215 /* OGLIndexedDraw.cpp */,
+				D1BCF1E31D73113A00744215 /* OGLIndexedDraw.hpp */,
 				D134A4061D52820B0029C42A /* OGLMipmaps.cpp */,
 				D134A4071D52820B0029C42A /* OGLMipmaps.hpp */,
+				D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */,
+				D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */,
 				D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */,
 				D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */,
-				D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */,
-				D1F0AF081D4B201B0012F548 /* OGLSimpleCube.hpp */,
-				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
-				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
 				D113D9B11D4B0EB8009A34DC /* OGLPointSize.cpp */,
 				D113D9B21D4B0EB8009A34DC /* OGLPointSize.hpp */,
+				D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */,
+				D131DAA41D58FB3100A129CE /* OGLRipplePlane.hpp */,
+				D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */,
+				D1F0AF081D4B201B0012F548 /* OGLSimpleCube.hpp */,
+				D1BCF1E41D73113A00744215 /* OGLSimpleLighting.cpp */,
+				D1BCF1E51D73113A00744215 /* OGLSimpleLighting.hpp */,
 				D113D9B31D4B0EB8009A34DC /* OGLSimpleTriangle.cpp */,
 				D113D9B41D4B0EB8009A34DC /* OGLSimpleTriangle.hpp */,
+				D12DC4A11D74A43200C2140D /* OGLSkybox.cpp */,
+				D12DC4A21D74A43200C2140D /* OGLSkybox.hpp */,
+				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
+				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
 			);
 			name = Stages;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */,
 				D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */,
 				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
+				D12DC4A31D74A43200C2140D /* OGLSkybox.cpp in Sources */,
 				D113D9BD1D4B0EC6009A34DC /* OGLPoint.cpp in Sources */,
 				D131DAAE1D58FB6600A129CE /* WindowGLFW.cpp in Sources */,
 				D131DAA51D58FB3100A129CE /* OGLRipplePlane.cpp in Sources */,

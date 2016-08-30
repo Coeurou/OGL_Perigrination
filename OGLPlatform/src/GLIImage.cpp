@@ -158,12 +158,12 @@ bool GLIImage::LoadCubemapFile(const std::vector<std::string>& imgPaths)
 		gli::gl GL(gli::gl::PROFILE_GL33);
 		gli::gl::format const texFormat = GL.translate(texture.format(), texture.swizzles());
 
-		glTexParameteri(target, GL_TEXTURE_BASE_LEVEL, 0);
-		glTexParameteri(target, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(texture.levels() - 1));
-		glTexParameteri(target, GL_TEXTURE_SWIZZLE_R, texFormat.Swizzles[0]);
-		glTexParameteri(target, GL_TEXTURE_SWIZZLE_G, texFormat.Swizzles[1]);
-		glTexParameteri(target, GL_TEXTURE_SWIZZLE_B, texFormat.Swizzles[2]);
-		glTexParameteri(target, GL_TEXTURE_SWIZZLE_A, texFormat.Swizzles[3]);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(texture.levels() - 1));
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_SWIZZLE_R, texFormat.Swizzles[0]);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_SWIZZLE_G, texFormat.Swizzles[1]);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_SWIZZLE_B, texFormat.Swizzles[2]);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_SWIZZLE_A, texFormat.Swizzles[3]);
 
 		glm::tvec3<GLsizei> const extent(texture.extent());
 		GLsizei const faceTotal = static_cast<GLsizei>(texture.layers() * texture.faces());
@@ -192,5 +192,6 @@ bool GLIImage::LoadCubemapFile(const std::vector<std::string>& imgPaths)
 				texture.data(0, 0, 0));
 		face++;
 	}
+    target = GL_TEXTURE_CUBE_MAP;
 	return (textureID != 0);
 }

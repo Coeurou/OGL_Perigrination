@@ -28,7 +28,7 @@ namespace gs
         
         void Update();
         void Move(const glm::vec3& dir);
-        void Rotate(const glm::vec3& rot);
+        void Rotate(const glm::vec2& rot);
         void SetupProjection(float fovy, float aspectRatio, float near = 0.1f, float far = 100.0f);
 
         void OnKeyPressed(const EventArgs& args);
@@ -38,7 +38,9 @@ namespace gs
         glm::mat4 GetProjectionMatrix() const { return projection; }
         glm::mat4 GetViewMatrix() const { return view; }
         glm::mat4 GetViewProjectionMatrix() const { return projection * view; }
+        glm::vec3 GetPosition() const { return position; }
         void SetSpeed(float velocity) { speed = velocity; }
+        void SetAngularSpeed(float velocity) { angularSpeed = velocity; }
         void SetPosition(const glm::vec3& newPos) { position = newPos; Update(); }
         void SetTarget(const glm::vec3& newTarget) { target = newTarget; Update(); }
         void SetUpVector(const glm::vec3& dir) { up = dir; Update(); }
@@ -51,6 +53,7 @@ namespace gs
         float nearDistance;
         float farDistance;
         float speed;
+        float angularSpeed;
         
         glm::mat4 view;
         glm::mat4 projection;

@@ -14,9 +14,10 @@
 
 namespace gs
 { 
-    Camera::Camera() : speed(0.1f), nearDistance(0.1f), farDistance(100.0f), fov(45.0f),
-                       up(glm::vec3(0.0f, 1.0f, 0.0f)), right(glm::vec3(1.0f, 0.0f, 0.0f)),
-                       target(glm::vec3(0.0f, 0.0f, 1.0f)), forward(glm::vec3(0.0f, 0.0f, 1.0f))
+    Camera::Camera() : speed(0.1f), angularSpeed(0.5f), nearDistance(0.1f), farDistance(100.0f),
+                       fov(45.0f), up(glm::vec3(0.0f, 1.0f, 0.0f)),
+                       right(glm::vec3(1.0f, 0.0f, 0.0f)), target(glm::vec3(0.0f, 0.0f, 1.0f)),
+                       forward(glm::vec3(0.0f, 0.0f, 1.0f))
     {
         EventFun keyEventFun(0, [=](const EventArgs& args) {
             this->OnKeyPressed(args);
@@ -66,9 +67,9 @@ namespace gs
         target = position + forward;
     }
     
-    void Camera::Rotate(const glm::vec3& rot)
-    {   
-        forward = glm::vec3(cosf(rot.x) * sinf(rot.y), sinf(rot.x), cosf(rot.x) * cosf(rot.y));
+    void Camera::Rotate(const glm::vec2& rot)
+    {
+        forward = glm::rotate(glm::mat4(1.0f), -rot.y, up) * glm::rotate(glm::mat4(1.0f), rot.x, right) * glm::vec4(forward, 0);
 		glm::normalize(forward);
 		right = glm::cross(up, forward);
 		glm::normalize(right);
@@ -144,20 +145,17 @@ namespace gs
     {
         const auto& mouseEvent = static_cast<const MouseEventArgs&>(args);
         
-		int deltaX = mouseEvent.posX - mousePos.x;
-		int deltaY = mouseEvent.posY - mousePos.y;
+        glm::vec2 delta { mouseEvent.posY - mousePos.y, mouseEvent.posX - mousePos.x };
 
 		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
 
 		// On mouse button release
-        if (mouseEvent.state == 0) {
+        if (mouseEvent.state == 0 || glm::length(delta) > 10.0f) {
             return;
         }
-
-		horizontalAngle += deltaX;
-		verticalAngle += deltaY;
+        delta *= deltaTime * angularSpeed;
             
-        Rotate(glm::vec3(glm::radians(-verticalAngle * (float)deltaTime * speed), glm::radians(-horizontalAngle * (float)deltaTime * speed), 0.0f));
+        Rotate(delta);
     }
     
     void Camera::OnWindowResized(const EventArgs& args)
