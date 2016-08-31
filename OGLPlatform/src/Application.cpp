@@ -8,6 +8,7 @@
 #include "OGLApplicationConstants.hpp"
 #include <iostream>
 #include <sstream>
+#include <cassert>
 
 ATBResource atbHandle;
 
@@ -71,7 +72,7 @@ namespace gs
     void Application::ChangeStage(STAGES newStage)
     {
         stage = FactoryStage::CreateStage(newStage);
-        stage->Init(window->GetWindowWidth(), window->GetWindowHeight());
+        assert(stage->Init(window->GetWindowWidth(), window->GetWindowHeight()));
     }
     
     void Application::InitStagesTweakBar()

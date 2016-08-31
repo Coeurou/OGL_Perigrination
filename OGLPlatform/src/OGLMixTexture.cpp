@@ -85,13 +85,13 @@ bool OGLMixTexture::InitTextures()
 
 bool OGLMixTexture::InitGeometry()
 {
-    renderedObjs.push_back(std::make_unique<OGLQuad>());
-    renderedObjs[0]->InitVertices(glm::vec3());
+    resizableObjs.push_back(std::make_unique<OGLQuad>());
+    resizableObjs[0]->InitVertices(glm::vec3());
     
-    renderedObjs.push_back(std::make_unique<OGLCube>());
-    renderedObjs[1]->InitVertices(glm::vec3());
+    resizableObjs.push_back(std::make_unique<OGLCube>());
+    resizableObjs[1]->InitVertices(glm::vec3());
     
-    return (renderedObjs.size() == 2);
+    return (resizableObjs.size() == 2);
 }
 
 bool OGLMixTexture::InitVBO()
@@ -102,8 +102,8 @@ bool OGLMixTexture::InitVBO()
 
     auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
     vbo->BindVBO();
-    auto& quad = renderedObjs[0]->GetVertices();
-    auto& cube = renderedObjs[1]->GetVertices();
+    auto& quad = resizableObjs[0]->GetVertices();
+    auto& cube = resizableObjs[1]->GetVertices();
 	std::vector<glm::vec3> pyramidPositions { glm::vec3(-0.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.0f, -0.5f), glm::vec3(-0.5f, 0.0f, 0.5f), glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f) };
 	std::vector<gs::Vertex> pyramidVertices{ gs::Vertex{ pyramidPositions[0], glm::vec2(0,0) }, gs::Vertex { pyramidPositions[1], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) },
 											 gs::Vertex{ pyramidPositions[0], glm::vec2(1,0) }, gs::Vertex{ pyramidPositions[2], glm::vec2(0,0) }, gs::Vertex{ pyramidPositions[4], glm::vec2(0.5f,1.0f) },

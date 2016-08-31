@@ -12,6 +12,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
+const float maxMouseMove = 100.0f;
+
 namespace gs
 { 
     Camera::Camera() : speed(0.1f), angularSpeed(0.5f), nearDistance(0.1f), farDistance(100.0f),
@@ -150,7 +152,7 @@ namespace gs
 		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
 
 		// On mouse button release
-        if (mouseEvent.state == 0 || glm::length(delta) > 10.0f) {
+        if (mouseEvent.state == 0 || glm::length(delta) > maxMouseMove) {
             return;
         }
         delta *= deltaTime * angularSpeed;

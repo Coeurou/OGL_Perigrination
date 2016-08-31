@@ -35,7 +35,7 @@ bool OGLSimpleLighting::InitGUI()
     auto tweakBar = atbApp->GetBarByIndex(0);
     auto barName = TwGetBarName(tweakBar);
     std::stringstream format;
-    format << barName << " " << " label='Free camera Example' ";
+    format << barName << " " << " label='Lighting Example' ";
     
 	TwAddVarRW(tweakBar, "lightDir", TW_TYPE_DIR3F, &light.direction, "label='Direction' group='Light'");
 	TwAddVarRW(tweakBar, "lightColor", TW_TYPE_COLOR3F, &light.color, "label='Color' group='Light'");

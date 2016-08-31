@@ -10,4 +10,6 @@ const std::string XmlSettingsPath = "Resources/Settings.xml";
 
 const std::string ShadersPath = "Resources/Shaders";
 const std::string TexturesPath = "Resources/Textures";
+const std::string ModelsPath = "Resources/Models";
+const std::string DefaultTexture = "Paper_Crumbled.dds";
 

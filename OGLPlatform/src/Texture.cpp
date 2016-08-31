@@ -23,12 +23,12 @@ namespace gs
         textureID = 0;
     }
     
-    bool Texture::LoadTexture(std::string imgFilename)
+    bool Texture::LoadTexture(const std::string& imgFilename)
     {
-        imgFilename = TexturesPath + "/" + imgFilename;
+        auto imgFile = TexturesPath + "/" + imgFilename;
         
         auto texImg = ImageFactory::CreateImage(loadingMethod);
-        texImg->LoadImageFile(imgFilename);
+        texImg->LoadImageFile(imgFile);
         
         textureID = texImg->GetTextureID();
         target = texImg->GetTarget();
@@ -40,7 +40,7 @@ namespace gs
             glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         }
         else {
-            std::cerr << "Texture " << imgFilename << " loading failed" << std::endl;
+            std::cerr << "Texture " << imgFile << " loading failed" << std::endl;
         }
         return res;
     }

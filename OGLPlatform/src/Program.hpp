@@ -24,7 +24,11 @@ namespace gs
 		bool CreateShader(GLenum shaderType, const std::string& source);
 
         const GLuint get() const { return programID; };
-		GLuint GetUniform(const std::string& name) const { return uniformLocations.at(name); }
+		GLuint GetUniform(const std::string& name) const {
+			auto it = uniformLocations.find(name);
+			if (it != uniformLocations.end()) { return uniformLocations.at(name); }
+			return -1;
+		}
 
         void Attach(GLuint shader);
         void Detach(GLuint shader);
@@ -35,7 +39,7 @@ namespace gs
     private:
         GLuint programID;
 		std::set<GLuint> shaders;
-		std::map<std::string, GLuint> uniformLocations;
+		std::map<std::string, int> uniformLocations;
     };
 }
 /* Program_hpp */

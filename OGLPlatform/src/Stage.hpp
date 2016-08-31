@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include "OGLObjResizable.hpp"
+#include "OGLRenderableObject.hpp"
 
 namespace gs
 {
@@ -34,7 +35,8 @@ namespace gs
     protected:
         virtual bool InitGUI() { return true; };
         
-        std::vector<std::unique_ptr<OGLObjResizable>> renderedObjs;
+		std::vector<std::unique_ptr<OGLObjResizable>> resizableObjs;
+		std::vector<std::unique_ptr<OGLRenderableObject>> renderedObjs;
         std::vector<std::shared_ptr<VertexArray>> vaos;
         std::vector<std::shared_ptr<VertexBuffer>> vbos;
         std::vector<std::shared_ptr<Shader>> shaders;

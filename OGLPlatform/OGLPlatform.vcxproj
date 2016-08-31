@@ -72,7 +72,7 @@
     <IncludePath>F:\Devs\Librairies\glew-2.0.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2.bin.WIN32\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>F:\Devs\Librairies\glew-1.13.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2\include;F:\Devs\Librairies\tinyxml2;F:\Devs\Librairies\gli;$(IncludePath)</IncludePath>
+    <IncludePath>F:\Devs\Librairies\glew-1.13.0\include;F:\Devs\Librairies\AntTweakBar\include;F:\Devs\Librairies\assimp-3.2\include;F:\Devs\Librairies\glm;F:\Devs\Librairies\glfw-3.2\include;F:\Devs\Librairies\tinyxml2;F:\Devs\Librairies\gli;$(IncludePath)</IncludePath>
     <GenerateManifest>true</GenerateManifest>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -103,8 +103,8 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>F:\Devs\Librairies\glew-2.0.0\lib\Release\x64;F:\Devs\Librairies\glfw-3.2\lib-vc2015;F:\Devs\Librairies\AntTweakBar\lib;F:\Devs\Librairies\tinyxml2\tinyxml2\bin\x64-Release-Dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;AntTweakBar64.lib;tinyxml2.lib;OpenGL32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Devs\Librairies\glew-2.0.0\lib\Release\x64;F:\Devs\Librairies\glfw-3.2\lib-vc2015;F:\Devs\Librairies\assimp-3.2\lib\Release;F:\Devs\Librairies\AntTweakBar\lib;F:\Devs\Librairies\tinyxml2\tinyxml2\bin\x64-Release-Dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;AntTweakBar64.lib;tinyxml2.lib;assimp-vc130-mt.lib;OpenGL32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>
@@ -159,10 +159,14 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\GLFWContext.hpp" />
     <ClInclude Include="src\GLFWUtility.hpp" />
     <ClInclude Include="src\Light.hpp" />
+    <ClInclude Include="src\Material.hpp" />
+    <ClInclude Include="src\Mesh.hpp" />
+    <ClInclude Include="src\Model.hpp" />
     <ClInclude Include="src\OGLCameraStage.hpp" />
     <ClInclude Include="src\OGLGeometryShader.hpp" />
     <ClInclude Include="src\OGLIndexedDraw.hpp" />
     <ClInclude Include="src\OGLModelMatrix.hpp" />
+    <ClInclude Include="src\OGLRenderableObject.hpp" />
     <ClInclude Include="src\OGLRipplePlane.hpp" />
     <ClInclude Include="src\OGLSimpleLighting.hpp" />
     <ClInclude Include="src\OGLSkybox.hpp" />
@@ -205,6 +209,9 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FactoryStage.cpp" />
     <ClCompile Include="src\GLFWContext.cpp" />
+    <ClCompile Include="src\Material.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\OGLCameraStage.cpp" />
     <ClCompile Include="src\OGLGeometryShader.cpp" />
     <ClCompile Include="src\OGLIndexedDraw.cpp" />

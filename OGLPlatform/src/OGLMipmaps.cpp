@@ -88,15 +88,15 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         sampler->BindSampler(0);
         samplers.push_back(sampler);
         
-		renderedObjs.push_back(std::make_unique<OGLQuad>());
+		resizableObjs.push_back(std::make_unique<OGLQuad>());
 
-        renderedObjs[0]->SetWidth(20);
-        renderedObjs[0]->SetHeight(2);
-        res &= renderedObjs[0]->InitVertices(glm::vec3());
+        resizableObjs[0]->SetWidth(20);
+        resizableObjs[0]->SetHeight(2);
+        res &= resizableObjs[0]->InitVertices(glm::vec3());
         
         auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
-        auto& geomData = renderedObjs[0]->GetVertices();
+        auto& geomData = resizableObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * geomData.size(), geomData.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         

@@ -10,7 +10,7 @@ public:
 	OGLPoint(float size);
 	~OGLPoint();
     
-    bool InitVertices(glm::vec3 origin);
+    bool InitVertices(glm::vec3 origin) override;
     
     virtual void SetWidth(float newWidth)
     {

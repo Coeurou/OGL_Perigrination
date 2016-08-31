@@ -51,8 +51,8 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
 
-		renderedObjs.push_back(std::make_unique<OGLCube>());
-        res &= renderedObjs[0]->InitVertices(glm::vec3());
+		resizableObjs.push_back(std::make_unique<OGLCube>());
+        res &= resizableObjs[0]->InitVertices(glm::vec3());
         
         auto vao = std::make_shared<gs::VertexArray>();
         vao->BindVAO();
@@ -81,7 +81,7 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
         
         auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
-        auto& data = renderedObjs[0]->GetVertices();
+        auto& data = resizableObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * 36, data.data(), GL_STATIC_DRAW);
         vbos.push_back(vbo);
         

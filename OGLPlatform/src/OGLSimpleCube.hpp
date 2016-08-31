@@ -17,8 +17,8 @@ public:
 	OGLSimpleCube();
 	~OGLSimpleCube();
 
-	bool Init(int windowWidth, int windowHeight);
-	void Render(double time);
+	bool Init(int windowWidth, int windowHeight) override;
+	void Render(double time) override;
     
 private:
     bool InitGUI();

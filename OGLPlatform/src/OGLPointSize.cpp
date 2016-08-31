@@ -35,7 +35,7 @@ bool OGLPointSize::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
         
-		renderedObjs.push_back(std::make_unique<OGLPoint>(40));
+		resizableObjs.push_back(std::make_unique<OGLPoint>(40));
         auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
         auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
         auto program = std::make_shared<gs::Program>();
@@ -67,7 +67,7 @@ void OGLPointSize::Render(double time)
     }
     glClearBufferfv(GL_COLOR, 0, &bgColor[0]);
     
-    renderedObjs[0]->SetWidth(((int)time % 90)+1.0f);
+    resizableObjs[0]->SetWidth(((int)time % 90)+1.0f);
     
 	glDrawArrays(GL_POINTS, 0, 1);
 }

@@ -168,6 +168,18 @@
     <ClInclude Include="src\OGLSkybox.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mesh.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLRenderableObject.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -286,6 +298,15 @@
     </ClCompile>
     <ClCompile Include="src\OGLSkybox.cpp">
       <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
