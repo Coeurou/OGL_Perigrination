@@ -9,12 +9,13 @@ out vec3 vsPosition;
 out vec3 vsNormal;
 
 uniform mat4 MVP;
+uniform mat4 MV;
 uniform mat4 normalMatrix;
 
 void main()
 {
 	gl_Position = MVP * vec4(position, 1);
-	vsPosition = position;
+	vsPosition = vec3(MV * vec4(position,1));
 	vsTexCoords = texCoords;
 	vsNormal = vec3(normalMatrix * vec4(normal, 0));
 }
