@@ -23,10 +23,6 @@ namespace gs
         Material();
         ~Material();
         
-        bool AddTexture(const std::string& imgFilename, LIGHT_CONTRIBUTION contribution);
-
-		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
-
 		glm::vec4 GetAmbientColor() const { return ambientColor; }
 		void SetAmbientColor(glm::vec4 color) { ambientColor = color; }
 
@@ -43,7 +39,6 @@ namespace gs
 		void SetShininess(float index) { shininess = index; }
 
     private:
-		std::vector<std::shared_ptr<Texture>> textures;
 		glm::vec4 ambientColor;
 		glm::vec4 diffuseColor;
 		glm::vec4 specularColor;

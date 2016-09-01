@@ -1,6 +1,7 @@
 #include "Model.hpp"
 #include "Mesh.hpp"
 #include "Material.hpp"
+#include "Texture.hpp"
 #include "OGLApplicationConstants.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -46,7 +47,7 @@ namespace gs
 		return res;
 	}
 
-	bool Model::InitMesh(unsigned int index, const aiMesh* mesh, Material* material)
+	bool Model::InitMesh(unsigned int index, const aiMesh* mesh, AssimpMaterial* assimpMaterial)
 	{
 		subMeshes[index].SetMaterialIndex(mesh->mMaterialIndex);
 
@@ -74,7 +75,7 @@ namespace gs
 			indices.push_back(face.mIndices[2]);
 		}
 		subMeshes[index].InitGL(vertices, indices);
-		subMeshes[index].SetMaterial(material);
+		subMeshes[index].SetMaterial(assimpMaterial->material.get(), assimpMaterial->textures);
 		return true;
 	}
 
@@ -87,11 +88,22 @@ namespace gs
 		return true;
 	}
 
+	bool Model::AddTexture(int materialIndex, const std::string& imgFilename, LIGHT_CONTRIBUTION contribution)
+	{
+		auto texture = std::make_shared<Texture>(IMAGE_TYPE::GLI);
+		bool res = texture->LoadTexture(imgFilename);
+		texture->SetContribution(contribution);
+		materials[materialIndex]->textures.push_back(texture);
+
+		return res;
+	}
+
 	bool Model::InitMaterials(const aiScene * scene)
 	{
 		bool res = true;
 		for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
-			materials[i] = std::make_shared<Material>();
+			materials[i] = std::make_shared<AssimpMaterial>();
+			materials[i]->material = std::make_shared<Material>();
 			const aiMaterial* material = scene->mMaterials[i];
 			if (material->GetTextureCount(aiTextureType_DIFFUSE)) {
 				res &= InitMaterialByType(material, aiTextureType_DIFFUSE, i);
@@ -140,14 +152,14 @@ namespace gs
 			aiString path;
 			if (material->GetTexture(texType, i, &path) == AI_SUCCESS) {
 				std::string fullPath = path.data;
-				fullPath = fullPath.substr(2);
 				replace(fullPath, ".jpg", ".dds");
-				res &= materials[startIndex]->AddTexture(fullPath, contribution);
+				replace(fullPath, ".png", ".dds");
+				res &= AddTexture(startIndex, fullPath, contribution);
 				indexOffset++;
 			}
 		}
 		if (!res) {
-			res = materials[startIndex]->AddTexture(DefaultTexture, contribution);
+			res = AddTexture(startIndex, DefaultTexture, contribution);
 		}
 
 		glm::vec4 color(0.8f, 0.8f, 0.8f, 1.0f);

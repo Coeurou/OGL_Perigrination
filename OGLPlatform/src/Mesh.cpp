@@ -33,8 +33,9 @@ namespace gs
 
 		glUniform4fv(program->GetUniform("material.ambientColor"), 1, glm::value_ptr(material->GetAmbientColor()));
 		glUniform4fv(program->GetUniform("material.diffuseColor"), 1, glm::value_ptr(material->GetDiffuseColor()));
+		glUniform4fv(program->GetUniform("material.specularColor"), 1, glm::value_ptr(material->GetSpecularColor()));
+		//glUniform1f(program->GetUniform("material.shininess"), (GLfloat)0.0f);
 
-		auto& textures = material->GetTextures();
 		for (size_t i = 0; i < textures.size(); i++)
 		{
 			textures[i]->BindTexture((GLenum)(GL_TEXTURE0+i));

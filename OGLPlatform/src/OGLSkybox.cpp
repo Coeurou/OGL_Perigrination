@@ -64,12 +64,9 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		res &= programRender->AddUniform("normalMatrix");
 		programRender->AddUniform("light.color");
 		programRender->AddUniform("light.direction");
-		programRender->AddUniform("light.ambientIntensity");
-		programRender->AddUniform("light.diffuseIntensity");
 		programRender->AddUniform("material.diffuseColor");
 		programRender->AddUniform("material.ambientColor");
 		programRender->AddUniform("material.specularColor");
-		programRender->AddUniform("material.emissiveColor");
 		programRender->AddUniform("material.shininess");
 		programs.push_back(programRender);
         
@@ -92,8 +89,11 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		renderedObjs.push_back(std::make_unique<gs::Model>());
 		res &= renderedObjs[0]->Load("spider.obj");
 
+		renderedObjs.push_back(std::make_unique<gs::Model>());
+		res &= renderedObjs[1]->Load("nanosuit.obj");
+
 		camera.SetupProjection(45.0f, windowWidth / (float)windowHeight);
-		camera.SetPosition(glm::vec3(0, 0, -15));
+		camera.SetPosition(glm::vec3(0, 0, 15));
 		camera.SetSpeed(15.0f);
 	}
 	glEnable(GL_DEPTH_TEST);
@@ -126,8 +126,6 @@ void OGLSkybox::Render(double time)
 	programs[1]->Use();
 	glUniform3fv(programs[1]->GetUniform("light.color"), 1, glm::value_ptr(light.color));
 	glUniform3fv(programs[1]->GetUniform("light.direction"), 1, glm::value_ptr(light.direction));
-	glUniform1f(programs[1]->GetUniform("light.ambientIntensity"), light.ambientIntensity);
-	glUniform1f(programs[1]->GetUniform("light.diffuseIntensity"), light.diffuseIntensity);
 
 	glm::mat4 model = glm::rotate(glm::mat4(1.0f), 45.0f * (float)glm::radians(time), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.1f));
@@ -135,6 +133,12 @@ void OGLSkybox::Render(double time)
 	glUniformMatrix4fv(programs[1]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
 	renderedObjs[0]->Render(programs[1].get());
-    
 
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(-20, -5, -5));
+	model = glm::rotate(model, -45.0f * (float)glm::radians(time), glm::vec3(0.0f, 1.0f, 0.0f));
+	MVP *= model;
+	glUniformMatrix4fv(programs[1]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix() * model));
+	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glUniform1f(programs[1]->GetUniform("material.shininess"), 32.0f);
+	renderedObjs[1]->Render(programs[1].get()); 
 }

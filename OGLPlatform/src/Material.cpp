@@ -16,15 +16,5 @@ namespace gs
     
 	Material::~Material()
     {
-	}
-    
-    bool Material::AddTexture(const std::string& imgFilename, LIGHT_CONTRIBUTION contribution)
-    {
-		auto texture = std::make_shared<Texture>(IMAGE_TYPE::GLI);
-		bool res = texture->LoadTexture(imgFilename);
-		texture->SetContribution(contribution);
-		textures.push_back(texture);
-
-        return res;
-    }
+	}       
 }

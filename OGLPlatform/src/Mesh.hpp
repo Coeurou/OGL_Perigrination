@@ -25,8 +25,10 @@ namespace gs
 		~Mesh();
 
 		void InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices);
-		void SetMaterial(Material* material) { this->material = material; }
+		void SetMaterial(Material* material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
 		void Draw(Program* program);
+
+		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
 
 		int GetMaterialIndex() const { return materialIndex; }
 		void SetMaterialIndex(int index) { materialIndex = index; }
@@ -46,6 +48,8 @@ namespace gs
 		glm::mat4 modelMatrix;
 					
 		Material* material;
+		std::vector<std::shared_ptr<Texture>> textures;
+
 	};
 }
 /* Mesh.hpp */

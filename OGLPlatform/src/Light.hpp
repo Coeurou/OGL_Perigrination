@@ -10,5 +10,6 @@ namespace gs
 		glm::vec3 color;
 		float ambientIntensity;
 		float diffuseIntensity;
+		float specularIntensity;
 	};
 }

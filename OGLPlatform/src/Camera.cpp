@@ -18,8 +18,8 @@ namespace gs
 { 
     Camera::Camera() : speed(0.1f), angularSpeed(0.5f), nearDistance(0.1f), farDistance(100.0f),
                        fov(45.0f), up(glm::vec3(0.0f, 1.0f, 0.0f)),
-                       right(glm::vec3(1.0f, 0.0f, 0.0f)), target(glm::vec3(0.0f, 0.0f, 1.0f)),
-                       forward(glm::vec3(0.0f, 0.0f, 1.0f))
+                       right(glm::vec3(1.0f, 0.0f, 0.0f)), target(glm::vec3(0.0f, 0.0f, 0.0f)),
+                       forward(glm::vec3(0.0f, 0.0f, -1.0f))
     {
         EventFun keyEventFun(0, [=](const EventArgs& args) {
             this->OnKeyPressed(args);
