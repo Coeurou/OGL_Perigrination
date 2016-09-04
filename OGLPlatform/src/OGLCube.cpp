@@ -9,10 +9,10 @@ OGLCube::~OGLCube()
 
 bool OGLCube::InitVertices(std::array<glm::vec3, 8> data)
 {
-    auto front = Quad(data[1], data[0], data[3], data[2]);
-    auto back = Quad(data[4], data[7], data[6], data[5]);
-    auto left = Quad(data[0], data[4], data[5], data[3]);
-    auto right = Quad(data[7], data[1], data[2], data[6]);
+    auto front = Quad(data[0], data[1], data[2], data[3]);
+    auto back = Quad(data[7], data[4], data[5], data[6]);
+    auto left = Quad(data[4], data[0], data[3], data[5]);
+    auto right = Quad(data[1], data[7], data[6], data[2]);
     auto top = Quad(data[6], data[5], data[3], data[2]);
     auto bottom = Quad(data[1], data[0], data[4], data[7]);
     

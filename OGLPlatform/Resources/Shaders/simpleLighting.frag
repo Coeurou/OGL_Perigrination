@@ -2,9 +2,9 @@
 
 struct DirectionnalLight
 {
-	float ambientIntensity;
-	float diffuseIntensity;
-	vec3 color;
+	vec3 ambientColor;
+	vec3 diffuseColor;
+	vec3 specularColor;
 	vec3 direction;
 };
 
@@ -19,7 +19,6 @@ void main()
 {
 	float diffuseContribution = max(0.0, dot(-light.direction, normalize(vsNormal)));
 	
-	vec4 ambientColor = vec4(light.color, 1) * light.ambientIntensity;
-	vec4 diffuseColor = vec4(light.color, 1) * light.diffuseIntensity * diffuseContribution;
-	fColor = texture(sampler, vsTexCoords) * (ambientColor + diffuseColor);
+	vec3 diffuseColor = light.diffuseColor * diffuseContribution;
+	fColor = texture(sampler, vsTexCoords) * vec4(light.ambientColor + diffuseColor, 1);
 }

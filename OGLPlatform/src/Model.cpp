@@ -21,10 +21,15 @@ namespace gs
 	bool Model::Load(const std::string& meshFilename)
 	{
 		Assimp::Importer importer;
-		auto scene = importer.ReadFile(ModelsPath + "/" + meshFilename, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
+		auto scene = importer.ReadFile(ModelsPath + "/" + meshFilename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | 
+																		aiProcess_JoinIdenticalVertices | aiProcess_ValidateDataStructure |
+																		aiProcess_SortByPType | aiProcess_GenUVCoords | aiProcess_CalcTangentSpace);
 
 		if (scene != nullptr) {
 			vao.BindVAO();
+			vao.AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+			vao.AddAttribute(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
+			vao.AddAttribute(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 			return InitFromScene(scene);
 		}
 		else {
@@ -188,7 +193,7 @@ namespace gs
 			memcpy(&color, &emission, sizeof(float) * 4);
 		materials[startIndex]->SetEmissiveColor(color);
 
-		float shininess = 0.0;
+		float shininess = 0.0f;
 		unsigned int max;
 		aiGetMaterialFloatArray(material, AI_MATKEY_SHININESS, &shininess, &max);
 		materials[startIndex]->SetShininess(shininess);
@@ -199,16 +204,8 @@ namespace gs
 	void Model::Render(Program* program)
 	{
 		vao.BindVAO();
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
-		glEnableVertexAttribArray(2);
-
 		for (auto& mesh : subMeshes) {
 			mesh.Draw(program);
 		}
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(2);
 	}
 }

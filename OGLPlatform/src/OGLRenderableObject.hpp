@@ -9,6 +9,7 @@
 #pragma once
 
 #include "OGLResource.hpp"
+#include <string>
 
 namespace gs
 {
@@ -24,4 +25,4 @@ public:
 	virtual void Render(Program* program) = 0;
 };
 }
-/* OGLRenderableObject */
+/* OGLRenderableObject_hpp */

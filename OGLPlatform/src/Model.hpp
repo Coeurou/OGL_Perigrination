@@ -27,7 +27,7 @@ enum class LIGHT_CONTRIBUTION;
 namespace gs
 {
 	class Mesh;
-	class Material;
+	struct Material;
 
 	class Model : public OGLRenderableObject
 	{
@@ -36,6 +36,7 @@ namespace gs
 		~Model();
 
 		GLuint GetVAO() const { return vao.get(); }
+		const std::vector<Mesh>& GetSubMeshes() { return subMeshes; };
 
 		bool Load(const std::string& meshFilename) override;
 		void Render(Program* program) override;
@@ -45,22 +46,22 @@ namespace gs
 		{
 		public:
 			std::shared_ptr<Material> material;
-			std::vector<std::shared_ptr<Texture>> textures;
+			std::vector<std::shared_ptr<Texture>> textures;			
 
-			glm::vec4 GetAmbientColor() const { return material->GetAmbientColor(); }
-			void SetAmbientColor(glm::vec4 color) { material->SetAmbientColor(color); }
+			glm::vec4 GetAmbientColor() const { return material->ambientColor; }
+			void SetAmbientColor(glm::vec4 color) { material->ambientColor = color; }
 
-			glm::vec4 GetDiffuseColor() const { return material->GetDiffuseColor(); }
-			void SetDiffuseColor(glm::vec4 color) { material->SetDiffuseColor(color); }
+			glm::vec4 GetDiffuseColor() const { return material->diffuseColor; }
+			void SetDiffuseColor(glm::vec4 color) { material->diffuseColor = color; }
 
-			glm::vec4 GetSpecularColor() const { return material->GetSpecularColor(); }
-			void SetSpecularColor(glm::vec4 color) { material->SetSpecularColor(color); }
+			glm::vec4 GetSpecularColor() const { return material->specularColor; }
+			void SetSpecularColor(glm::vec4 color) { material->specularColor = color; }
 
-			glm::vec4 GetEmissiveColor() const { return material->GetEmissiveColor(); }
-			void SetEmissiveColor(glm::vec4 color) { material->SetEmissiveColor(color); }
+			glm::vec4 GetEmissiveColor() const { return material->emissiveColor; }
+			void SetEmissiveColor(glm::vec4 color) { material->emissiveColor = color; }
 
-			float GetShininess() const { return material->GetShininess(); }
-			void SetShininess(float index) { material->SetShininess(index); }
+			float GetShininess() const { return material->shininess; }
+			void SetShininess(float index) { material->shininess = index; }
 		};
 
 		bool InitFromScene(const aiScene* scene);

@@ -215,7 +215,7 @@ bool OGLMixTexture::Init(int windowWidth, int windowHeight)
         vbos[1]->BindVBO();
 		vaos[1]->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-		camera.SetPosition(glm::vec3(0, 10, -5));
+		camera.SetPosition(glm::vec3(0, 10, 5));
 		camera.SetTarget(glm::vec3(0, 10, 0));
 		camera.SetSpeed(12.0f);
 		camera.SetupProjection(45.0f, windowWidth / (float)windowHeight);
@@ -271,7 +271,7 @@ void OGLMixTexture::Render(double time)
 	for (size_t i = 0; i < 6; i++)
 	{
 		float sign = (i % 2) * 2 - 1;
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(sinf((float)time + i * glm::half_pi<float>()) * 10.0f, 10.0f, i * 20.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(sinf((float)time + i * glm::half_pi<float>()) * 10.0f, 10.0f, i * -20.0f));
 		model = glm::rotate(model, glm::radians(45.0f * (float)time), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8));
 		glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));

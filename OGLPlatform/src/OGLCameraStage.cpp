@@ -127,7 +127,7 @@ bool OGLCameraStage::Init(int windowWidth, int windowHeight)
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
 
 		// Camera setup
-        camera.SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
+        camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
         camera.SetSpeed(12.0f);
         camera.SetupProjection(45.0f, windowWidth/(float)windowHeight);
 
@@ -160,7 +160,7 @@ void OGLCameraStage::Render(double time)
 	for (int i = 0; i < NB_CUBE; i++)
 	{
 		float sign = (i % 2) * 2.0f - 1.0f;
-		glm::vec3 offset = glm::vec3(sign * 8.0f, 2.0f, 100 - i * 25.0f);
+		glm::vec3 offset = glm::vec3(sign * 8.0f, 2.0f, -100 + i * 25.0f);
 		model = glm::translate(glm::mat4(1.0f), offset);
 		model = glm::rotate(model, glm::radians(45.0f * (float)time), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.0f));
@@ -175,7 +175,7 @@ void OGLCameraStage::Render(double time)
 	for (int i = 0; i < NB_CUBE; i++)
 	{
 		float sign = (i % 2) * 2.0f - 1.0f;
-		glm::vec3 offset = glm::vec3(-sign * 8.0f, 2.0f, 100 - i * 25.0f);
+		glm::vec3 offset = glm::vec3(-sign * 8.0f, 2.0f, -100 + i * 25.0f);
 		model = glm::translate(glm::mat4(1.0f), offset);
 		model = glm::rotate(model, glm::radians(45.0f * (float)time), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.0f));

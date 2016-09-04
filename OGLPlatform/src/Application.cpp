@@ -120,6 +120,15 @@ namespace gs
 		
 		OGLApplicationParams* params11 = new OGLApplicationParams(this, STAGES::SKYBOX);
 		TwAddButton(mainBar, "Skybox", ChangeStage, (void*)params11, " label='Skybox Example' ");
+
+		OGLApplicationParams* params12 = new OGLApplicationParams(this, STAGES::MATERIAL);
+		TwAddButton(mainBar, "Material", ChangeStage, (void*)params12, " label='Material Interactions Example' ");
+
+		OGLApplicationParams* params13 = new OGLApplicationParams(this, STAGES::POINTLIGHT);
+		TwAddButton(mainBar, "PointLight", ChangeStage, (void*)params13, " label='Point Light Example' ");
+
+		OGLApplicationParams* params14 = new OGLApplicationParams(this, STAGES::SPOTLIGHT);
+		TwAddButton(mainBar, "SpotLight", ChangeStage, (void*)params14, " label='Spot Light Example' ");
     }
 
 	void Application::InitCallbacks()

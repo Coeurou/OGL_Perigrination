@@ -22,7 +22,11 @@ enum STAGES
     INDEXEDDRAW,
     CAMERA,
 	SIMPLE_LIGHT,
-	SKYBOX
+	SKYBOX,
+	MATERIAL,
+	POINTLIGHT,
+	SPOTLIGHT,
+	FONT
 };
 
 class FactoryStage : public Uncopyable

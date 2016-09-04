@@ -1,11 +1,15 @@
 #version 410 core
 
-struct DirectionnalLight
+struct SpotLight
 {
+	vec3 position;
 	vec3 direction;
 	vec3 ambientColor;
 	vec3 diffuseColor;
 	vec3 specularColor;
+	
+	float innerCutOff;
+	float outerCutOff;
 };
 
 struct Material
@@ -18,8 +22,10 @@ in vec3 vsPosition;
 in vec3 vsNormal;
 out vec4 fColor;
 
-uniform DirectionnalLight light;
+uniform SpotLight light;
 uniform Material material;
+
+uniform mat4 viewMatrix;
 
 uniform sampler2D samplerDiffuse1;
 uniform sampler2D samplerDiffuse2;
@@ -30,15 +36,22 @@ uniform sampler2D samplerSpecular2;
 
 void main()
 {
+	vec3 lightPos = vec3(viewMatrix * vec4(light.position, 1));
 	vec3 unitNormal = normalize(vsNormal);
-	vec3 unitLight = normalize(light.direction);
+	vec3 unitLight = normalize(lightPos - vsPosition);
 	
-	vec3 reflectedLight = reflect(-unitLight, unitNormal);
-	float diffuseContribution = max(0.0, dot(-unitLight, unitNormal));
+	vec4 ambientColor = vec4(light.ambientColor, 1);
+	
+	float theta = dot(unitLight, -light.direction);
+	float epsilon = light.innerCutOff - light.outerCutOff;
+	float spotIntensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+
+	vec3 reflectedLight = reflect(unitLight, unitNormal);
+	float diffuseContribution = max(0.0, dot(unitLight, unitNormal));
 	float specAngle = dot(normalize(-vsPosition), reflectedLight);
 	float specularContribution = pow(max(0.0, specAngle), material.shininess);
 	
-	vec4 ambientColor = vec4(light.ambientColor, 1);
+	
 	vec4 diffuseColor = vec4(light.diffuseColor, 1) * diffuseContribution;
 	vec4 specularColor = vec4(light.specularColor, 1) * specularContribution;
 	
@@ -47,5 +60,5 @@ void main()
 							
 	vec4 specularTexColor = (texture(samplerSpecular1, vsTexCoords) + texture(samplerSpecular2, vsTexCoords)) * specularColor;
 	
-	fColor = diffuseTexColor + specularTexColor;
+	fColor = diffuseTexColor * spotIntensity + specularTexColor * spotIntensity;
 }

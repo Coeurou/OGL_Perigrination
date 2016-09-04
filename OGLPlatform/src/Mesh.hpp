@@ -27,6 +27,7 @@ namespace gs
 		void InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices);
 		void SetMaterial(Material* material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
 		void Draw(Program* program);
+		void Draw(Program* program, int nbInstances);
 
 		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
 
@@ -41,6 +42,8 @@ namespace gs
 		VertexBuffer GetIBO() const { return ibo; }
 
 	private:
+		void PrepareDraw(Program* program);
+
 		VertexBuffer vbo;
 		VertexBuffer ibo;
 		int materialIndex;

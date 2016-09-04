@@ -10,7 +10,7 @@
 
 #include <GL/glew.h>
 #include "Stage.hpp"
-#include "Light.hpp"
+#include "OGLLight.hpp"
 #include "Camera.hpp"
 
 class OGLSimpleLighting : public gs::Stage
@@ -20,12 +20,13 @@ class OGLSimpleLighting : public gs::Stage
     gs::Camera camera;
 	GLint mvpLocation = 0;
 	GLint normalMatrixLocation = 0;
-	GLint lightColorLoc = 0;
 	GLint lightDirLoc = 0;
-	GLint ambientLoc = 0;
+	GLint specularLoc = 0;
 	GLint diffuseLoc = 0;
+	GLint ambientLoc = 0;
+	OGLLight lightObj;
 	gs::DirectionnalLight light;
-    
+
 public:
 	OGLSimpleLighting();
     ~OGLSimpleLighting();

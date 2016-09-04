@@ -180,6 +180,18 @@
     <ClInclude Include="src\Material.hpp">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\OGLLight.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLMaterialInstancedDraw.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLPointLight.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OGLSpotLight.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -305,8 +317,17 @@
     <ClCompile Include="src\Model.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="src\OGLLight.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLMaterialInstancedDraw.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLPointLight.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLSpotLight.cpp">
+      <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,6 +12,9 @@
 #include "OGLCameraStage.hpp"
 #include "OGLSimpleLighting.hpp"
 #include "OGLSkybox.hpp"
+#include "OGLMaterialInstancedDraw.hpp"
+#include "OGLPointLight.hpp"
+#include "OGLSpotLight.hpp"
 #include "Stage.hpp"
 
 
@@ -57,6 +60,15 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 	case SKYBOX:
 		return std::make_shared<OGLSkybox>();
 		break;
+	case MATERIAL:
+		return std::make_shared<OGLMaterialInstancedDraw>();
+		break;
+	case POINTLIGHT:
+		return std::make_shared<OGLPointLight>();
+		break;
+	case SPOTLIGHT:
+		return std::make_shared<OGLSpotLight>();
+		break; 
 	default:
 		return nullptr;
 		break;

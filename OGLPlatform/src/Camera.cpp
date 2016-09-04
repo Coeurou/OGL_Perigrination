@@ -163,6 +163,8 @@ namespace gs
     void Camera::OnWindowResized(const EventArgs& args)
     {
         const auto& resizeEvent = static_cast<const ResizeEventArgs&>(args);
-        SetupProjection(fov, resizeEvent.width/(float)resizeEvent.height);
+		if (resizeEvent.width > 0) {
+			SetupProjection(fov, resizeEvent.width / (float)resizeEvent.height);
+		}
     }
 }

@@ -165,11 +165,15 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLCameraStage.hpp" />
     <ClInclude Include="src\OGLGeometryShader.hpp" />
     <ClInclude Include="src\OGLIndexedDraw.hpp" />
+    <ClInclude Include="src\OGLLight.hpp" />
+    <ClInclude Include="src\OGLMaterialInstancedDraw.hpp" />
     <ClInclude Include="src\OGLModelMatrix.hpp" />
+    <ClInclude Include="src\OGLPointLight.hpp" />
     <ClInclude Include="src\OGLRenderableObject.hpp" />
     <ClInclude Include="src\OGLRipplePlane.hpp" />
     <ClInclude Include="src\OGLSimpleLighting.hpp" />
     <ClInclude Include="src\OGLSkybox.hpp" />
+    <ClInclude Include="src\OGLSpotLight.hpp" />
     <ClInclude Include="src\OGLUtility.hpp" />
     <ClInclude Include="src\WindowGLFW.hpp" />
     <ClInclude Include="src\GLIImage.hpp" />
@@ -209,16 +213,19 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FactoryStage.cpp" />
     <ClCompile Include="src\GLFWContext.cpp" />
-    <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\OGLCameraStage.cpp" />
     <ClCompile Include="src\OGLGeometryShader.cpp" />
     <ClCompile Include="src\OGLIndexedDraw.cpp" />
+    <ClCompile Include="src\OGLLight.cpp" />
+    <ClCompile Include="src\OGLMaterialInstancedDraw.cpp" />
     <ClCompile Include="src\OGLModelMatrix.cpp" />
+    <ClCompile Include="src\OGLPointLight.cpp" />
     <ClCompile Include="src\OGLRipplePlane.cpp" />
     <ClCompile Include="src\OGLSimpleLighting.cpp" />
     <ClCompile Include="src\OGLSkybox.cpp" />
+    <ClCompile Include="src\OGLSpotLight.cpp" />
     <ClCompile Include="src\OGLUtility.cpp" />
     <ClCompile Include="src\WindowGLFW.cpp" />
     <ClCompile Include="src\GLIImage.cpp" />

@@ -13,6 +13,7 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 #include "Vertex.hpp"
+#include "Light.hpp"
 #include "OGLCube.hpp"
 #include "OGLQuad.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -38,9 +39,8 @@ bool OGLSimpleLighting::InitGUI()
     format << barName << " " << " label='Lighting Example' ";
     
 	TwAddVarRW(tweakBar, "lightDir", TW_TYPE_DIR3F, &light.direction, "label='Direction' group='Light'");
-	TwAddVarRW(tweakBar, "lightColor", TW_TYPE_COLOR3F, &light.color, "label='Color' group='Light'");
-	TwAddVarRW(tweakBar, "lightAmb", TW_TYPE_FLOAT, &light.ambientIntensity, "label='Ambient Intensity' group='Light' min='0' max='1' step='0.05'");
-	TwAddVarRW(tweakBar, "lightDiff", TW_TYPE_FLOAT, &light.diffuseIntensity, "label='Diffuse Intensity' group='Light' min='0' max='1' step='0.05'");
+	TwAddVarRW(tweakBar, "lightSpec", TW_TYPE_COLOR3F, &light.specularColor, "label='Specular Intensity' group='Light'");
+	TwAddVarRW(tweakBar, "lightDiff", TW_TYPE_COLOR3F, &light.diffuseColor, "label='Diffuse Intensity' group='Light'");
     TwDefine(format.str().c_str());
     
     return true;
@@ -72,15 +72,14 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 
 		mvpLocation = glGetUniformLocation(programTex->get(), "MVP");
 		normalMatrixLocation = glGetUniformLocation(programTex->get(), "NormalMatrix");
-		light.color = glm::vec3(1.0f);
 		light.direction = glm::vec3(-1.0f, 0.0f, 0.0f);
-		light.ambientIntensity = 0.2f;
-		light.diffuseIntensity = 0.8f;
+		light.ambientColor = glm::vec3(0.2f);
+		light.diffuseColor = glm::vec3(1.0f);
+		light.specularColor = light.diffuseColor;
 
-		lightColorLoc = glGetUniformLocation(programTex->get(), "light.color");
 		lightDirLoc = glGetUniformLocation(programTex->get(), "light.direction");
-		ambientLoc = glGetUniformLocation(programTex->get(), "light.ambientIntensity");
-		diffuseLoc = glGetUniformLocation(programTex->get(), "light.diffuseIntensity");
+		diffuseLoc = glGetUniformLocation(programTex->get(), "light.diffuseColor");
+		ambientLoc = glGetUniformLocation(programTex->get(), "light.ambientColor");
         
 		//Texture setup
 		auto textureFloor = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
@@ -123,9 +122,11 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, normal));
 
 		// Camera setup
-        camera.SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
+        camera.SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
         camera.SetSpeed(8.0f);
         camera.SetupProjection(45.0f, windowWidth/(float)windowHeight);
+
+		lightObj.Load("");
 
 		// OpenGL setup
 		glEnable(GL_DEPTH_TEST);
@@ -139,6 +140,8 @@ void OGLSimpleLighting::Render(double time)
     
 	camera.Update();
 
+	programs[0]->Use();
+	vaos[0]->BindVAO();
 	textures[0]->BindTexture(GL_TEXTURE0);
 
 	glm::mat4 model(1.0f);
@@ -147,10 +150,9 @@ void OGLSimpleLighting::Render(double time)
 
 	glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(camera.GetViewProjectionMatrix() * model));
 
-	glUniform3fv(lightColorLoc, 1, glm::value_ptr(light.color));
 	glUniform3fv(lightDirLoc, 1, glm::value_ptr(light.direction));
-	glUniform1f(ambientLoc, light.ambientIntensity);
-	glUniform1f(diffuseLoc, light.diffuseIntensity);
+	glUniform3fv(ambientLoc, 1, glm::value_ptr(light.ambientColor));
+	glUniform3fv(diffuseLoc, 1, glm::value_ptr(light.diffuseColor));
 
     glDrawArrays(GL_TRIANGLE_STRIP, 36, 4);
 
@@ -158,7 +160,7 @@ void OGLSimpleLighting::Render(double time)
 	for (int i = 0; i < NB_CUBE; i++)
 	{
 		float sign = (i % 2) * 2.0f - 1.0f;
-		glm::vec3 offset = glm::vec3(sign * 8.0f, 2.0f, 100 - i * 25.0f);
+		glm::vec3 offset = glm::vec3(sign * 8.0f, 2.0f, -100 + i * 25.0f);
 		model = glm::translate(glm::mat4(1.0f), offset);
 		model = glm::rotate(model, glm::radians(45.0f * (float)time), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(8.0f));
@@ -168,4 +170,7 @@ void OGLSimpleLighting::Render(double time)
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
+
+	lightObj.SetMVP(camera.GetViewProjectionMatrix() * glm::translate(glm::mat4(1), glm::vec3(0,10,-20)));
+	lightObj.Render(nullptr);
 }

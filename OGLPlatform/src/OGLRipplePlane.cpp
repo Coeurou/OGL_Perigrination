@@ -29,7 +29,7 @@ bool OGLRipplePlane::InitGUI()
 	auto tweakBar = atbApp->GetBarByIndex(0);
 	auto barName = TwGetBarName(tweakBar);
 	std::stringstream format;
-	format << barName << " " << " label='AnimatedTriangle Example' help='This example use glVertexAttrib* to animate a triangle.' ";
+	format << barName << " " << " label='Ripple plane Example' help='This example use the wave mathematic formula to animate a plane.' ";
 
 	TwDefine(format.str().c_str());
 

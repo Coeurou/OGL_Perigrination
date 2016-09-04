@@ -38,7 +38,9 @@ namespace gs
         glm::mat4 GetProjectionMatrix() const { return projection; }
         glm::mat4 GetViewMatrix() const { return view; }
         glm::mat4 GetViewProjectionMatrix() const { return projection * view; }
-        glm::vec3 GetPosition() const { return position; }
+		glm::vec3 GetPosition() const { return position; }
+		glm::vec3 GetForwardVector() const { return forward; }
+		glm::vec3 GetUpVector() const { return up; }
         void SetSpeed(float velocity) { speed = velocity; }
         void SetAngularSpeed(float velocity) { angularSpeed = velocity; }
         void SetPosition(const glm::vec3& newPos) { position = newPos; Update(); }
