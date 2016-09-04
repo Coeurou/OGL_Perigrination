@@ -30,6 +30,6 @@ public:
     void Render(double time) override;
     
 private:
-    bool InitGUI();
+    bool InitGUI() override;
 };
 /* OGLCameraStage_hpp */

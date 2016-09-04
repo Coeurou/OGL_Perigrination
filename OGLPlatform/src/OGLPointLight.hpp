@@ -22,7 +22,7 @@ public:
 	void Render(double time) override;
 
 private:
-	bool InitGUI();
+	bool InitGUI() override;
 	void InitCubePosition();
 	void InitLight();
 	bool AddProgram(const std::string& vsFilename, const std::string& fsFilename);

@@ -24,6 +24,13 @@
 		D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13541851D4D623400B01378 /* ImageFactory.cpp */; };
 		D14DED751D5E2A570023630A /* OGLModelMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */; };
 		D14DED7B1D60CC960023630A /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED791D60CC960023630A /* EventManager.cpp */; };
+		D1520D161D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D101D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp */; };
+		D1520D171D7C91CB00F8B6B3 /* OGLPointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D121D7C91CB00F8B6B3 /* OGLPointLight.cpp */; };
+		D1520D181D7C91CB00F8B6B3 /* OGLSpotLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D141D7C91CB00F8B6B3 /* OGLSpotLight.cpp */; };
+		D1520D1B1D7C922A00F8B6B3 /* OGLLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D191D7C922A00F8B6B3 /* OGLLight.cpp */; };
+		D1520D221D7C928200F8B6B3 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D1E1D7C928200F8B6B3 /* Mesh.cpp */; };
+		D1520D231D7C928200F8B6B3 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D201D7C928200F8B6B3 /* Model.cpp */; };
+		D1520D251D7C92D000F8B6B3 /* libassimp.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1520D241D7C92D000F8B6B3 /* libassimp.3.0.0.dylib */; };
 		D15B06A61D18600400F77089 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15B06A51D18600400F77089 /* OpenGL.framework */; };
 		D15B06A91D18601400F77089 /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D15B06A71D18601400F77089 /* libglfw.3.2.dylib */; };
 		D1843C6E1D4D764200D077CE /* ATBGLEnumWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1843C6D1D4D764200D077CE /* ATBGLEnumWrapper.cpp */; };
@@ -106,6 +113,21 @@
 		D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLModelMatrix.hpp; path = src/OGLModelMatrix.hpp; sourceTree = "<group>"; };
 		D14DED791D60CC960023630A /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventManager.cpp; path = src/EventManager.cpp; sourceTree = "<group>"; };
 		D14DED7A1D60CC960023630A /* EventManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EventManager.hpp; path = src/EventManager.hpp; sourceTree = "<group>"; };
+		D1520D101D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLMaterialInstancedDraw.cpp; path = src/OGLMaterialInstancedDraw.cpp; sourceTree = "<group>"; };
+		D1520D111D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLMaterialInstancedDraw.hpp; path = src/OGLMaterialInstancedDraw.hpp; sourceTree = "<group>"; };
+		D1520D121D7C91CB00F8B6B3 /* OGLPointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLPointLight.cpp; path = src/OGLPointLight.cpp; sourceTree = "<group>"; };
+		D1520D131D7C91CB00F8B6B3 /* OGLPointLight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLPointLight.hpp; path = src/OGLPointLight.hpp; sourceTree = "<group>"; };
+		D1520D141D7C91CB00F8B6B3 /* OGLSpotLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLSpotLight.cpp; path = src/OGLSpotLight.cpp; sourceTree = "<group>"; };
+		D1520D151D7C91CB00F8B6B3 /* OGLSpotLight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLSpotLight.hpp; path = src/OGLSpotLight.hpp; sourceTree = "<group>"; };
+		D1520D191D7C922A00F8B6B3 /* OGLLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLLight.cpp; path = src/OGLLight.cpp; sourceTree = "<group>"; };
+		D1520D1A1D7C922A00F8B6B3 /* OGLLight.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLLight.hpp; path = src/OGLLight.hpp; sourceTree = "<group>"; };
+		D1520D1C1D7C928200F8B6B3 /* Light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Light.hpp; path = src/Light.hpp; sourceTree = "<group>"; };
+		D1520D1D1D7C928200F8B6B3 /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Material.hpp; path = src/Material.hpp; sourceTree = "<group>"; };
+		D1520D1E1D7C928200F8B6B3 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = src/Mesh.cpp; sourceTree = "<group>"; };
+		D1520D1F1D7C928200F8B6B3 /* Mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Mesh.hpp; path = src/Mesh.hpp; sourceTree = "<group>"; };
+		D1520D201D7C928200F8B6B3 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = src/Model.cpp; sourceTree = "<group>"; };
+		D1520D211D7C928200F8B6B3 /* Model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Model.hpp; path = src/Model.hpp; sourceTree = "<group>"; };
+		D1520D241D7C92D000F8B6B3 /* libassimp.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.0.dylib; path = ../../../../../../../../opt/local/lib/libassimp.3.0.0.dylib; sourceTree = "<group>"; };
 		D15B06931D185F9000F77089 /* OGLPlatform */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OGLPlatform; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15B06A51D18600400F77089 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		D15B06A71D18601400F77089 /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../../../../../opt/local/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
@@ -168,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1520D251D7C92D000F8B6B3 /* libassimp.3.0.0.dylib in Frameworks */,
 				D1F0AF061D4B1D0B0012F548 /* libGLEW.2.0.0.dylib in Frameworks */,
 				D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */,
 				D15B06A91D18601400F77089 /* libglfw.3.2.dylib in Frameworks */,
@@ -189,12 +212,16 @@
 				D131DAB01D5A55C300A129CE /* OGLGeometryShader.hpp */,
 				D1BCF1E21D73113A00744215 /* OGLIndexedDraw.cpp */,
 				D1BCF1E31D73113A00744215 /* OGLIndexedDraw.hpp */,
+				D1520D101D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp */,
+				D1520D111D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.hpp */,
 				D134A4061D52820B0029C42A /* OGLMipmaps.cpp */,
 				D134A4071D52820B0029C42A /* OGLMipmaps.hpp */,
 				D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */,
 				D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */,
 				D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */,
 				D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */,
+				D1520D121D7C91CB00F8B6B3 /* OGLPointLight.cpp */,
+				D1520D131D7C91CB00F8B6B3 /* OGLPointLight.hpp */,
 				D113D9B11D4B0EB8009A34DC /* OGLPointSize.cpp */,
 				D113D9B21D4B0EB8009A34DC /* OGLPointSize.hpp */,
 				D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */,
@@ -206,6 +233,8 @@
 				D113D9B31D4B0EB8009A34DC /* OGLSimpleTriangle.cpp */,
 				D113D9B41D4B0EB8009A34DC /* OGLSimpleTriangle.hpp */,
 				D12DC4A11D74A43200C2140D /* OGLSkybox.cpp */,
+				D1520D141D7C91CB00F8B6B3 /* OGLSpotLight.cpp */,
+				D1520D151D7C91CB00F8B6B3 /* OGLSpotLight.hpp */,
 				D12DC4A21D74A43200C2140D /* OGLSkybox.hpp */,
 				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
 				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
@@ -221,6 +250,8 @@
 				D134A4091D52820B0029C42A /* OGLQuad.hpp */,
 				D1F0AF0A1D4B20310012F548 /* OGLCube.cpp */,
 				D1F0AF0B1D4B20310012F548 /* OGLCube.hpp */,
+				D1520D191D7C922A00F8B6B3 /* OGLLight.cpp */,
+				D1520D1A1D7C922A00F8B6B3 /* OGLLight.hpp */,
 				D113D9B91D4B0EC6009A34DC /* OGLPoint.cpp */,
 				D113D9BA1D4B0EC6009A34DC /* OGLPoint.hpp */,
 				D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */,
@@ -233,6 +264,7 @@
 		D15B068A1D185F9000F77089 = {
 			isa = PBXGroup;
 			children = (
+				D1520D241D7C92D000F8B6B3 /* libassimp.3.0.0.dylib */,
 				D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */,
 				D13F506D1D1B50CD003E29B9 /* libAntTweakBar.a */,
 				D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */,
@@ -284,6 +316,12 @@
 				D135417D1D4D5EFE00B01378 /* Image.hpp */,
 				D13541851D4D623400B01378 /* ImageFactory.cpp */,
 				D13541861D4D623400B01378 /* ImageFactory.hpp */,
+				D1520D1C1D7C928200F8B6B3 /* Light.hpp */,
+				D1520D1D1D7C928200F8B6B3 /* Material.hpp */,
+				D1520D1E1D7C928200F8B6B3 /* Mesh.cpp */,
+				D1520D1F1D7C928200F8B6B3 /* Mesh.hpp */,
+				D1520D201D7C928200F8B6B3 /* Model.cpp */,
+				D1520D211D7C928200F8B6B3 /* Model.hpp */,
 				D1814D581D542B4500E1F4F2 /* OGLResource.hpp */,
 				D1926A431D2C5DB400657C3F /* Program.cpp */,
 				D1926A441D2C5DB400657C3F /* Program.hpp */,
@@ -408,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D113D9B71D4B0EB8009A34DC /* OGLPointSize.cpp in Sources */,
+				D1520D231D7C928200F8B6B3 /* Model.cpp in Sources */,
 				D131DAAA1D58FB4400A129CE /* OGLUtility.cpp in Sources */,
 				D1926A471D2C5DB400657C3F /* Program.cpp in Sources */,
 				D113D9B51D4B0EB8009A34DC /* FactoryStage.cpp in Sources */,
@@ -416,8 +455,10 @@
 				D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */,
 				D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */,
 				D1BCF1E01D73110600744215 /* OGLAnimatedPyramids.cpp in Sources */,
+				D1520D221D7C928200F8B6B3 /* Mesh.cpp in Sources */,
 				D1926A621D30499E00657C3F /* Stage.cpp in Sources */,
 				D1DE70271D4D5DD3009A5159 /* GLIImage.cpp in Sources */,
+				D1520D161D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp in Sources */,
 				D1926A571D2C5E0E00657C3F /* OGLAntTweakBar.cpp in Sources */,
 				D113D9C31D4B0ED6009A34DC /* OGLApplicationConstants.cpp in Sources */,
 				D134A40C1D52820B0029C42A /* OGLQuad.cpp in Sources */,
@@ -426,6 +467,8 @@
 				D1BCF1E71D73113A00744215 /* OGLSimpleLighting.cpp in Sources */,
 				D131DAB11D5A55C300A129CE /* OGLGeometryShader.cpp in Sources */,
 				D1F0AF0C1D4B20310012F548 /* OGLCube.cpp in Sources */,
+				D1520D171D7C91CB00F8B6B3 /* OGLPointLight.cpp in Sources */,
+				D1520D181D7C91CB00F8B6B3 /* OGLSpotLight.cpp in Sources */,
 				D113D9B81D4B0EB8009A34DC /* OGLSimpleTriangle.cpp in Sources */,
 				D14DED7B1D60CC960023630A /* EventManager.cpp in Sources */,
 				D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */,
@@ -435,6 +478,7 @@
 				D113D9BD1D4B0EC6009A34DC /* OGLPoint.cpp in Sources */,
 				D131DAAE1D58FB6600A129CE /* WindowGLFW.cpp in Sources */,
 				D131DAA51D58FB3100A129CE /* OGLRipplePlane.cpp in Sources */,
+				D1520D1B1D7C922A00F8B6B3 /* OGLLight.cpp in Sources */,
 				D19544C21D60F0E70041F2A0 /* Camera.cpp in Sources */,
 				D1D7933E1D5741BC007319C3 /* OpenGLInfos.cpp in Sources */,
 				D134A40B1D52820B0029C42A /* OGLMipmaps.cpp in Sources */,

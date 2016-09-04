@@ -12,18 +12,18 @@ public:
     
     bool InitVertices(glm::vec3 origin) override;
     
-    virtual void SetWidth(float newWidth)
+    virtual void SetWidth(float newWidth) override
     {
         width = newWidth;
         glPointSize(width);
     }
-    virtual void SetHeight(float newHeight)
+    virtual void SetHeight(float newHeight) override
     {
         width = newHeight;
         glPointSize(width);
     }
 
-    virtual void SetDepth(float newDepth)
+    virtual void SetDepth(float newDepth) override
     {
         width = newDepth;
         glPointSize(width);

@@ -20,7 +20,7 @@ public:
 	void Render(double time) override;
 
 private:
-	bool InitGUI();
+	bool InitGUI() override;
 	void InitMaterials();
 	void InitLight();
 	bool AddProgram(const std::string& vsFilename, const std::string& fsFilename);

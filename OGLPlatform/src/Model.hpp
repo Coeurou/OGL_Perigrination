@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <assimp/scene.h>
 #include "OGLRenderableObject.hpp"
 #include "Material.hpp"
 #include "Vertex.hpp"
@@ -21,7 +22,6 @@
 struct aiScene;
 struct aiMesh;
 struct aiMaterial;
-enum aiTextureType;
 enum class LIGHT_CONTRIBUTION;
 
 namespace gs
