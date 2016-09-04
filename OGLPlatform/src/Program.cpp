@@ -24,6 +24,12 @@ namespace gs
         programID = 0;
     }
 
+    GLuint Program::GetUniform(const std::string& name) const {
+        auto it = uniformLocations.find(name);
+        if (it != uniformLocations.end()) { return uniformLocations.at(name); }
+        return -1;
+    }
+    
 	bool Program::CreateShader(GLenum shaderType, const std::string& source)
 	{
 		Shader shader(shaderType);
