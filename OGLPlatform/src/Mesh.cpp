@@ -74,13 +74,13 @@ namespace gs
 		}
 	}
 
-	void Mesh::Draw(Program* program)
+	void Mesh::Render(Program* program)
 	{
 		PrepareDraw(program);
 		glDrawElements(GL_TRIANGLES, nbIndices, GL_UNSIGNED_INT, 0);
 	}
 
-	void Mesh::Draw(Program * program, int nbInstances)
+	void Mesh::Render(Program * program, int nbInstances)
 	{
 		PrepareDraw(program);
 		glDrawElementsInstanced(GL_TRIANGLES, nbIndices, GL_UNSIGNED_INT, 0, nbInstances);

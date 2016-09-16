@@ -129,6 +129,12 @@ namespace gs
 
 		OGLApplicationParams* params14 = new OGLApplicationParams(this, STAGES::SPOTLIGHT);
 		TwAddButton(mainBar, "SpotLight", ChangeStage, (void*)params14, " label='Spot Light Example' ");
+        
+        OGLApplicationParams* params15 = new OGLApplicationParams(this, STAGES::MULTIPLE_LIGHTS);
+        TwAddButton(mainBar, "MultipleLights", ChangeStage, (void*)params15, " label='Multiple Lights Example' ");
+        
+        OGLApplicationParams* params16 = new OGLApplicationParams(this, STAGES::FRUSTUM_CULLING);
+        TwAddButton(mainBar, "FrustumCulling", ChangeStage, (void*)params16, " label='Frustum Culling Example' ");
     }
 
 	void Application::InitCallbacks()

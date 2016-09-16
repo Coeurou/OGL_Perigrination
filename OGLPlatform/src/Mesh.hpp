@@ -10,6 +10,7 @@
 
 #include <GL/glew.h>
 #include <vector>
+#include "OGLRenderableObject.hpp"
 #include "Vertex.hpp"
 #include "VertexBuffer.hpp"
 #include "Material.hpp"
@@ -18,16 +19,17 @@ namespace gs
 {
 	class Program;
 
-	class Mesh
+    class Mesh : public OGLRenderableObject
 	{
 	public:
 		Mesh();
 		~Mesh();
 
+        bool Load(const std::string& meshFilename) override { return false; };
 		void InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices);
 		void SetMaterial(Material* material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
-		void Draw(Program* program);
-		void Draw(Program* program, int nbInstances);
+		void Render(Program* program) override;
+		void Render(Program* program, int nbInstances) override;
 
 		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
 

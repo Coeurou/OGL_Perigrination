@@ -12,7 +12,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-const float maxMouseMove = 100.0f;
 
 namespace gs
 { 
@@ -71,9 +70,9 @@ namespace gs
     
     void Camera::Rotate(const glm::vec2& rot)
     {
-        forward = glm::rotate(glm::mat4(1.0f), -rot.y, up) * glm::rotate(glm::mat4(1.0f), rot.x, right) * glm::vec4(forward, 0);
+        forward = glm::rotate(glm::mat4(1.0f), -rot.y, up) * glm::rotate(glm::mat4(1.0f), -rot.x, right) * glm::vec4(forward, 0);
 		glm::normalize(forward);
-		right = glm::cross(up, forward);
+		right = glm::cross(forward, up);
 		glm::normalize(right);
 
         target = position + forward;
@@ -82,6 +81,7 @@ namespace gs
     void Camera::SetupProjection(float fovy, float aspectRatio, float near, float far)
     {
         fov = fovy;
+        this->aspectRatio = aspectRatio;
         nearDistance = near;
         farDistance = far;
         projection = glm::perspective(fovy, aspectRatio, near, far);
@@ -123,10 +123,10 @@ namespace gs
                 Move(-forward * speed);
                 break;
             case GLFW_KEY_D:
-                Move(-right * speed);
+                Move(right * speed);
                 break;
             case GLFW_KEY_A:
-                Move(right * speed);
+                Move(-right * speed);
                 break;
             case GLFW_KEY_Q:
                 Move(up * speed);
@@ -143,6 +143,25 @@ namespace gs
         }
     }
     
+    glm::vec2 Camera::FilterMousePos(const glm::vec2& mousePos)
+    {
+        for (size_t i = HISTORY_BUFFER_SIZE-1; i > 0; i--) {
+            mouseHistory[i] = mouseHistory[i-1];
+        }
+        mouseHistory[0] = mousePos;
+        
+        glm::vec2 smoothPos;
+        float weight = 1.0f;
+        float averageSum = 0.0f;
+        
+        for (auto pos : mouseHistory) {
+            averageSum += weight;
+            smoothPos += pos * weight;
+            weight *= WEIGHT_MODIFIER;
+        }
+        return smoothPos / averageSum;
+    }
+    
     void Camera::OnMouseMoved(const EventArgs& args)
     {
         const auto& mouseEvent = static_cast<const MouseEventArgs&>(args);
@@ -150,7 +169,7 @@ namespace gs
         glm::vec2 delta { mouseEvent.posY - mousePos.y, mouseEvent.posX - mousePos.x };
 
 		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
-
+        delta = FilterMousePos(delta);
 		// On mouse button release
         if (mouseEvent.state == 0 || glm::length(delta) > maxMouseMove) {
             return;

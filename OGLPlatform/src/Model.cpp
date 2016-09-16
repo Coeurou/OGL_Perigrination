@@ -40,11 +40,11 @@ namespace gs
 	bool Model::InitFromScene(const aiScene * scene)
 	{
 		bool res = true;
-		subMeshes.resize(scene->mNumMeshes);
+		children.resize(scene->mNumMeshes);
 		materials.resize(scene->mNumMaterials);
 
 		res &= InitMaterials(scene);
-		for (unsigned int i = 0; i < subMeshes.size(); i++) {
+		for (unsigned int i = 0; i < children.size(); i++) {
 			const aiMesh* mesh = scene->mMeshes[i];
 			res &= InitMesh(i, mesh, materials[mesh->mMaterialIndex].get());
 		}
@@ -53,7 +53,9 @@ namespace gs
 
 	bool Model::InitMesh(unsigned int index, const aiMesh* mesh, AssimpMaterial* assimpMaterial)
 	{
-		subMeshes[index].SetMaterialIndex(mesh->mMaterialIndex);
+        auto gsMesh = std::make_shared<Mesh>();
+        children[index] = gsMesh;
+		gsMesh->SetMaterialIndex(mesh->mMaterialIndex);
 
 		std::vector<gs::Vertex> vertices;
 		std::vector<GLuint> indices;
@@ -78,8 +80,8 @@ namespace gs
 			indices.push_back(face.mIndices[1]);
 			indices.push_back(face.mIndices[2]);
 		}
-		subMeshes[index].InitGL(vertices, indices);
-		subMeshes[index].SetMaterial(assimpMaterial->material.get(), assimpMaterial->textures);
+		gsMesh->InitGL(vertices, indices);
+		gsMesh->SetMaterial(assimpMaterial->material.get(), assimpMaterial->textures);
 		return true;
 	}
 
@@ -203,8 +205,16 @@ namespace gs
 	void Model::Render(Program* program)
 	{
 		vao.BindVAO();
-		for (auto& mesh : subMeshes) {
-			mesh.Draw(program);
+		for (auto mesh : children) {
+			mesh->Render(program);
 		}
 	}
+    
+    void Model::Render(Program* program, int nbInstances)
+    {
+        vao.BindVAO();
+        for (auto mesh : children) {
+            mesh->Render(program, nbInstances);
+        }
+    }
 }

@@ -22,6 +22,7 @@
 		D134A40B1D52820B0029C42A /* OGLMipmaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4061D52820B0029C42A /* OGLMipmaps.cpp */; };
 		D134A40C1D52820B0029C42A /* OGLQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4081D52820B0029C42A /* OGLQuad.cpp */; };
 		D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13541851D4D623400B01378 /* ImageFactory.cpp */; };
+		D13B91871D7F25A9005A6095 /* OGLMultipleLights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13B91851D7F25A9005A6095 /* OGLMultipleLights.cpp */; };
 		D14DED751D5E2A570023630A /* OGLModelMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */; };
 		D14DED7B1D60CC960023630A /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED791D60CC960023630A /* EventManager.cpp */; };
 		D1520D161D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D101D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp */; };
@@ -43,6 +44,8 @@
 		D1926A5E1D2D9E6A00657C3F /* VertexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A5C1D2D9E6A00657C3F /* VertexArray.cpp */; };
 		D1926A621D30499E00657C3F /* Stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1926A601D30499E00657C3F /* Stage.cpp */; };
 		D19544C21D60F0E70041F2A0 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D19544C01D60F0E70041F2A0 /* Camera.cpp */; };
+		D1A5159E1D8711D600B13FA1 /* CameraUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1A5159C1D8711D600B13FA1 /* CameraUtils.cpp */; };
+		D1A515A11D8716F300B13FA1 /* OGLFrustumCulling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1A5159F1D8716F300B13FA1 /* OGLFrustumCulling.cpp */; };
 		D1BCF1E01D73110600744215 /* OGLAnimatedPyramids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BCF1DC1D73110600744215 /* OGLAnimatedPyramids.cpp */; };
 		D1BCF1E11D73110600744215 /* OGLCameraStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BCF1DE1D73110600744215 /* OGLCameraStage.cpp */; };
 		D1BCF1E61D73113A00744215 /* OGLIndexedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1BCF1E21D73113A00744215 /* OGLIndexedDraw.cpp */; };
@@ -53,11 +56,14 @@
 		D1D7BFF81D554C42009352D8 /* OGLMixTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1D7BFF61D554C42009352D8 /* OGLMixTexture.cpp */; };
 		D1DE70271D4D5DD3009A5159 /* GLIImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1DE70251D4D5DD3009A5159 /* GLIImage.cpp */; };
 		D1E5DFAB1D1B510400FA6C52 /* libAntTweakBar.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D13439F41D1B2F0F0024C47C /* libAntTweakBar.dylib */; };
+		D1E9C0321D885EFE00B49891 /* Query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1E9C0301D885EFE00B49891 /* Query.cpp */; };
 		D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF021D4B1AC10012F548 /* tinyxml2.cpp */; };
 		D1F0AF061D4B1D0B0012F548 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */; };
 		D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */; };
 		D1F0AF0C1D4B20310012F548 /* OGLCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0A1D4B20310012F548 /* OGLCube.cpp */; };
 		D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0D1D4C0BF20012F548 /* Texture.cpp */; };
+		D1F9B6F61D8C95F1005BEBE2 /* OGLRenderableCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */; };
+		D1F9B6F91D8C9895005BEBE2 /* OGLRenderableQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,6 +114,8 @@
 		D13541851D4D623400B01378 /* ImageFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageFactory.cpp; path = src/ImageFactory.cpp; sourceTree = "<group>"; };
 		D13541861D4D623400B01378 /* ImageFactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ImageFactory.hpp; path = src/ImageFactory.hpp; sourceTree = "<group>"; };
 		D13541881D4D66CF00B01378 /* ATBGLEnumWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ATBGLEnumWrapper.h; path = src/ATBGLEnumWrapper.h; sourceTree = "<group>"; };
+		D13B91851D7F25A9005A6095 /* OGLMultipleLights.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLMultipleLights.cpp; path = src/OGLMultipleLights.cpp; sourceTree = "<group>"; };
+		D13B91861D7F25A9005A6095 /* OGLMultipleLights.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLMultipleLights.hpp; path = src/OGLMultipleLights.hpp; sourceTree = "<group>"; };
 		D13F506D1D1B50CD003E29B9 /* libAntTweakBar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAntTweakBar.a; path = ../../../../../../../../opt/local/lib/libAntTweakBar.a; sourceTree = "<group>"; };
 		D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLModelMatrix.cpp; path = src/OGLModelMatrix.cpp; sourceTree = "<group>"; };
 		D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLModelMatrix.hpp; path = src/OGLModelMatrix.hpp; sourceTree = "<group>"; };
@@ -155,6 +163,10 @@
 		D1926A611D30499E00657C3F /* Stage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Stage.hpp; path = src/Stage.hpp; sourceTree = "<group>"; };
 		D19544C01D60F0E70041F2A0 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = src/Camera.cpp; sourceTree = "<group>"; };
 		D19544C11D60F0E70041F2A0 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Camera.hpp; path = src/Camera.hpp; sourceTree = "<group>"; };
+		D1A5159C1D8711D600B13FA1 /* CameraUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraUtils.cpp; path = src/CameraUtils.cpp; sourceTree = "<group>"; };
+		D1A5159D1D8711D600B13FA1 /* CameraUtils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CameraUtils.hpp; path = src/CameraUtils.hpp; sourceTree = "<group>"; };
+		D1A5159F1D8716F300B13FA1 /* OGLFrustumCulling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLFrustumCulling.cpp; path = src/OGLFrustumCulling.cpp; sourceTree = "<group>"; };
+		D1A515A01D8716F300B13FA1 /* OGLFrustumCulling.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLFrustumCulling.hpp; path = src/OGLFrustumCulling.hpp; sourceTree = "<group>"; };
 		D1BCF1DC1D73110600744215 /* OGLAnimatedPyramids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLAnimatedPyramids.cpp; path = src/OGLAnimatedPyramids.cpp; sourceTree = "<group>"; };
 		D1BCF1DD1D73110600744215 /* OGLAnimatedPyramids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLAnimatedPyramids.hpp; path = src/OGLAnimatedPyramids.hpp; sourceTree = "<group>"; };
 		D1BCF1DE1D73110600744215 /* OGLCameraStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLCameraStage.cpp; path = src/OGLCameraStage.cpp; sourceTree = "<group>"; };
@@ -174,6 +186,8 @@
 		D1DE70251D4D5DD3009A5159 /* GLIImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLIImage.cpp; path = src/GLIImage.cpp; sourceTree = "<group>"; };
 		D1DE70261D4D5DD3009A5159 /* GLIImage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLIImage.hpp; path = src/GLIImage.hpp; sourceTree = "<group>"; };
 		D1E6AEA71D304C8800CAD186 /* OGLObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLObject.hpp; path = src/OGLObject.hpp; sourceTree = "<group>"; };
+		D1E9C0301D885EFE00B49891 /* Query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Query.cpp; path = src/Query.cpp; sourceTree = "<group>"; };
+		D1E9C0311D885EFE00B49891 /* Query.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Query.hpp; path = src/Query.hpp; sourceTree = "<group>"; };
 		D1F0AF021D4B1AC10012F548 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = src/tinyxml2.cpp; sourceTree = "<group>"; };
 		D1F0AF031D4B1AC10012F548 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = src/tinyxml2.h; sourceTree = "<group>"; };
 		D1F0AF051D4B1D0B0012F548 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../../../../../opt/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
@@ -183,6 +197,10 @@
 		D1F0AF0B1D4B20310012F548 /* OGLCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLCube.hpp; path = src/OGLCube.hpp; sourceTree = "<group>"; };
 		D1F0AF0D1D4C0BF20012F548 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = src/Texture.cpp; sourceTree = "<group>"; };
 		D1F0AF0E1D4C0BF20012F548 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Texture.hpp; path = src/Texture.hpp; sourceTree = "<group>"; };
+		D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRenderableCube.cpp; path = src/OGLRenderableCube.cpp; sourceTree = "<group>"; };
+		D1F9B6F51D8C95F1005BEBE2 /* OGLRenderableCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableCube.hpp; path = src/OGLRenderableCube.hpp; sourceTree = "<group>"; };
+		D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRenderableQuad.cpp; path = src/OGLRenderableQuad.cpp; sourceTree = "<group>"; };
+		D1F9B6F81D8C9895005BEBE2 /* OGLRenderableQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableQuad.hpp; path = src/OGLRenderableQuad.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +226,8 @@
 				D1BCF1DD1D73110600744215 /* OGLAnimatedPyramids.hpp */,
 				D1BCF1DE1D73110600744215 /* OGLCameraStage.cpp */,
 				D1BCF1DF1D73110600744215 /* OGLCameraStage.hpp */,
+				D1A5159F1D8716F300B13FA1 /* OGLFrustumCulling.cpp */,
+				D1A515A01D8716F300B13FA1 /* OGLFrustumCulling.hpp */,
 				D131DAAF1D5A55C300A129CE /* OGLGeometryShader.cpp */,
 				D131DAB01D5A55C300A129CE /* OGLGeometryShader.hpp */,
 				D1BCF1E21D73113A00744215 /* OGLIndexedDraw.cpp */,
@@ -220,6 +240,8 @@
 				D1D7BFF71D554C42009352D8 /* OGLMixTexture.hpp */,
 				D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */,
 				D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */,
+				D13B91851D7F25A9005A6095 /* OGLMultipleLights.cpp */,
+				D13B91861D7F25A9005A6095 /* OGLMultipleLights.hpp */,
 				D1520D121D7C91CB00F8B6B3 /* OGLPointLight.cpp */,
 				D1520D131D7C91CB00F8B6B3 /* OGLPointLight.hpp */,
 				D113D9B11D4B0EB8009A34DC /* OGLPointSize.cpp */,
@@ -233,9 +255,9 @@
 				D113D9B31D4B0EB8009A34DC /* OGLSimpleTriangle.cpp */,
 				D113D9B41D4B0EB8009A34DC /* OGLSimpleTriangle.hpp */,
 				D12DC4A11D74A43200C2140D /* OGLSkybox.cpp */,
+				D12DC4A21D74A43200C2140D /* OGLSkybox.hpp */,
 				D1520D141D7C91CB00F8B6B3 /* OGLSpotLight.cpp */,
 				D1520D151D7C91CB00F8B6B3 /* OGLSpotLight.hpp */,
-				D12DC4A21D74A43200C2140D /* OGLSkybox.hpp */,
 				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
 				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
 			);
@@ -257,6 +279,10 @@
 				D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */,
 				D113D9BC1D4B0EC6009A34DC /* OGLTriangle.hpp */,
 				D1814D551D53DA5100E1F4F2 /* OGLObjResizable.hpp */,
+				D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */,
+				D1F9B6F51D8C95F1005BEBE2 /* OGLRenderableCube.hpp */,
+				D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */,
+				D1F9B6F81D8C9895005BEBE2 /* OGLRenderableQuad.hpp */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -312,6 +338,8 @@
 			children = (
 				D1926A4A1D2C5DD100657C3F /* Application.cpp */,
 				D1926A4B1D2C5DD100657C3F /* Application.hpp */,
+				D19544C01D60F0E70041F2A0 /* Camera.cpp */,
+				D19544C11D60F0E70041F2A0 /* Camera.hpp */,
 				D1636E6F1D5687AC006E2648 /* Context.hpp */,
 				D135417D1D4D5EFE00B01378 /* Image.hpp */,
 				D13541851D4D623400B01378 /* ImageFactory.cpp */,
@@ -341,8 +369,8 @@
 				D1926A521D2C5DFC00657C3F /* Window.hpp */,
 				D1D7933C1D5741BC007319C3 /* OpenGLInfos.cpp */,
 				D1D7933D1D5741BC007319C3 /* OpenGLInfos.hpp */,
-				D19544C01D60F0E70041F2A0 /* Camera.cpp */,
-				D19544C11D60F0E70041F2A0 /* Camera.hpp */,
+				D1E9C0301D885EFE00B49891 /* Query.cpp */,
+				D1E9C0311D885EFE00B49891 /* Query.hpp */,
 			);
 			name = OGLCore;
 			sourceTree = "<group>";
@@ -385,6 +413,8 @@
 				D113D9C11D4B0ED6009A34DC /* ApplicationSettings.cpp */,
 				D113D9C21D4B0ED6009A34DC /* ApplicationSettings.hpp */,
 				D1926A581D2C5E6700657C3F /* Uncopyable.hpp */,
+				D1A5159C1D8711D600B13FA1 /* CameraUtils.cpp */,
+				D1A5159D1D8711D600B13FA1 /* CameraUtils.hpp */,
 			);
 			name = Commons;
 			sourceTree = "<group>";
@@ -415,7 +445,7 @@
 		D15B068B1D185F9000F77089 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Guillaume Trollé";
 				TargetAttributes = {
 					D15B06921D185F9000F77089 = {
@@ -455,6 +485,7 @@
 				D1F0AF091D4B201B0012F548 /* OGLSimpleCube.cpp in Sources */,
 				D1F0AF041D4B1AC10012F548 /* tinyxml2.cpp in Sources */,
 				D1BCF1E01D73110600744215 /* OGLAnimatedPyramids.cpp in Sources */,
+				D1A5159E1D8711D600B13FA1 /* CameraUtils.cpp in Sources */,
 				D1520D221D7C928200F8B6B3 /* Mesh.cpp in Sources */,
 				D1926A621D30499E00657C3F /* Stage.cpp in Sources */,
 				D1DE70271D4D5DD3009A5159 /* GLIImage.cpp in Sources */,
@@ -470,9 +501,12 @@
 				D1520D171D7C91CB00F8B6B3 /* OGLPointLight.cpp in Sources */,
 				D1520D181D7C91CB00F8B6B3 /* OGLSpotLight.cpp in Sources */,
 				D113D9B81D4B0EB8009A34DC /* OGLSimpleTriangle.cpp in Sources */,
+				D1A515A11D8716F300B13FA1 /* OGLFrustumCulling.cpp in Sources */,
+				D1F9B6F91D8C9895005BEBE2 /* OGLRenderableQuad.cpp in Sources */,
 				D14DED7B1D60CC960023630A /* EventManager.cpp in Sources */,
 				D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */,
 				D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */,
+				D13B91871D7F25A9005A6095 /* OGLMultipleLights.cpp in Sources */,
 				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
 				D12DC4A31D74A43200C2140D /* OGLSkybox.cpp in Sources */,
 				D113D9BD1D4B0EC6009A34DC /* OGLPoint.cpp in Sources */,
@@ -488,8 +522,10 @@
 				D1BCF1E11D73110600744215 /* OGLCameraStage.cpp in Sources */,
 				D1D793411D57473E007319C3 /* GLFWContext.cpp in Sources */,
 				D1926A5B1D2C5E9900657C3F /* VertexBuffer.cpp in Sources */,
+				D1F9B6F61D8C95F1005BEBE2 /* OGLRenderableCube.cpp in Sources */,
 				D14DED751D5E2A570023630A /* OGLModelMatrix.cpp in Sources */,
 				D1926A4D1D2C5DD100657C3F /* Application.cpp in Sources */,
+				D1E9C0321D885EFE00B49891 /* Query.cpp in Sources */,
 				D1926A5E1D2D9E6A00657C3F /* VertexArray.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,8 +547,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -536,7 +574,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -556,8 +594,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -584,7 +624,6 @@
 		D15B069B1D185F9000F77089 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;
@@ -601,7 +640,6 @@
 		D15B069C1D185F9000F77089 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = /opt/local/include;

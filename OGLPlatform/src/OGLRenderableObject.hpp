@@ -13,16 +13,19 @@
 
 namespace gs
 {
-	class Program;
-
-class OGLRenderableObject : public OGLResource
-{
-public:
-	OGLRenderableObject() {}
-    virtual ~OGLRenderableObject() {}
+    class Program;
     
-	virtual bool Load(const std::string& meshFilename) { return false; };
-	virtual void Render(Program* program) = 0;
-};
+    class OGLRenderableObject : public OGLResource
+    {
+    public:
+        OGLRenderableObject() {}
+        virtual ~OGLRenderableObject() {}
+        
+        virtual bool Load(const std::string& meshFilename) { return false; };
+        virtual void Render(Program* program) = 0;
+        virtual void Render(Program* program, int nbInstances) = 0;
+        virtual OGLRenderableObject* GetChild(int index) { return nullptr; }
+        virtual void SetSize(float size) {}
+    };
 }
 /* OGLRenderableObject_hpp */

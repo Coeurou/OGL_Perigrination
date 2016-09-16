@@ -9,6 +9,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <array>
 
 namespace gs
 {
@@ -16,9 +17,15 @@ namespace gs
     
     class Camera
     {
+        const float maxMouseMove = 100.0f;
+        enum { HISTORY_BUFFER_SIZE = 10 };
+        const float WEIGHT_MODIFIER = 0.3f;
+        
+        std::array<glm::vec2, HISTORY_BUFFER_SIZE> mouseHistory;
+        std::array<glm::vec3, HISTORY_BUFFER_SIZE> keyHistory;
 		double lastTime = 0;
 		double deltaTime = 0;
-		glm::ivec2 mousePos;
+		glm::vec2 mousePos;
 		float horizontalAngle = 0.0f;	// angle on Y axis (gaze left to right)
 		float verticalAngle = 0.0f;		// angle on X axis (gaze uup to down)
 
@@ -38,14 +45,25 @@ namespace gs
         glm::mat4 GetProjectionMatrix() const { return projection; }
         glm::mat4 GetViewMatrix() const { return view; }
         glm::mat4 GetViewProjectionMatrix() const { return projection * view; }
+        
 		glm::vec3 GetPosition() const { return position; }
-		glm::vec3 GetForwardVector() const { return forward; }
-		glm::vec3 GetUpVector() const { return up; }
+		glm::vec3 GetForwardDirection() const { return forward; }
+		glm::vec3 GetUpDirection() const { return up; }
+        glm::vec3 GetRightDirection() const { return right; }
+        glm::vec3 GetTarget() const { return target; }
+        
+        float GetFOV() const { return fov; }
+        float GetAspectRatio() const { return aspectRatio; }
+        float GetNear() const { return nearDistance; }
+        float GetFar() const { return farDistance; }
+        float GetSpeed() const { return speed; }
+        float GetAngularSpeed() const { return angularSpeed; }
+        
         void SetSpeed(float velocity) { speed = velocity; }
         void SetAngularSpeed(float velocity) { angularSpeed = velocity; }
-        void SetPosition(const glm::vec3& newPos) { position = newPos; Update(); }
-        void SetTarget(const glm::vec3& newTarget) { target = newTarget; Update(); }
-        void SetUpVector(const glm::vec3& dir) { up = dir; Update(); }
+        void SetPosition(const glm::vec3& newPos) { position = newPos; }
+        void SetTarget(const glm::vec3& newTarget) { target = newTarget; }
+        void SetUpVector(const glm::vec3& dir) { up = dir; }
         
     protected:
         glm::vec3 position;        
@@ -56,6 +74,7 @@ namespace gs
         float farDistance;
         float speed;
         float angularSpeed;
+        float aspectRatio;
         
         glm::mat4 view;
         glm::mat4 projection;
@@ -63,6 +82,9 @@ namespace gs
         glm::vec3 up;
         glm::vec3 right;
         glm::vec3 forward;
+        
+    private:
+        glm::vec2 FilterMousePos(const glm::vec2& mousePos);
     };
 }
 /* Camera_hpp */

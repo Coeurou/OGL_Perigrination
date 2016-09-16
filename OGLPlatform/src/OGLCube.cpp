@@ -33,14 +33,14 @@ bool OGLCube::InitVertices(glm::vec3 origin)
     float halfD = depth * 0.5f;
     
     std::array<glm::vec3, 8> geometry {
-        glm::vec3(origin.x - halfW, origin.y - halfH, origin.z + halfD),
-        glm::vec3(origin.x + halfW, origin.y - halfH, origin.z + halfD),
-        glm::vec3(origin.x + halfW, origin.y + halfH, origin.z + halfD),
-        glm::vec3(origin.x - halfW, origin.y + halfH, origin.z + halfD),
-        glm::vec3(origin.x - halfW, origin.y - halfH, origin.z - halfD),
-        glm::vec3(origin.x - halfW, origin.y + halfH, origin.z - halfD),
-        glm::vec3(origin.x + halfW, origin.y + halfH, origin.z - halfD),
-        glm::vec3(origin.x + halfW, origin.y - halfH, origin.z - halfD)
+        glm::vec3(origin.x - halfW, origin.y - halfH, origin.z + halfD), // Near Bottom left
+        glm::vec3(origin.x + halfW, origin.y - halfH, origin.z + halfD), // Near Bottom right
+        glm::vec3(origin.x + halfW, origin.y + halfH, origin.z + halfD), // Near Top right
+        glm::vec3(origin.x - halfW, origin.y + halfH, origin.z + halfD), // Near Top left
+        glm::vec3(origin.x - halfW, origin.y - halfH, origin.z - halfD), // Far Bottom left
+        glm::vec3(origin.x - halfW, origin.y + halfH, origin.z - halfD), // Far Top left
+        glm::vec3(origin.x + halfW, origin.y + halfH, origin.z - halfD), // Far Top right
+        glm::vec3(origin.x + halfW, origin.y - halfH, origin.z - halfD)  // Far Bottom right
     };
     
     return InitVertices(geometry);

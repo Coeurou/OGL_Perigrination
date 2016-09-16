@@ -36,11 +36,12 @@ namespace gs
 		~Model();
 
 		GLuint GetVAO() const { return vao.get(); }
-		const std::vector<Mesh>& GetSubMeshes() { return subMeshes; };
 
 		bool Load(const std::string& meshFilename) override;
 		void Render(Program* program) override;
-
+        void Render(Program* program, int nbInstances) override;
+        OGLRenderableObject* GetChild(int index) override { return children[index].get(); }
+        
 	private:	
 		class AssimpMaterial
 		{
@@ -70,7 +71,7 @@ namespace gs
 		bool InitMaterialByType(const aiMaterial* material, const aiTextureType texType, unsigned int startIndex);
 		bool AddTexture(int materialIndex, const std::string& imgFilename, LIGHT_CONTRIBUTION contribution);
 
-		std::vector<Mesh> subMeshes;
+        std::vector<std::shared_ptr<OGLRenderableObject>> children;
 		std::vector<std::shared_ptr<AssimpMaterial>> materials;
 		VertexArray vao;
 	};

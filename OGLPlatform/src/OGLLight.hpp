@@ -17,6 +17,7 @@ public:
 
 	bool Load(const std::string& meshFilename) override;
 	void Render(gs::Program* program) override;
+    void Render(gs::Program* program, int nbInstances) override {}
 
 private:
 	OGLCube cube;

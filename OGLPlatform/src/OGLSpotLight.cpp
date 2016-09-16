@@ -67,7 +67,7 @@ void OGLSpotLight::InitCubePosition()
 void OGLSpotLight::InitLight()
 {
 	light.position = camera.GetPosition();
-	light.direction = camera.GetForwardVector();
+	light.direction = camera.GetForwardDirection();
 	light.ambientColor = glm::vec3(0.2f);
 	light.diffuseColor = glm::vec3(0.8f);
 	light.specularColor = glm::vec3(1.0f);
@@ -170,7 +170,7 @@ bool OGLSpotLight::Init(int windowWidth, int windowHeight)
 	textures.push_back(specular);	
 
 	glEnable(GL_DEPTH_TEST);
-
+    res = true;
 	return res;
 }
 
@@ -203,7 +203,7 @@ void OGLSpotLight::Render(double time)
 
 	camera.Update();
 	light.position = camera.GetPosition();
-	light.direction = camera.GetForwardVector();
+	light.direction = camera.GetForwardDirection();
 
 	// Render container
 	auto programMesh = programs[0];
