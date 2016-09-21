@@ -25,8 +25,6 @@ out vec4 fColor;
 uniform SpotLight light;
 uniform Material material;
 
-uniform mat4 viewMatrix;
-
 uniform sampler2D samplerDiffuse1;
 uniform sampler2D samplerDiffuse2;
 uniform sampler2D samplerDiffuse3;
@@ -36,7 +34,7 @@ uniform sampler2D samplerSpecular2;
 
 void main()
 {
-	vec3 lightPos = vec3(viewMatrix * vec4(light.position, 1));
+	vec3 lightPos = light.position;
 	vec3 unitNormal = normalize(vsNormal);
 	vec3 unitLight = normalize(lightPos - vsPosition);
 	

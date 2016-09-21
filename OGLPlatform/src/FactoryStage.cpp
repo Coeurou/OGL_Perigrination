@@ -17,6 +17,7 @@
 #include "OGLSpotLight.hpp"
 #include "OGLMultipleLights.hpp"
 #include "OGLFrustumCulling.hpp"
+#include "OGLDepthPicking.hpp"
 #include "Stage.hpp"
 
 
@@ -76,6 +77,9 @@ std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
             break;
         case FRUSTUM_CULLING:
             return std::make_shared<OGLFrustumCulling>();
+            break;
+        case DEPTH_PICKING:
+            return std::make_shared<OGLDepthPicking>();
             break;
         default:
             return nullptr;

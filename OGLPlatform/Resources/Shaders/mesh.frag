@@ -27,25 +27,29 @@ uniform sampler2D samplerDiffuse3;
 uniform sampler2D samplerSpecular1;
 uniform sampler2D samplerSpecular2;
 
+vec4 ComputeDirLight(DirectionnalLight light, vec3 normal, vec3 viewPos)
+{
+	vec3 lightDir = normalize(light.direction);
+	vec3 reflectedLight = reflect(lightDir, normal);
+
+	float diffuseContribution = max(0.0, dot(lightDir, normal));
+	float specularContribution = pow(max(0.0, dot(reflectedLight, normalize(viewPos))), material.shininess);
+
+	vec3 ambientColor = light.ambientColor;
+	vec3 diffuseColor = light.diffuseColor * diffuseContribution;
+	vec3 specularColor = light.specularColor * specularContribution;
+
+	vec4 diffuseTexColor = (texture(samplerDiffuse1, vsTexCoords) + texture(samplerDiffuse2, vsTexCoords) +
+							texture(samplerDiffuse3, vsTexCoords)) * vec4(ambientColor + diffuseColor, 1);
+							
+	vec4 specularTexColor = (texture(samplerSpecular1, vsTexCoords) + texture(samplerSpecular2, vsTexCoords)) * vec4(specularColor, 1);
+	
+	return (diffuseTexColor + specularTexColor);
+}
 
 void main()
 {
 	vec3 unitNormal = normalize(vsNormal);
-	vec3 unitLight = normalize(light.direction);
 	
-	vec3 reflectedLight = reflect(-unitLight, unitNormal);
-	float diffuseContribution = max(0.0, dot(-unitLight, unitNormal));
-	float specAngle = dot(normalize(-vsPosition), reflectedLight);
-	float specularContribution = pow(max(0.0, specAngle), material.shininess);
-	
-	vec4 ambientColor = vec4(light.ambientColor, 1);
-	vec4 diffuseColor = vec4(light.diffuseColor, 1) * diffuseContribution;
-	vec4 specularColor = vec4(light.specularColor, 1) * specularContribution;
-	
-	vec4 diffuseTexColor = (texture(samplerDiffuse1, vsTexCoords) + texture(samplerDiffuse2, vsTexCoords) +
-							texture(samplerDiffuse3, vsTexCoords)) * (ambientColor + diffuseColor);
-							
-	vec4 specularTexColor = (texture(samplerSpecular1, vsTexCoords) + texture(samplerSpecular2, vsTexCoords)) * specularColor;
-	
-	fColor = diffuseTexColor + specularTexColor;
+	fColor = ComputeDirLight(light, unitNormal, vsPosition);
 }

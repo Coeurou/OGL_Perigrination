@@ -135,6 +135,10 @@ namespace gs
         
         OGLApplicationParams* params16 = new OGLApplicationParams(this, STAGES::FRUSTUM_CULLING);
         TwAddButton(mainBar, "FrustumCulling", ChangeStage, (void*)params16, " label='Frustum Culling Example' ");
+        
+        OGLApplicationParams* params17 = new OGLApplicationParams(this, STAGES::DEPTH_PICKING);
+        TwAddButton(mainBar, "DepthPicking", ChangeStage, (void*)params17, " label='Depth Picking Example' ");
+
     }
 
 	void Application::InitCallbacks()

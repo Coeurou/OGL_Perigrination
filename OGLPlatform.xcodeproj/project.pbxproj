@@ -64,6 +64,7 @@
 		D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0D1D4C0BF20012F548 /* Texture.cpp */; };
 		D1F9B6F61D8C95F1005BEBE2 /* OGLRenderableCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */; };
 		D1F9B6F91D8C9895005BEBE2 /* OGLRenderableQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */; };
+		D1F9B6FC1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -201,6 +202,8 @@
 		D1F9B6F51D8C95F1005BEBE2 /* OGLRenderableCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableCube.hpp; path = src/OGLRenderableCube.hpp; sourceTree = "<group>"; };
 		D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRenderableQuad.cpp; path = src/OGLRenderableQuad.cpp; sourceTree = "<group>"; };
 		D1F9B6F81D8C9895005BEBE2 /* OGLRenderableQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableQuad.hpp; path = src/OGLRenderableQuad.hpp; sourceTree = "<group>"; };
+		D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLDepthPicking.cpp; path = src/OGLDepthPicking.cpp; sourceTree = "<group>"; };
+		D1F9B6FB1D8C9ECC005BEBE2 /* OGLDepthPicking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLDepthPicking.hpp; path = src/OGLDepthPicking.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +263,8 @@
 				D1520D151D7C91CB00F8B6B3 /* OGLSpotLight.hpp */,
 				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
 				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
+				D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */,
+				D1F9B6FB1D8C9ECC005BEBE2 /* OGLDepthPicking.hpp */,
 			);
 			name = Stages;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 				D19544C21D60F0E70041F2A0 /* Camera.cpp in Sources */,
 				D1D7933E1D5741BC007319C3 /* OpenGLInfos.cpp in Sources */,
 				D134A40B1D52820B0029C42A /* OGLMipmaps.cpp in Sources */,
+				D1F9B6FC1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp in Sources */,
 				D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */,
 				D1D4038A1D56379600DCC53F /* Sampler.cpp in Sources */,
 				D1926A481D2C5DB400657C3F /* Shader.cpp in Sources */,

@@ -34,11 +34,13 @@ bool OGLRenderableQuad::Load(const std::string& meshFilename)
 void OGLRenderableQuad::Render(gs::Program* program)
 {
     vao.BindVAO();
+    vbo.BindVBO();
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
 void OGLRenderableQuad::Render(gs::Program* program, int nbInstances)
 {
     vao.BindVAO();
+    vbo.BindVBO();
     glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, nbInstances);
 }

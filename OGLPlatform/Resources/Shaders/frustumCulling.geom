@@ -22,8 +22,7 @@ void main()
 {
 	for (int i = 0; i < gl_in.length(); i++) {
 		vec4 pos = gl_in[i].gl_Position;
-		vec2 temp = (pos.xz * 2.0 - 1.0) * 5.0;
-		vec3 vertex = vec3(temp.x, pos.y, temp.y);
+		vec3 vertex = vec3(pos.x, pos.y, pos.z);
 		gl_Position = MVP * vec4(vertex, 1);
 
 		if (IsInFrustum(vertex)) {

@@ -35,11 +35,13 @@ bool OGLRenderableCube::Load(const std::string& meshFilename)
 void OGLRenderableCube::Render(gs::Program* program)
 {
     vao.BindVAO();
+    vbo.BindVBO();
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void OGLRenderableCube::Render(gs::Program* program, int nbInstances)
 {
     vao.BindVAO();
+    vbo.BindVBO();
     glDrawArraysInstanced(GL_TRIANGLES, 0, 36, nbInstances);
 }
