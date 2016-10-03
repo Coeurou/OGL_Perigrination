@@ -11,6 +11,7 @@
 #include "Uncopyable.hpp"
 #include <map>
 #include <vector>
+#include <queue>
 #include <functional>
 
 namespace gs
@@ -27,16 +28,39 @@ namespace gs
     {
     public:
         EventArgs() {}        
-        ~EventArgs() {}
+        virtual ~EventArgs() {}
     };
     
     class MouseEventArgs : public EventArgs
     {
     public:
+		MouseEventArgs() : button(0), state(0), posX(0), posY(0) {}
         MouseEventArgs(int b, int s, double pX, double pY)
             : button(b), state(s), posX(pX), posY(pY) {}
-        ~MouseEventArgs() {}
+		MouseEventArgs(const MouseEventArgs& other)
+			: button(other.button), state(other.state), posX(other.posX), posY(other.posY) {}
+		MouseEventArgs(MouseEventArgs&& other) noexcept
+			: button(std::move(other.button)), state(std::move(other.state)), posX(std::move(other.posX)), posY(std::move(other.posY)) {}
+        virtual ~MouseEventArgs() {}
+
+		MouseEventArgs& operator=(const MouseEventArgs& other)
+		{
+			button = other.button;
+			state = other.state;
+			posX = other.posX;
+			posY = other.posY;
+			return *this;
+		}
         
+		MouseEventArgs& operator=(MouseEventArgs&& other)
+		{
+			button = std::move(other.button);
+			state = std::move(other.state);
+			posX = std::move(other.posX);
+			posY = std::move(other.posY);
+			return *this;
+		}
+
         int button;
         int state;
         double posX;
@@ -47,6 +71,8 @@ namespace gs
     {
     public:
         KeyEventArgs(int k, int w, int h) : key(k), width(w), height(h) {}
+		KeyEventArgs(KeyEventArgs&& other) noexcept
+			: key(std::move(other.key)), width(std::move(other.width)), height(std::move(other.height)) {}
         ~KeyEventArgs() {}
     
         int key;
@@ -58,6 +84,8 @@ namespace gs
     {
     public:
         ResizeEventArgs(int w, int h) : width(w), height(h) {}
+		ResizeEventArgs(ResizeEventArgs&& other) noexcept
+			: width(std::move(other.width)), height(std::move(other.height)) {}
         ~ResizeEventArgs() {}
         
         int width;
@@ -90,13 +118,16 @@ namespace gs
         
         static EventManager& GetInstance();
         
-        void Subscribe(Event ev);
-        void Unsubscribe(Event ev);
+        void Subscribe(Event&& ev);
+        void Unsubscribe(Event&& ev);
         void Dispatch(EventType type, const EventArgs& args);
+		void QueueEvent(EventType type, EventArgs* args);
+		void PollEvents();
         
     private:
         static EventManager* instance;
         std::map<EventType, EventCallbacks> dispatcher;
+		std::queue<std::pair<EventType, EventArgs*>> pendingEvents;
     };
 }
 /* EventManager_hpp */

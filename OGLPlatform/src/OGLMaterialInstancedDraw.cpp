@@ -153,9 +153,11 @@ bool OGLMaterialInstancedDraw::Init(int windowWidth, int windowHeight)
 
 	// Init models
 	renderedObjs.push_back(std::make_unique<gs::Model>());
+	renderedObjs[0]->SetProgram(program);
 	res &= renderedObjs[0]->Load("sphere.obj");
 
 	renderedObjs.push_back(std::make_unique<gs::Model>());
+	renderedObjs[1]->SetProgram(programMesh);
 	res &= renderedObjs[1]->Load("palette.obj");
 
 	auto vao = std::make_shared<gs::VertexArray>();
@@ -238,7 +240,7 @@ void OGLMaterialInstancedDraw::Render(double time)
 		glUniform3fv(program->GetUniform("material.specularColor"), 1, glm::value_ptr(material[i].specularColor));
 		glUniform1f(program->GetUniform("material.shininess"), material[i].shininess);
 
-		renderedObjs[0]->Render(program.get());
+		renderedObjs[0]->Render();
 	}
 
 	auto programMesh = programs[1];
@@ -248,7 +250,7 @@ void OGLMaterialInstancedDraw::Render(double time)
 	model = glm::scale(glm::rotate(glm::translate(glm::mat4(1), glm::vec3(0, -20, 0)), glm::radians(30.0f * (float)time), glm::vec3(0,1,0)), glm::vec3(3));
 	SendLightUniform(programMesh.get());
 	SendMatricesUniform(programMesh.get(), model);
-	renderedObjs[1]->Render(programMesh.get());
+	renderedObjs[1]->Render();
 
 	// Render container
 	model = glm::scale(glm::rotate(glm::translate(glm::mat4(1), glm::vec3(0, -10, 0)), glm::radians(-30.0f * (float)time), glm::vec3(0, 1, 0)), glm::vec3(10));

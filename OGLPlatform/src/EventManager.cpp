@@ -27,12 +27,12 @@ namespace gs
         return *instance;
     }
     
-    void EventManager::Subscribe(Event ev)
+    void EventManager::Subscribe(Event&& ev)
     {
         dispatcher[ev.first].push_back(ev.second);
     }
     
-    void EventManager::Unsubscribe(Event ev)
+    void EventManager::Unsubscribe(Event&& ev)
     {   
         dispatcher[ev.first].erase(std::remove_if(dispatcher[ev.first].begin(), dispatcher[ev.first].end(), [&](EventFun e) { return ev.second.GetId() == e.GetId(); }));
     }
@@ -43,4 +43,19 @@ namespace gs
             callback.GetFunction()(args);
         }
     }
+
+	void EventManager::QueueEvent(EventType type, EventArgs* args)
+	{
+		pendingEvents.push(std::make_pair(type, args));
+	}
+
+	void EventManager::PollEvents()
+	{
+		while (!pendingEvents.empty()) {
+			auto& toDispatch = pendingEvents.front();
+			Dispatch(toDispatch.first, *toDispatch.second);
+			pendingEvents.pop();
+			delete toDispatch.second;
+		}
+	}
 }

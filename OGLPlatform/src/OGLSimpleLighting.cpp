@@ -172,5 +172,5 @@ void OGLSimpleLighting::Render(double time)
 	}
 
 	lightObj.SetMVP(camera.GetViewProjectionMatrix() * glm::translate(glm::mat4(1), glm::vec3(0,10,-20)));
-	lightObj.Render(nullptr);
+	lightObj.Render();
 }

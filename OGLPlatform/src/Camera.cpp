@@ -165,13 +165,14 @@ namespace gs
     void Camera::OnMouseMoved(const EventArgs& args)
     {
         const auto& mouseEvent = static_cast<const MouseEventArgs&>(args);
-        
+		// If mouse button release or button is not right
+		if (mouseEvent.button != 1 || mouseEvent.state == 0) { return; }
+
         glm::vec2 delta { mouseEvent.posY - mousePos.y, mouseEvent.posX - mousePos.x };
 
 		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
         delta = FilterMousePos(delta);
-		// On mouse button release
-        if (mouseEvent.state == 0 || glm::length(delta) > maxMouseMove) {
+        if (glm::length(delta) > maxMouseMove) {
             return;
         }
         delta *= deltaTime * angularSpeed;

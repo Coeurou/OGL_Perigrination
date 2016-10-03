@@ -41,15 +41,6 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 
 	if (res) {
         res &= InitGUI();
-		// Program SKYBOX
-        auto program = std::make_shared<gs::Program>();
-		res &= program->CreateShader(GL_VERTEX_SHADER, "simpleSkybox.vert");
-		res &= program->CreateShader(GL_FRAGMENT_SHADER, "simpleSkybox.frag");
-        
-		res &= program->Link();
-        program->Use();
-		program->AddUniform("MVP");
-        programs.push_back(program);
 
 		// Program MESHES
 		auto programRender = std::make_shared<gs::Program>();
@@ -74,8 +65,8 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		programRender->AddUniform("material.shininess");
 		programs.push_back(programRender);
 
-		glUniform3fv(programs[1]->GetUniform("light.specularColor"), 1, glm::value_ptr(light.specularColor));
-		glUniform3fv(programs[1]->GetUniform("light.ambientColor"), 1, glm::value_ptr(light.ambientColor));
+		glUniform3fv(programs[0]->GetUniform("light.specularColor"), 1, glm::value_ptr(light.specularColor));
+		glUniform3fv(programs[0]->GetUniform("light.ambientColor"), 1, glm::value_ptr(light.ambientColor));
 
 		// Program GROUND
 		auto programGround = std::make_shared<gs::Program>();
@@ -88,10 +79,7 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		programs.push_back(programGround);
         
 		// Texture CUBEMAP/SKYBOX
-		auto texture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
-		res &= texture->LoadCubemap({ "posx.dds", "negx.dds", "posy.dds", "negy.dds", "posz.dds", "negz.dds" });
-		texture->BindTexture(GL_TEXTURE0);
-		textures.push_back(texture);
+		skybox.Load("");
 
 		// Texture GROUND
 		auto textureGround = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
@@ -99,19 +87,7 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		textureGround->BindTexture(GL_TEXTURE0);
 		textureGround->ChangeParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		textures.push_back(textureGround);
-
-		// Data SKYBOX
-        auto vao = std::make_shared<gs::VertexArray>();
-        vao->BindVAO();
-        vaos.push_back(vao);
-		auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
-		vbo->BindVBO();
-		vbos.push_back(vbo);
-		OGLCube cube;
-		cube.InitVertices(glm::vec3(0));
-		glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * cube.GetVertices().size(), cube.GetVertices().data(), GL_STATIC_DRAW);
-		vao->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
-
+		
 		// Data GROUND
 		auto vaoGround = std::make_shared<gs::VertexArray>();
 		vaoGround->BindVAO();
@@ -128,10 +104,12 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 
 		// Data Spider
 		renderedObjs.push_back(std::make_unique<gs::Model>());
+		renderedObjs[0]->SetProgram(programRender);
 		res &= renderedObjs[0]->Load("spider.obj");
 
 		// Data Crysis Nanosuit
 		renderedObjs.push_back(std::make_unique<gs::Model>());
+		renderedObjs[1]->SetProgram(programRender);
 		res &= renderedObjs[1]->Load("nanosuit.obj");
 
 		// Camera Init
@@ -147,50 +125,37 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 void OGLSkybox::Render(double time)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-	// Keep default depth comparison and cull mode
-    int oldCullMode, oldDepthFunc;
-    glGetIntegerv(GL_CULL_FACE_MODE, &oldCullMode);
-    glGetIntegerv(GL_DEPTH_FUNC, &oldDepthFunc);    
-    
+
 	camera.Update();
 
 	glm::mat4 MVP = camera.GetViewProjectionMatrix();  
 
 	// Render GROUND
-	programs[2]->Use();
-	vaos[1]->BindVAO();
-	textures[1]->BindTexture(GL_TEXTURE0);
+	programs[1]->Use();
+	vaos[0]->BindVAO();
+	textures[0]->BindTexture(GL_TEXTURE0);
 	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -5.0f, 0.0f));
 	model = glm::rotate(model, glm::half_pi<float>(), glm::vec3(1.0f, 0.0f, 0.0f));
 
-	glUniformMatrix4fv(programs[2]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
+	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	// Render SKYBOX
-	glCullFace(GL_FRONT_FACE);
-	glDepthFunc(GL_LEQUAL);
-
-	programs[0]->Use();
-	vaos[0]->BindVAO();
-	textures[0]->BindTexture(GL_TEXTURE0);
-	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(glm::translate(MVP, camera.GetPosition())));
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	glCullFace(oldCullMode);
-	glDepthFunc(oldDepthFunc);
+	skybox.SetMVP(MVP);
+	skybox.SetCameraPosition(camera.GetPosition());
+	skybox.Render();
 
 	// Render Spider
-	programs[1]->Use();
-	glUniform3fv(programs[1]->GetUniform("light.diffuseColor"), 1, glm::value_ptr(light.diffuseColor));
-	glUniform3fv(programs[1]->GetUniform("light.direction"), 1, glm::value_ptr(glm::normalize(light.direction)));
+	programs[0]->Use();
+	glUniform3fv(programs[0]->GetUniform("light.diffuseColor"), 1, glm::value_ptr(light.diffuseColor));
+	glUniform3fv(programs[0]->GetUniform("light.direction"), 1, glm::value_ptr(glm::normalize(light.direction)));
 
 	model = glm::rotate(glm::mat4(1.0f), 45.0f * (float)glm::radians(time), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, glm::vec3(0.1f));
 
-	glUniformMatrix4fv(programs[1]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
-	renderedObjs[0]->Render(programs[1].get());
+	glUniformMatrix4fv(programs[0]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP * model));
+	renderedObjs[0]->Render();
 
 	// Render Nanosuit
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(-20, -5, -5));
@@ -198,8 +163,8 @@ void OGLSkybox::Render(double time)
 	MVP *= model;
 
 	auto normalMatrix = glm::transpose(glm::inverse(camera.GetViewMatrix() * model));
-	glUniformMatrix4fv(programs[1]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(normalMatrix));
-	glUniformMatrix4fv(programs[1]->GetUniform("MV"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix() * model));
-	glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
-	renderedObjs[1]->Render(programs[1].get());
+	glUniformMatrix4fv(programs[0]->GetUniform("normalMatrix"), 1, GL_FALSE, glm::value_ptr(normalMatrix));
+	glUniformMatrix4fv(programs[0]->GetUniform("MV"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix() * model));
+	glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	renderedObjs[1]->Render();
 }

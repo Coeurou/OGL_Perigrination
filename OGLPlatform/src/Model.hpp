@@ -38,8 +38,8 @@ namespace gs
 		GLuint GetVAO() const { return vao.get(); }
 
 		bool Load(const std::string& meshFilename) override;
-		void Render(Program* program) override;
-        void Render(Program* program, int nbInstances) override;
+		void Render() override;
+        void Render(int nbInstances) override;
         OGLRenderableObject* GetChild(int index) override { return children[index].get(); }
         
 	private:	

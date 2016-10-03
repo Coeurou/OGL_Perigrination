@@ -8,10 +8,9 @@
 
 #pragma once
 
+#include <GL/glew.h>
 #include "Window.hpp"
 #include <GLFW/glfw3.h>
-#include <memory>
-#include <functional>
 
 class GLFWContext;
 
@@ -19,12 +18,15 @@ class WindowGLFW : public gs::Window
 {
 public:
     WindowGLFW();
-    WindowGLFW(GLFWContext* ctxt);
+    WindowGLFW(gs::Context* ctxt);
     ~WindowGLFW();
     
     GLFWwindow* get() const { return window; }
-    bool CreateWindow();
+    bool CreateWindow() override;
+	bool Render() override;
     
 private:
     GLFWwindow* window;
+
+	void InitCallbacks();
 };

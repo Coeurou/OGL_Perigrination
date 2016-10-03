@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 #include "Uncopyable.hpp"
-#include "WindowGLFW.hpp"
+#include "Window.hpp"
 #include "FactoryStage.hpp"
 #include "ApplicationSettings.hpp"
 #include <AntTweakBar.h>
@@ -28,12 +28,11 @@ namespace gs
         
     private:
         void InitStagesTweakBar();
-		void InitCallbacks();
         void LoadSettings();
         static void TW_CALL ChangeStage(void* newStage);
         void ChangeStage(STAGES newStage);
         
-        std::unique_ptr<WindowGLFW> window;
+        std::unique_ptr<Window> window;
         std::shared_ptr<Stage> stage;
         std::unique_ptr<OGLAntTweakBar> atbApp;
         ApplicationSettings settings;

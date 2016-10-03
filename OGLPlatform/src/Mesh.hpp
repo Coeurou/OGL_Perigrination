@@ -28,8 +28,8 @@ namespace gs
         bool Load(const std::string& meshFilename) override { return false; };
 		void InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices);
 		void SetMaterial(Material* material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
-		void Render(Program* program) override;
-		void Render(Program* program, int nbInstances) override;
+		void Render() override;
+		void Render(int nbInstances) override;
 
 		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
 
@@ -44,7 +44,7 @@ namespace gs
 		VertexBuffer GetIBO() const { return ibo; }
 
 	private:
-		void PrepareDraw(Program* program);
+		void PrepareDraw();
 
 		VertexBuffer vbo;
 		VertexBuffer ibo;

@@ -14,11 +14,11 @@
 namespace gs
 {
     class EventArgs;
-    
+	enum { HISTORY_BUFFER_SIZE = 10 };
+
     class Camera
     {
         const float maxMouseMove = 100.0f;
-        enum { HISTORY_BUFFER_SIZE = 10 };
         const float WEIGHT_MODIFIER = 0.3f;
         
         std::array<glm::vec2, HISTORY_BUFFER_SIZE> mouseHistory;

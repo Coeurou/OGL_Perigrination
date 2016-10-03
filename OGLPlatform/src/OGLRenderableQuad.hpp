@@ -21,8 +21,8 @@ public:
     ~OGLRenderableQuad();
     
     bool Load(const std::string& meshFilename) override;
-    void Render(gs::Program* program) override;
-    void Render(gs::Program * program, int nbInstances) override;
+    void Render() override;
+    void Render(int nbInstances) override;
     void SetSize(float size) override { quad.SetSize(size); }
     
 private:

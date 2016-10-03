@@ -94,6 +94,7 @@ bool OGLFrustumCulling::Init(int windowWidth, int windowHeight)
         totalVertices = (int)positions.size();
         
         ground.SetSize(1000);
+		ground.SetProgram(programs[1]);
         ground.Load("");
         
         camera.SetSpeed(10);
@@ -121,7 +122,7 @@ void OGLFrustumCulling::Render(double time)
     programs[1]->Use();
     glm::mat4 makeHorizontal = glm::rotate(glm::mat4(1), glm::half_pi<float>(), glm::vec3(1,0,0));
     glUniformMatrix4fv(programs[1]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(camera.GetViewProjectionMatrix() * makeHorizontal));
-    ground.Render(programs[1].get());
+    ground.Render();
     
     programs[0]->Use();
     vaos[0]->BindVAO();

@@ -80,6 +80,7 @@ namespace gs
 			indices.push_back(face.mIndices[1]);
 			indices.push_back(face.mIndices[2]);
 		}
+		gsMesh->SetProgram(program);
 		gsMesh->InitGL(vertices, indices);
 		gsMesh->SetMaterial(assimpMaterial->material.get(), assimpMaterial->textures);
 		return true;
@@ -202,19 +203,19 @@ namespace gs
 		return res;
 	}
 
-	void Model::Render(Program* program)
+	void Model::Render()
 	{
 		vao.BindVAO();
 		for (auto mesh : children) {
-			mesh->Render(program);
+			mesh->Render();
 		}
 	}
     
-    void Model::Render(Program* program, int nbInstances)
+    void Model::Render(int nbInstances)
     {
         vao.BindVAO();
         for (auto mesh : children) {
-            mesh->Render(program, nbInstances);
+            mesh->Render(nbInstances);
         }
     }
 }

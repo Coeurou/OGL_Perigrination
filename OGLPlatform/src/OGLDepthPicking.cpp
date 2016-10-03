@@ -56,9 +56,11 @@ bool OGLDepthPicking::Init(int windowWidth, int windowHeight)
         program->AddUniform("MVP");
         
         ground.SetSize(1000);
+		ground.SetProgram(programs[0]);
         ground.Load("");
         
         auto cube = std::make_shared<OGLRenderableCube>();
+		cube->SetProgram(programs[0]);
         cube->Load("");
         //cube.SetSize(30);
         cubes.push_back(cube);
@@ -78,10 +80,10 @@ void OGLDepthPicking::Render(double time)
     
     glm::mat4 mvp = camera.GetViewProjectionMatrix();
     glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(mvp));
-    cubes[0]->Render(programs[0].get());
+    cubes[0]->Render();
     
     glm::mat4 makeHorizontal = glm::rotate(glm::mat4(1), glm::half_pi<float>(), glm::vec3(1,0,0));
     mvp *= makeHorizontal;
     glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(mvp));
-    ground.Render(programs[0].get());
+    ground.Render();
 }

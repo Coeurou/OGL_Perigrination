@@ -16,8 +16,8 @@ public:
 	void SetMVP(const glm::mat4& mvp) { MVP = mvp; }
 
 	bool Load(const std::string& meshFilename) override;
-	void Render(gs::Program* program) override;
-    void Render(gs::Program* program, int nbInstances) override {}
+	void Render() override;
+    void Render(int nbInstances) override {}
 
 private:
 	OGLCube cube;

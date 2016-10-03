@@ -23,19 +23,19 @@ bool OGLLight::Load(const std::string& meshFilename)
 
 	vao.AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
 
-	res &= lightProgram.CreateShader(GL_VERTEX_SHADER, lightVSFilename);
-	res &= lightProgram.CreateShader(GL_FRAGMENT_SHADER, lightFSFilename);
-	lightProgram.Link();
-	lightProgram.Use();
+	res &= program->CreateShader(GL_VERTEX_SHADER, lightVSFilename);
+	res &= program->CreateShader(GL_FRAGMENT_SHADER, lightFSFilename);
+	program->Link();
+	program->Use();
 
 	lightProgram.AddUniform("MVP");
 
 	return res;
 }
 
-void OGLLight::Render(gs::Program* program)
+void OGLLight::Render()
 {
-	lightProgram.Use();
+	program->Use();
 	vao.BindVAO();
 	glUniformMatrix4fv(lightProgram.GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 

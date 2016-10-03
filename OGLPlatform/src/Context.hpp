@@ -8,9 +8,6 @@
 
 #pragma once
 
-#include "Uncopyable.hpp"
-#include <string>
-
 namespace gs
 {
     struct ContextParams

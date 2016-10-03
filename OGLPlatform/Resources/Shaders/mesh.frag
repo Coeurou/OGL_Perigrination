@@ -30,9 +30,9 @@ uniform sampler2D samplerSpecular2;
 vec4 ComputeDirLight(DirectionnalLight light, vec3 normal, vec3 viewPos)
 {
 	vec3 lightDir = normalize(light.direction);
-	vec3 reflectedLight = reflect(lightDir, normal);
+	vec3 reflectedLight = reflect(-lightDir, normal);
 
-	float diffuseContribution = max(0.0, dot(lightDir, normal));
+	float diffuseContribution = max(0.0, dot(-lightDir, normal));
 	float specularContribution = pow(max(0.0, dot(reflectedLight, normalize(viewPos))), material.shininess);
 
 	vec3 ambientColor = light.ambientColor;

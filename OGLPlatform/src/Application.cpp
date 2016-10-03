@@ -1,11 +1,12 @@
 #include "Application.hpp"
-#include "Stage.hpp"
 #include "ATBResource.hpp"
-#include "OGLAntTweakBar.hpp"
+#include "EventManager.hpp"
 #include "GLFWContext.hpp"
-#include "WindowGLFW.hpp"
 #include "GLFWUtility.hpp"
+#include "OGLAntTweakBar.hpp"
 #include "OGLApplicationConstants.hpp"
+#include "Stage.hpp"
+#include "WindowGLFW.hpp"
 #include <iostream>
 #include <sstream>
 #include <cassert>
@@ -24,11 +25,9 @@ namespace gs
     bool Application::Init()
     {
         LoadSettings();
-		GLFWContext* context = new GLFWContext();
-        bool res = context->InitContext();
-        if (!res) {
-            return res;
-        }
+		Context* context = new GLFWContext();
+        bool res = true;
+
         window = std::make_unique<WindowGLFW>(context);
 		res &= window->CreateWindow();
         glewExperimental = GL_TRUE;
@@ -43,8 +42,6 @@ namespace gs
         res &= atbHandle.InitATB();
         atbApp->InitAntTweakBar("Stages", window->GetWindowWidth(), window->GetWindowHeight());
         InitStagesTweakBar();
-        
-		InitCallbacks();
 
 		projection = glm::perspective(fov, window->GetWindowWidth() / (float)window->GetWindowHeight(), nearDistance, farDistance);
 
@@ -53,12 +50,12 @@ namespace gs
     
     int Application::Run()
     {
-        while (!glfwWindowShouldClose(window->get())) {
+		WindowGLFW* glfwWindow = dynamic_cast<WindowGLFW*>(window.get());
+
+        while (window->Render()) {
+			EventManager::GetInstance().PollEvents();
             stage->Render(glfwGetTime());
             TwDraw();
-            
-            glfwSwapBuffers(window->get());
-            glfwPollEvents();
         }
         return 0;
     }
@@ -138,19 +135,7 @@ namespace gs
         
         OGLApplicationParams* params17 = new OGLApplicationParams(this, STAGES::DEPTH_PICKING);
         TwAddButton(mainBar, "DepthPicking", ChangeStage, (void*)params17, " label='Depth Picking Example' ");
-
     }
-
-	void Application::InitCallbacks()
-	{
-		glfwSetErrorCallback(OnGLFWError);
-		glfwSetKeyCallback(window->get(), OnKeyDown);
-		glfwSetCharCallback(window->get(), OnCharPressed);
-		glfwSetScrollCallback(window->get(), OnMouseWheel);
-		glfwSetCursorPosCallback(window->get(), OnMouseMove);
-		glfwSetWindowSizeCallback(window->get(), OnWindowResize);
-		glfwSetMouseButtonCallback(window->get(), OnMouseButtonClick);
-	}
     
     void Application::LoadSettings()
     {

@@ -22,7 +22,7 @@ namespace gs
 		glBufferData(ibo.GetTarget(), sizeof(GLuint) * indices.size(), indices.data(), GL_STATIC_DRAW);
 	}
 
-	void Mesh::PrepareDraw(Program* program)
+	void Mesh::PrepareDraw()
 	{
 		vbo.BindVBO();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
@@ -74,15 +74,15 @@ namespace gs
 		}
 	}
 
-	void Mesh::Render(Program* program)
+	void Mesh::Render()
 	{
-		PrepareDraw(program);
+		PrepareDraw();
 		glDrawElements(GL_TRIANGLES, nbIndices, GL_UNSIGNED_INT, 0);
 	}
 
-	void Mesh::Render(Program * program, int nbInstances)
+	void Mesh::Render(int nbInstances)
 	{
-		PrepareDraw(program);
+		PrepareDraw();
 		glDrawElementsInstanced(GL_TRIANGLES, nbIndices, GL_UNSIGNED_INT, 0, nbInstances);
 	}
 }

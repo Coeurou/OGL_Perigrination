@@ -35,7 +35,7 @@ bool OGLPointSize::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
         
-		resizableObjs.push_back(std::make_unique<OGLPoint>(40));
+		resizableObjs.push_back(std::make_unique<OGLPoint>(40.0f));
         auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
         auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
         auto program = std::make_shared<gs::Program>();

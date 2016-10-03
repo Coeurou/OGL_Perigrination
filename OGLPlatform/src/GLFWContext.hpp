@@ -17,6 +17,6 @@ public:
     GLFWContext();
     ~GLFWContext();
     
-    bool InitContext();
+    bool InitContext() override;
 };
 /* GLFWContext_hpp */

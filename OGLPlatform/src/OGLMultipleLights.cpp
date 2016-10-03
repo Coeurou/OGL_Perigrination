@@ -264,7 +264,7 @@ void OGLMultipleLights::Render(double time)
     
     glm::mat4 model = glm::mat4(1);
     for (size_t i = 0; i < 10; i++) {
-        float sign = (i % 2) * 2 - 1;
+        float sign = (i % 2) * 2 - 1.0f;
         model = glm::mat4(1);
         model = glm::rotate(model, i * 0.2f * glm::two_pi<float>(), glm::vec3(0, 1, 0)) *
         glm::translate(model, glm::vec3(20, 0, 20));

@@ -7,8 +7,11 @@
 #include "OGLUtility.hpp"
 #include "EventManager.hpp"
 
-bool polygonState = false;
-int mouseState = 0;
+static bool polygonState = false;
+static int mouseButton = 0;
+static int mouseState = 0;
+static double mousePosX = 0;
+static double mousePosY = 0;
 
 static void OnGLFWError(int errorCode, const char* description)
 {
@@ -17,26 +20,26 @@ static void OnGLFWError(int errorCode, const char* description)
 
 static void OnMouseButtonClick(GLFWwindow* window, int button, int action, int mods)
 {
-    TwEventMouseButtonGLFW(button, action);
-    mouseState = (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS);
+	mouseButton = button;
+    mouseState = action;
+	gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_MOUSE_PRESSED, new gs::MouseEventArgs(mouseButton, mouseState, mousePosX, mousePosY));
 }
 
 static void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 {
-    TwMouseMotion(int(xpos), int(ypos));
-    
-    gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_MOUSE_MOVED, gs::MouseEventArgs(GLFW_MOUSE_BUTTON_RIGHT, mouseState, xpos, ypos));
-    
+	mousePosX = xpos;
+	mousePosY = ypos;
+    gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_MOUSE_MOVED, new gs::MouseEventArgs(mouseButton, mouseState, mousePosX, mousePosY));
 }
 
 static void OnMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 {
     TwEventMouseWheelGLFW((int)yoffset);
+	// Add mouse wheel event to EventManager queue
 }
 
 static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    TwEventKeyGLFW(key, action);
     if (action == GLFW_PRESS) {
         switch (key) {
             case GLFW_KEY_Z:
@@ -58,7 +61,7 @@ static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int
     }
 	int width, height = 0;
 	glfwGetWindowSize(window, &width, &height);
-	gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_KEY_PRESSED, gs::KeyEventArgs(key, width, height));
+	gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_KEY_PRESSED, new gs::KeyEventArgs(key, width, height));
 }
 
 static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
@@ -69,6 +72,5 @@ static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
 static void OnWindowResize(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-    gs::EventManager::GetInstance().Dispatch(gs::EventType::ET_WINDOW_RESIZED, gs::ResizeEventArgs(width, height));
-	TwWindowSize(width, height);
+    gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_WINDOW_RESIZED, new gs::ResizeEventArgs(width, height));
 }

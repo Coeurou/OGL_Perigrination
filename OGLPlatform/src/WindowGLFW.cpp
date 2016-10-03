@@ -8,6 +8,7 @@
 
 #include "WindowGLFW.hpp"
 #include "GLFWContext.hpp"
+#include "GLFWUtility.hpp"
 #include <iostream>
 
 WindowGLFW::WindowGLFW()
@@ -15,9 +16,9 @@ WindowGLFW::WindowGLFW()
     context = nullptr;
 }
 
-WindowGLFW::WindowGLFW(GLFWContext* ctxt)
+WindowGLFW::WindowGLFW(gs::Context* ctxt)
 {
-    context = std::shared_ptr<GLFWContext>(ctxt);
+    context = std::shared_ptr<gs::Context>(ctxt);
 }
 
 WindowGLFW::~WindowGLFW()
@@ -27,7 +28,7 @@ WindowGLFW::~WindowGLFW()
 
 bool WindowGLFW::CreateWindow()
 {
-    bool res = false;
+    bool res = context->InitContext();
     auto params = context->GetContextParams();
     window = glfwCreateWindow(params.windowWidth, params.windowHeight, title.c_str(), nullptr, nullptr);
 	res = (window != nullptr);
@@ -36,7 +37,25 @@ bool WindowGLFW::CreateWindow()
         
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         glfwMakeContextCurrent(window);
-    }   
-    
+    }
+	InitCallbacks();
     return res;
+}
+
+bool WindowGLFW::Render()
+{
+	glfwSwapBuffers(window);
+	glfwPollEvents();
+	return (glfwWindowShouldClose(window) == 0);
+}
+
+void WindowGLFW::InitCallbacks()
+{
+	glfwSetErrorCallback(OnGLFWError);
+	glfwSetKeyCallback(window, OnKeyDown);
+	glfwSetCharCallback(window, OnCharPressed);
+	glfwSetScrollCallback(window, OnMouseWheel);
+	glfwSetCursorPosCallback(window, OnMouseMove);
+	glfwSetWindowSizeCallback(window, OnWindowResize);
+	glfwSetMouseButtonCallback(window, OnMouseButtonClick);
 }
