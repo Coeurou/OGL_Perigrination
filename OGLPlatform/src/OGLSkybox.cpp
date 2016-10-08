@@ -82,25 +82,25 @@ bool OGLSkybox::Init(int windowWidth, int windowHeight)
 		skybox.Load("");
 
 		// Texture GROUND
-		auto textureGround = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+		auto textureGround = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
 		res &= textureGround->LoadTexture("Sand.dds");
 		textureGround->BindTexture(GL_TEXTURE0);
 		textureGround->ChangeParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		textures.push_back(textureGround);
+		textures.push_back(std::move(textureGround));
 		
 		// Data GROUND
-		auto vaoGround = std::make_shared<gs::VertexArray>();
+		auto vaoGround = std::make_unique<gs::VertexArray>();
 		vaoGround->BindVAO();
-		vaos.push_back(vaoGround);
-		auto vboGround = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+		auto vboGround = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 		vboGround->BindVBO();
-		vbos.push_back(vboGround);
+		vbos.push_back(std::move(vboGround));
 		OGLQuad ground;
 		ground.SetSize(1000);
 		ground.InitVertices(glm::vec3(0));
 		glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * ground.GetVertices().size(), ground.GetVertices().data(), GL_STATIC_DRAW);
 		vaoGround->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));
 		vaoGround->AddAttribute(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
+		vaos.push_back(std::move(vaoGround));
 
 		// Data Spider
 		renderedObjs.push_back(std::make_unique<gs::Model>());

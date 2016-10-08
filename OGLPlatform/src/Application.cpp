@@ -135,6 +135,9 @@ namespace gs
         
         OGLApplicationParams* params17 = new OGLApplicationParams(this, STAGES::DEPTH_PICKING);
         TwAddButton(mainBar, "DepthPicking", ChangeStage, (void*)params17, " label='Depth Picking Example' ");
+
+		OGLApplicationParams* params18 = new OGLApplicationParams(this, STAGES::REFRACTION_REFLECTION);
+		TwAddButton(mainBar, "Refraction_Reflection", ChangeStage, (void*)params18, " label='Refraction/Reflection Example' ");
     }
     
     void Application::LoadSettings()

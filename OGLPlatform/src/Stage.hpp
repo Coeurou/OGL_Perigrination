@@ -13,16 +13,15 @@
 #include <memory>
 #include "OGLObjResizable.hpp"
 #include "OGLRenderableObject.hpp"
+#include "Program.hpp"
+#include "Sampler.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
+#include "VertexArray.hpp"
+#include "VertexBuffer.hpp"
 
 namespace gs
-{
-    class Program;
-    class Sampler;
-    class Shader;
-    class Texture;
-    class VertexArray;
-    class VertexBuffer;
-    
+{    
     class Stage
     {
     public:
@@ -37,12 +36,12 @@ namespace gs
         
 		std::vector<std::unique_ptr<OGLObjResizable>> resizableObjs;
 		std::vector<std::unique_ptr<OGLRenderableObject>> renderedObjs;
-        std::vector<std::shared_ptr<VertexArray>> vaos;
-        std::vector<std::shared_ptr<VertexBuffer>> vbos;
-        std::vector<std::shared_ptr<Shader>> shaders;
+        std::vector<std::unique_ptr<VertexArray>> vaos;
+        std::vector<std::unique_ptr<VertexBuffer>> vbos;
+        std::vector<std::unique_ptr<Shader>> shaders;
         std::vector<std::shared_ptr<Program>> programs;
-        std::vector<std::shared_ptr<Texture>> textures;
-        std::vector<std::shared_ptr<Sampler>> samplers;
+        std::vector<std::unique_ptr<Texture>> textures;
+        std::vector<std::unique_ptr<Sampler>> samplers;
         std::unique_ptr<OGLAntTweakBar> atbApp;
     };
 }

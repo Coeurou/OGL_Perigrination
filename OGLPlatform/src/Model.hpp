@@ -46,33 +46,42 @@ namespace gs
 		class AssimpMaterial
 		{
 		public:
-			std::shared_ptr<Material> material;
-			std::vector<std::shared_ptr<Texture>> textures;			
+			Material material;
+			std::vector<std::shared_ptr<Texture>> textures;		
 
-			glm::vec4 GetAmbientColor() const { return material->ambientColor; }
-			void SetAmbientColor(glm::vec4 color) { material->ambientColor = color; }
+			AssimpMaterial() {}
+			AssimpMaterial(AssimpMaterial&& other) : material(std::move(other.material)), textures(std::move(other.textures)) {}
+			AssimpMaterial& operator=(AssimpMaterial&& other) 
+			{
+				material = std::move(other.material);
+				textures = std::move(other.textures);
+				return *this;
+			}
 
-			glm::vec4 GetDiffuseColor() const { return material->diffuseColor; }
-			void SetDiffuseColor(glm::vec4 color) { material->diffuseColor = color; }
+			glm::vec4 GetAmbientColor() const { return material.ambientColor; }
+			void SetAmbientColor(glm::vec4 color) { material.ambientColor = color; }
 
-			glm::vec4 GetSpecularColor() const { return material->specularColor; }
-			void SetSpecularColor(glm::vec4 color) { material->specularColor = color; }
+			glm::vec4 GetDiffuseColor() const { return material.diffuseColor; }
+			void SetDiffuseColor(glm::vec4 color) { material.diffuseColor = color; }
 
-			glm::vec4 GetEmissiveColor() const { return material->emissiveColor; }
-			void SetEmissiveColor(glm::vec4 color) { material->emissiveColor = color; }
+			glm::vec4 GetSpecularColor() const { return material.specularColor; }
+			void SetSpecularColor(glm::vec4 color) { material.specularColor = color; }
 
-			float GetShininess() const { return material->shininess; }
-			void SetShininess(float index) { material->shininess = index; }
+			glm::vec4 GetEmissiveColor() const { return material.emissiveColor; }
+			void SetEmissiveColor(glm::vec4 color) { material.emissiveColor = color; }
+
+			float GetShininess() const { return material.shininess; }
+			void SetShininess(float index) { material.shininess = index; }
 		};
 
 		bool InitFromScene(const aiScene* scene);
-		bool InitMesh(unsigned int index, const aiMesh* mesh, AssimpMaterial* assimpMaterial);
+		bool InitMesh(unsigned int index, const aiMesh* mesh, const AssimpMaterial& assimpMaterial);
 		bool InitMaterials(const aiScene* scene);
 		bool InitMaterialByType(const aiMaterial* material, const aiTextureType texType, unsigned int startIndex);
 		bool AddTexture(int materialIndex, const std::string& imgFilename, LIGHT_CONTRIBUTION contribution);
 
-        std::vector<std::shared_ptr<OGLRenderableObject>> children;
-		std::vector<std::shared_ptr<AssimpMaterial>> materials;
+        std::vector<std::unique_ptr<OGLRenderableObject>> children;
+		std::vector<AssimpMaterial> materials;
 		VertexArray vao;
 	};
 }

@@ -6,7 +6,9 @@ const std::string lightVSFilename = "oglLight.vert";
 const std::string lightFSFilename = "oglLight.frag";
 
 OGLLight::OGLLight() : vbo(GL_ARRAY_BUFFER), MVP(1.0f)
-{}
+{
+	program = std::make_shared<gs::Program>();
+}
 
 OGLLight::~OGLLight() 
 {}
@@ -28,7 +30,7 @@ bool OGLLight::Load(const std::string& meshFilename)
 	program->Link();
 	program->Use();
 
-	lightProgram.AddUniform("MVP");
+	program->AddUniform("MVP");
 
 	return res;
 }
@@ -37,7 +39,7 @@ void OGLLight::Render()
 {
 	program->Use();
 	vao.BindVAO();
-	glUniformMatrix4fv(lightProgram.GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glUniformMatrix4fv(program->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

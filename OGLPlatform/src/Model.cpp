@@ -46,15 +46,15 @@ namespace gs
 		res &= InitMaterials(scene);
 		for (unsigned int i = 0; i < children.size(); i++) {
 			const aiMesh* mesh = scene->mMeshes[i];
-			res &= InitMesh(i, mesh, materials[mesh->mMaterialIndex].get());
+			res &= InitMesh(i, mesh, materials[mesh->mMaterialIndex]);
 		}
 		return res;
 	}
 
-	bool Model::InitMesh(unsigned int index, const aiMesh* mesh, AssimpMaterial* assimpMaterial)
+	bool Model::InitMesh(unsigned int index, const aiMesh* mesh, const AssimpMaterial& assimpMaterial)
 	{
-        auto gsMesh = std::make_shared<Mesh>();
-        children[index] = gsMesh;
+        children[index] = std::make_unique<Mesh>();
+		auto gsMesh = dynamic_cast<Mesh*>(children[index].get());
 		gsMesh->SetMaterialIndex(mesh->mMaterialIndex);
 
 		std::vector<gs::Vertex> vertices;
@@ -82,7 +82,7 @@ namespace gs
 		}
 		gsMesh->SetProgram(program);
 		gsMesh->InitGL(vertices, indices);
-		gsMesh->SetMaterial(assimpMaterial->material.get(), assimpMaterial->textures);
+		gsMesh->SetMaterial(assimpMaterial.material, assimpMaterial.textures);
 		return true;
 	}
 
@@ -100,7 +100,7 @@ namespace gs
 		auto texture = std::make_shared<Texture>(IMAGE_TYPE::GLI);
 		bool res = texture->LoadTexture(imgFilename);
 		texture->SetContribution(contribution);
-		materials[materialIndex]->textures.push_back(texture);
+		materials[materialIndex].textures.push_back(texture);
 
 		return res;
 	}
@@ -109,8 +109,6 @@ namespace gs
 	{
 		bool res = true;
 		for (unsigned int i = 0; i < scene->mNumMaterials; i++) {
-			materials[i] = std::make_shared<AssimpMaterial>();
-			materials[i]->material = std::make_shared<Material>();
 			const aiMaterial* material = scene->mMaterials[i];
 			if (material->GetTextureCount(aiTextureType_DIFFUSE)) {
 				res &= InitMaterialByType(material, aiTextureType_DIFFUSE, i);
@@ -174,31 +172,31 @@ namespace gs
 		if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &diffuse)) {
 			memcpy(&color, &diffuse, sizeof(float) * 4);
 		}
-		materials[startIndex]->SetDiffuseColor(color);
+		materials[startIndex].SetDiffuseColor(color);
 
 		color = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
 		aiColor4D ambient;
 		if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_AMBIENT, &ambient)) {
 			memcpy(&color, &ambient, sizeof(float) * 4);
 		}
-		materials[startIndex]->SetAmbientColor(color);
+		materials[startIndex].SetAmbientColor(color);
 
 		color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 		aiColor4D specular;
 		if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_SPECULAR, &specular))
 			memcpy(&color, &specular, sizeof(float) * 4);
-		materials[startIndex]->SetSpecularColor(color);
+		materials[startIndex].SetSpecularColor(color);
 
 		color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 		aiColor4D emission;
 		if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_EMISSIVE, &emission))
 			memcpy(&color, &emission, sizeof(float) * 4);
-		materials[startIndex]->SetEmissiveColor(color);
+		materials[startIndex].SetEmissiveColor(color);
 
 		float shininess = 0.0f;
 		unsigned int max;
 		aiGetMaterialFloatArray(material, AI_MATKEY_SHININESS, &shininess, &max);
-		materials[startIndex]->SetShininess(shininess);
+		materials[startIndex].SetShininess(shininess);
 
 		return res;
 	}
@@ -206,7 +204,7 @@ namespace gs
 	void Model::Render()
 	{
 		vao.BindVAO();
-		for (auto mesh : children) {
+		for (auto&& mesh : children) {
 			mesh->Render();
 		}
 	}
@@ -214,7 +212,7 @@ namespace gs
     void Model::Render(int nbInstances)
     {
         vao.BindVAO();
-        for (auto mesh : children) {
+        for (auto&& mesh : children) {
             mesh->Render(nbInstances);
         }
     }

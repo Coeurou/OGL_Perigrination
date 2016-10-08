@@ -173,34 +173,34 @@ bool OGLMultipleLights::Init(int windowWidth, int windowHeight)
     glUniform1i(program->GetUniform("samplerSpecular2"), 4);
     
     // Init geometry
-    auto vao = std::make_shared<gs::VertexArray>();
-    vaos.push_back(vao);
+    auto vao = std::make_unique<gs::VertexArray>();
     vao->BindVAO();
-    
-    auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
-    vbos.push_back(vbo);
+
+    auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
     vbo->BindVBO();
-    OGLCube cube;
+
+	OGLCube cube;
     auto& vertices = cube.GetVertices();
     cube.InitVertices(glm::vec3(0));
     glBufferData(vbo->GetTarget(), sizeof(gs::Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
-    
+	vbos.push_back(std::move(vbo));
+
     vao->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), 0);
     vao->AddAttribute(1, 2, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, texCoords));
     vao->AddAttribute(2, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, normal));
-    
-    auto diffuse = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+	vaos.push_back(std::move(vao));
+
+    auto diffuse = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
     diffuse->SetContribution(LIGHT_CONTRIBUTION::DIFFUSE);
     res &= diffuse->LoadTexture("containerDiffuse.dds");
     diffuse->BindTexture(GL_TEXTURE0);
-    textures.push_back(diffuse);
+    textures.push_back(std::move(diffuse));
     
-    auto specular = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+    auto specular = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
     specular->SetContribution(LIGHT_CONTRIBUTION::DIFFUSE);
     res &= specular->LoadTexture("containerSpecular.dds");
     specular->BindTexture(GL_TEXTURE3);
-    textures.push_back(specular);
-    res=true;
+    textures.push_back(std::move(specular));
     glEnable(GL_DEPTH_TEST);
     
     return res;

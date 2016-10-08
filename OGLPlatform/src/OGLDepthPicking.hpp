@@ -16,7 +16,7 @@
 class OGLDepthPicking : public gs::Stage
 {
     gs::Camera camera;
-    std::vector<std::shared_ptr<OGLRenderableCube>> cubes;
+    std::vector<std::unique_ptr<OGLRenderableCube>> cubes;
     OGLRenderableQuad ground;
     
 public:

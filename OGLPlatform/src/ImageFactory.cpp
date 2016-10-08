@@ -12,11 +12,11 @@
 
 namespace gs
 {
-    std::shared_ptr<gs::Image> ImageFactory::CreateImage(IMAGE_TYPE key)
+    std::unique_ptr<gs::Image> ImageFactory::CreateImage(IMAGE_TYPE key)
     {
         switch (key) {
             case GLI:
-                return std::make_shared<GLIImage>();
+                return std::make_unique<GLIImage>();
                 break;
             default:
                 return nullptr;

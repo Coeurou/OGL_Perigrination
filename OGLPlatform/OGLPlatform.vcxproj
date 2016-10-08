@@ -173,6 +173,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLModelMatrix.hpp" />
     <ClInclude Include="src\OGLMultipleLights.hpp" />
     <ClInclude Include="src\OGLPointLight.hpp" />
+    <ClInclude Include="src\OGLRefractionReflection.hpp" />
     <ClInclude Include="src\OGLRenderableCube.hpp" />
     <ClInclude Include="src\OGLRenderableObject.hpp" />
     <ClInclude Include="src\OGLRenderableQuad.hpp" />
@@ -234,6 +235,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLModelMatrix.cpp" />
     <ClCompile Include="src\OGLMultipleLights.cpp" />
     <ClCompile Include="src\OGLPointLight.cpp" />
+    <ClCompile Include="src\OGLRefractionReflection.cpp" />
     <ClCompile Include="src\OGLRenderableCube.cpp" />
     <ClCompile Include="src\OGLRenderableQuad.cpp" />
     <ClCompile Include="src\OGLRipplePlane.cpp" />

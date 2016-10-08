@@ -18,69 +18,73 @@
 #include "OGLMultipleLights.hpp"
 #include "OGLFrustumCulling.hpp"
 #include "OGLDepthPicking.hpp"
+#include "OGLRefractionReflection.hpp"
 #include "Stage.hpp"
 
 
-std::shared_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
+std::unique_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 {
     switch (key)
     {
         case ALL:
             break;
         case POINT_SIZE:
-            return std::make_shared<OGLPointSize>();
+            return std::make_unique<OGLPointSize>();
             break;
         case SIMPLE_TRIANGLE:
-            return std::make_shared<OGLSimpleTriangle>();
+            return std::make_unique<OGLSimpleTriangle>();
             break;
         case ANIMATED_PYRAMIDS:
-            return std::make_shared<OGLAnimatedPyramids>();
+            return std::make_unique<OGLAnimatedPyramids>();
             break;
         case MIPMAPS:
-            return std::make_shared<OGLMipmaps>();
+            return std::make_unique<OGLMipmaps>();
             break;
         case MIX_TEXTURE:
-            return std::make_shared<OGLMixTexture>();
+            return std::make_unique<OGLMixTexture>();
             break;
         case RIPPLE:
-            return std::make_shared<OGLRipplePlane>();
+            return std::make_unique<OGLRipplePlane>();
             break;
         case GEOMETRYSHADER:
-            return std::make_shared<OGLGeometryShader>();
+            return std::make_unique<OGLGeometryShader>();
             break;
         case MODELMAT:
-            return std::make_shared<OGLModelMatrix>();
+            return std::make_unique<OGLModelMatrix>();
             break;
         case INDEXEDDRAW:
-            return std::make_shared<OGLIndexedDraw>();
+            return std::make_unique<OGLIndexedDraw>();
             break;
         case CAMERA:
-            return std::make_shared<OGLCameraStage>();
+            return std::make_unique<OGLCameraStage>();
             break;
         case SIMPLE_LIGHT:
-            return std::make_shared<OGLSimpleLighting>();
+            return std::make_unique<OGLSimpleLighting>();
             break;
         case SKYBOX:
-            return std::make_shared<OGLSkybox>();
+            return std::make_unique<OGLSkybox>();
             break;
         case MATERIAL:
-            return std::make_shared<OGLMaterialInstancedDraw>();
+            return std::make_unique<OGLMaterialInstancedDraw>();
             break;
         case POINTLIGHT:
-            return std::make_shared<OGLPointLight>();
+            return std::make_unique<OGLPointLight>();
             break;
         case SPOTLIGHT:
-            return std::make_shared<OGLSpotLight>();
+            return std::make_unique<OGLSpotLight>();
             break;
         case MULTIPLE_LIGHTS:
-            return std::make_shared<OGLMultipleLights>();
+            return std::make_unique<OGLMultipleLights>();
             break;
         case FRUSTUM_CULLING:
-            return std::make_shared<OGLFrustumCulling>();
+            return std::make_unique<OGLFrustumCulling>();
             break;
         case DEPTH_PICKING:
-            return std::make_shared<OGLDepthPicking>();
+            return std::make_unique<OGLDepthPicking>();
             break;
+		case REFRACTION_REFLECTION:
+			return std::make_unique<OGLRefractionReflection>();
+			break; 
         default:
             return nullptr;
             break;

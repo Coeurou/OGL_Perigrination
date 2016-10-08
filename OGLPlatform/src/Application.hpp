@@ -33,7 +33,7 @@ namespace gs
         void ChangeStage(STAGES newStage);
         
         std::unique_ptr<Window> window;
-        std::shared_ptr<Stage> stage;
+        std::unique_ptr<Stage> stage;
         std::unique_ptr<OGLAntTweakBar> atbApp;
         ApplicationSettings settings;
     };

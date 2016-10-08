@@ -72,11 +72,10 @@ bool OGLFrustumCulling::Init(int windowWidth, int windowHeight)
         
         programFrustum->AddUniform("MVP");
         
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
         
-        auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+        auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         std::vector<glm::vec3> positions;
         for (size_t z = 0; z <= NUM_VERTICESZ; z++) {
             for (size_t x = 0; x <= NUM_VERTICESX; x++) {
@@ -87,10 +86,11 @@ bool OGLFrustumCulling::Init(int windowWidth, int windowHeight)
         }
         vbo->BindVBO();
         glBufferData(vbo->GetTarget(), sizeof(glm::vec3) * positions.size(), positions.data(), GL_STATIC_DRAW);
-        vbos.push_back(vbo);
+        vbos.push_back(std::move(vbo));
         
         vao->AddAttribute(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-        
+		vaos.push_back(std::move(vao));
+
         totalVertices = (int)positions.size();
         
         ground.SetSize(1000);

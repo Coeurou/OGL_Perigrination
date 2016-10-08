@@ -59,11 +59,11 @@ bool OGLDepthPicking::Init(int windowWidth, int windowHeight)
 		ground.SetProgram(programs[0]);
         ground.Load("");
         
-        auto cube = std::make_shared<OGLRenderableCube>();
+        auto cube = std::make_unique<OGLRenderableCube>();
 		cube->SetProgram(programs[0]);
         cube->Load("");
         //cube.SetSize(30);
-        cubes.push_back(cube);
+        cubes.push_back(std::move(cube));
         
         camera.SetSpeed(10);
         camera.SetPosition(glm::vec3(0,0,20));

@@ -54,14 +54,14 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
         res &= InitGUI();
 
 		// Program textured objects setup
-        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
+        auto vertexShader = std::make_unique<gs::Shader>(GL_VERTEX_SHADER);
         auto programTex = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("simpleLighting.vert");
         res &= vertexShader->Compile();
         programTex->Attach(vertexShader->get());
         
-        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+        auto fragmentShader = std::make_unique<gs::Shader>(GL_FRAGMENT_SHADER);
         fragmentShader->SetSource("simpleLighting.frag");
         res &= fragmentShader->Compile();
         programTex->Attach(fragmentShader->get());
@@ -82,22 +82,22 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 		ambientLoc = glGetUniformLocation(programTex->get(), "light.ambientColor");
         
 		//Texture setup
-		auto textureFloor = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+		auto textureFloor = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
 		res &= textureFloor->LoadTexture("Floor.dds");
 		textureFloor->ChangeParameter(GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 		textureFloor->ChangeParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		textures.push_back(textureFloor);
+		textures.push_back(std::move(textureFloor));
 
-		auto textureCamouflage = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+		auto textureCamouflage = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
 		res &= textureCamouflage->LoadTexture("Hieroglyphes.dds");
-		textures.push_back(textureCamouflage);
+		textures.push_back(std::move(textureCamouflage));
 
 		// Geometry setup
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
+        vaos.push_back(std::move(vao));
         
-		auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+		auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 		vbo->BindVBO();
 
 		std::vector<gs::Vertex> vertices;
@@ -112,7 +112,7 @@ bool OGLSimpleLighting::Init(int windowWidth, int windowHeight)
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
-		vbos.push_back(vbo);
+		vbos.push_back(std::move(vbo));
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gs::Vertex), (void*)offsetof(gs::Vertex, position));

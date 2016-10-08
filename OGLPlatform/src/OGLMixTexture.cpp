@@ -50,9 +50,9 @@ bool OGLMixTexture::InitShaders()
     return res;
 }
 
-std::shared_ptr<gs::Texture> CreateTexture(std::string imgFilename)
+std::unique_ptr<gs::Texture> CreateTexture(std::string imgFilename)
 {
-    auto texture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+    auto texture = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
     if (!texture->LoadTexture(imgFilename)) {
         return nullptr;
     }
@@ -66,19 +66,19 @@ bool OGLMixTexture::InitTextures()
 {
     auto textureQuadA = CreateTexture("Halo.dds");
     if (textureQuadA != nullptr)
-        textures.push_back(textureQuadA);
+        textures.push_back(std::move(textureQuadA));
     
     auto textureQuadB = CreateTexture("Light.dds");
     if (textureQuadB != nullptr)
-        textures.push_back(textureQuadB);
+        textures.push_back(std::move(textureQuadB));
     
     auto textureCubeA = CreateTexture("Ceiling.dds");
     if (textureCubeA != nullptr)
-        textures.push_back(textureCubeA);
+        textures.push_back(std::move(textureCubeA));
     
     auto textureCubeB = CreateTexture("Grass.dds");
     if (textureCubeB != nullptr)
-        textures.push_back(textureCubeB);
+        textures.push_back(std::move(textureCubeB));
     
     return (textures.size() == 4);
 }
@@ -96,11 +96,11 @@ bool OGLMixTexture::InitGeometry()
 
 bool OGLMixTexture::InitVBO()
 {
-	auto vao = std::make_shared<gs::VertexArray>();
+	auto vao = std::make_unique<gs::VertexArray>();
 	vao->BindVAO();
-	vaos.push_back(vao);
+	vaos.push_back(std::move(vao));
 
-    auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+    auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
     vbo->BindVBO();
     auto& quad = resizableObjs[0]->GetVertices();
     auto& cube = resizableObjs[1]->GetVertices();
@@ -120,15 +120,15 @@ bool OGLMixTexture::InitVBO()
     glBufferSubData(GL_ARRAY_BUFFER, 0, offsetCube, quad.data());
 	glBufferSubData(GL_ARRAY_BUFFER, offsetCube, sizeof(gs::Vertex) * cube.size(), cube.data());
 	glBufferSubData(GL_ARRAY_BUFFER, offsetPyramid, sizeof(gs::Vertex) * pyramidVertices.size(), pyramidVertices.data());
-    vbos.push_back(vbo);
+    vbos.push_back(std::move(vbo));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	auto vaoGround = std::make_shared<gs::VertexArray>();
+	auto vaoGround = std::make_unique<gs::VertexArray>();
 	vaoGround->BindVAO();
-	vaos.push_back(vaoGround);
+	vaos.push_back(std::move(vaoGround));
 
-	auto vboGround = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+	auto vboGround = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 	vboGround->BindVBO();
 
 	std::vector<glm::vec3> groundVertices;
@@ -143,9 +143,9 @@ bool OGLMixTexture::InitVBO()
 		}
 	}
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * groundVertices.size(), groundVertices.data(), GL_STATIC_DRAW);
-	vbos.push_back(vboGround);
+	vbos.push_back(std::move(vboGround));
 
-	auto iboGround = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
+	auto iboGround = std::make_unique<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
 	iboGround->BindVBO();
 
 	GLushort restartIndex = std::numeric_limits<unsigned short>::max();
@@ -169,14 +169,14 @@ bool OGLMixTexture::InitVBO()
 		}
 	}
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
-	vbos.push_back(iboGround);
+	vbos.push_back(std::move(iboGround));
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(restartIndex);
-    return (vbo != 0);
+    return true;
 }
 
 bool OGLMixTexture::Init(int windowWidth, int windowHeight)

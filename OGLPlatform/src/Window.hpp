@@ -22,7 +22,7 @@ namespace gs
         
     protected:
         std::string title;
-		std::shared_ptr<gs::Context> context;
+		std::unique_ptr<gs::Context> context;
 		bool isRunning;
     };
 }

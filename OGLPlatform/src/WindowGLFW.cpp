@@ -18,7 +18,7 @@ WindowGLFW::WindowGLFW()
 
 WindowGLFW::WindowGLFW(gs::Context* ctxt)
 {
-    context = std::shared_ptr<gs::Context>(ctxt);
+    context = std::unique_ptr<gs::Context>(ctxt);
 }
 
 WindowGLFW::~WindowGLFW()

@@ -36,8 +36,8 @@ bool OGLPointSize::Init(int windowWidth, int windowHeight)
         res &= InitGUI();
         
 		resizableObjs.push_back(std::make_unique<OGLPoint>(40.0f));
-        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
-        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+        auto vertexShader = std::make_unique<gs::Shader>(GL_VERTEX_SHADER);
+        auto fragmentShader = std::make_unique<gs::Shader>(GL_FRAGMENT_SHADER);
         auto program = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("firstPoint.vert");
@@ -50,9 +50,9 @@ bool OGLPointSize::Init(int windowWidth, int windowHeight)
         program->Use();
         
         programs.push_back(program);
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
+        vaos.push_back(std::move(vao));
 	}
 	return res;
 }

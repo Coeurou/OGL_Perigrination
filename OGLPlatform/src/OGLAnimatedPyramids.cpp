@@ -43,14 +43,14 @@ bool OGLAnimatedPyramids::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
 
-        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
+        auto vertexShader = std::make_unique<gs::Shader>(GL_VERTEX_SHADER);
         auto program = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("pyramids.vert");
         res &= vertexShader->Compile();
         program->Attach(vertexShader->get());
         
-        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+        auto fragmentShader = std::make_unique<gs::Shader>(GL_FRAGMENT_SHADER);
         fragmentShader->SetSource("pyramids.frag");
         res &= fragmentShader->Compile();
         program->Attach(fragmentShader->get());
@@ -64,10 +64,10 @@ bool OGLAnimatedPyramids::Init(int windowWidth, int windowHeight)
 		projLocation = glGetUniformLocation(program->get(), "Projection");
 		glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
         
-		auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+		auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 		vbo->BindVBO();
 
 		std::vector<gs::ColoredVertex> vertices(5);
@@ -79,7 +79,7 @@ bool OGLAnimatedPyramids::Init(int windowWidth, int windowHeight)
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(gs::ColoredVertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 		
-		auto ibo = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
+		auto ibo = std::make_unique<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
 		ibo->BindVBO();
 
 		std::vector<GLushort> indices(12);
@@ -107,9 +107,9 @@ bool OGLAnimatedPyramids::Init(int windowWidth, int windowHeight)
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gs::ColoredVertex), (void*)offsetof(gs::ColoredVertex, color));
 
         programs.push_back(program);
-		vaos.push_back(vao);
-		vbos.push_back(vbo);
-		vbos.push_back(ibo);
+		vaos.push_back(std::move(vao));
+		vbos.push_back(std::move(vbo));
+		vbos.push_back(std::move(ibo));
 
 		glEnable(GL_DEPTH_TEST);
     }

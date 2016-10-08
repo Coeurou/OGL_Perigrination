@@ -54,9 +54,9 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
 		resizableObjs.push_back(std::make_unique<OGLCube>());
         res &= resizableObjs[0]->InitVertices(glm::vec3());
         
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
+        vaos.push_back(std::move(vao));
         
         gs::Shader vertexShader(GL_VERTEX_SHADER);
         auto program = std::make_shared<gs::Program>();
@@ -74,16 +74,16 @@ bool OGLSimpleCube::Init(int windowWidth, int windowHeight)
         program->Use();
         programs.push_back(program);
         
-        auto texture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+        auto texture = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
         res &= texture->LoadTexture("Paper_Crumbled.dds");
         glBindTexture(texture->GetTarget(), texture->get());
-        textures.push_back(texture);
+        textures.push_back(std::move(texture));
         
-        auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+        auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
         auto& data = resizableObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * 36, data.data(), GL_STATIC_DRAW);
-        vbos.push_back(vbo);
+        vbos.push_back(std::move(vbo));
         
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);

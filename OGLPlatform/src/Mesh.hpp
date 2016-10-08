@@ -26,12 +26,12 @@ namespace gs
 		~Mesh();
 
         bool Load(const std::string& meshFilename) override { return false; };
-		void InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices);
-		void SetMaterial(Material* material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
+		void InitGL(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices);
+		void SetMaterial(const Material& material, const std::vector<std::shared_ptr<Texture>>& textures) { this->material = material; this->textures = textures; }
 		void Render() override;
 		void Render(int nbInstances) override;
 
-		std::vector<std::shared_ptr<Texture>> GetTextures() const { return textures; }
+		Texture* GetTexture(int index) const { return textures[index].get(); }
 
 		int GetMaterialIndex() const { return materialIndex; }
 		void SetMaterialIndex(int index) { materialIndex = index; }
@@ -52,7 +52,7 @@ namespace gs
 		int nbIndices;
 		glm::mat4 modelMatrix;
 					
-		Material* material;
+		Material material;
 		std::vector<std::shared_ptr<Texture>> textures;
 
 	};

@@ -28,14 +28,15 @@ enum STAGES
 	SPOTLIGHT,
     MULTIPLE_LIGHTS,
     FRUSTUM_CULLING,
-    DEPTH_PICKING,
+	DEPTH_PICKING,
+	REFRACTION_REFLECTION,
 	FONT
 };
 
 class FactoryStage : public Uncopyable
 {
 public:
-	static std::shared_ptr<gs::Stage> CreateStage(STAGES key);
+	static std::unique_ptr<gs::Stage> CreateStage(STAGES key);
 
 private:
 	FactoryStage() {}

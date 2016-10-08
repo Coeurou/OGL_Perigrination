@@ -216,6 +216,9 @@
     <ClInclude Include="src\Skybox.hpp">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="src\OGLRefractionReflection.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="src\Skybox.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLRefractionReflection.cpp">
+      <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

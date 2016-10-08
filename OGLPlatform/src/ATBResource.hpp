@@ -28,6 +28,7 @@ public:
 		});
 		gs::EventManager::GetInstance().Subscribe(std::make_pair(gs::EventType::ET_WINDOW_RESIZED, resizeEventFun));
 	}
+
 	~ATBResource() 
 	{
 		gs::EventFun keyEventFun(0, [=](const gs::EventArgs& args) {

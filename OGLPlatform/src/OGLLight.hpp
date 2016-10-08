@@ -21,7 +21,6 @@ public:
 
 private:
 	OGLCube cube;
-	gs::Program lightProgram;
 	gs::VertexArray vao;
 	gs::VertexBuffer vbo;
 	glm::mat4 MVP;

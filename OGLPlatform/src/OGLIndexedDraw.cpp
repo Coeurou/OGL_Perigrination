@@ -47,8 +47,8 @@ bool OGLIndexedDraw::Init(int windowWidth, int windowHeight)
         
 		/******************************* Shaders ********************************/
 		
-        auto vertexShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
-        auto fragmentShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+        auto vertexShader = std::make_unique<gs::Shader>(GL_VERTEX_SHADER);
+        auto fragmentShader = std::make_unique<gs::Shader>(GL_FRAGMENT_SHADER);
         auto program = std::make_shared<gs::Program>();
         
         vertexShader->SetSource("heightmap.vert");
@@ -70,13 +70,13 @@ bool OGLIndexedDraw::Init(int windowWidth, int windowHeight)
 		hDivLocation = glGetUniformLocation(program->get(), "heightDivider");
         
 		/******************************* Geometry ********************************/
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
+        vaos.push_back(std::move(vao));
 
-		auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+		auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 		vbo->BindVBO();
-		vbos.push_back(vbo);
+		vbos.push_back(std::move(vbo));
 
 		heights = { 4.0f, 2.0f, 3.0f, 1.0f,
 					3.0f, 5.0f, 8.0f, 2.0f,
@@ -100,9 +100,9 @@ bool OGLIndexedDraw::Init(int windowWidth, int windowHeight)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
 		/******************************* Indices ********************************/
-		auto ibo = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
+		auto ibo = std::make_unique<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
 		ibo->BindVBO();
-		vbos.push_back(ibo);
+		vbos.push_back(std::move(ibo));
 
 		const GLushort restartIndex = HM_SIZE_X * HM_SIZE_Z;
 		indices = { 0, 4, 1, 5, 2, 6, 3, 7, restartIndex,

@@ -44,13 +44,13 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
 	}
 	res &= InitGUI();
 
-	auto vShader = std::make_shared<gs::Shader>(GL_VERTEX_SHADER);
+	auto vShader = std::make_unique<gs::Shader>(GL_VERTEX_SHADER);
 	vShader->SetSource("ripplePlane.vert");
 	res &= vShader->Compile();
 	auto program = std::make_shared<gs::Program>();
 	program->Attach(vShader->get());
 
-	auto fShader = std::make_shared<gs::Shader>(GL_FRAGMENT_SHADER);
+	auto fShader = std::make_unique<gs::Shader>(GL_FRAGMENT_SHADER);
 	fShader->SetSource("simpleColor.frag");
 	res &= fShader->Compile();
 	program->Attach(fShader->get());
@@ -67,11 +67,11 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
     glm::mat4 MVP = projection * MV;
     glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(MVP));
     
-	auto vao = std::make_shared<gs::VertexArray>();
+	auto vao = std::make_unique<gs::VertexArray>();
 	vao->BindVAO();
-	vaos.push_back(vao);
+	vaos.push_back(std::move(vao));
 
-	auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+	auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
 	std::vector<glm::vec3> positions;
 	for (size_t z = 0; z <= NUM_VERTICESZ; z++) {
 		for (size_t x = 0; x <= NUM_VERTICESX; x++) {
@@ -82,12 +82,12 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
 	}
 	vbo->BindVBO();
 	glBufferData(vbo->GetTarget(), sizeof(glm::vec3) * positions.size(), positions.data(), GL_STATIC_DRAW);
-	vbos.push_back(vbo);
+	vbos.push_back(std::move(vbo));
     
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-	auto ibo = std::make_shared<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
+	auto ibo = std::make_unique<gs::VertexBuffer>(GL_ELEMENT_ARRAY_BUFFER);
 	ibo->BindVBO();
 	std::vector<GLushort> indices;
 	for (GLushort z = 0; z < NUM_VERTICESZ; z++) {
@@ -118,7 +118,7 @@ bool OGLRipplePlane::Init(int windowWidth, int windowHeight)
 	glBufferData(ibo->GetTarget(), sizeof(GLushort) * indices.size(), indices.data(), GL_STATIC_DRAW);
     
     totalVertices = (int)indices.size();
-	vbos.push_back(ibo);
+	vbos.push_back(std::move(ibo));
 
 	return res;
 }

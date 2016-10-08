@@ -20,14 +20,14 @@ namespace gs
     Stage::~Stage()
     {
         GLenum target = 0;
-        for (auto vbo : vbos) {
+        for (auto&& vbo : vbos) {
             if (target != vbo->GetTarget()) {
                 target = vbo->GetTarget();
                 glBindBuffer(target, 0);
             }
         }
         target = 0;
-        for (auto texture : textures) {
+        for (auto&& texture : textures) {
             if (target != texture->GetTarget()) {
                 target = texture->GetTarget();
                 glBindTexture(target, 0);

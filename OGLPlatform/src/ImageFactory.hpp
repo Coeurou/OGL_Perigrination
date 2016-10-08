@@ -26,7 +26,7 @@ namespace gs
     class ImageFactory : public Uncopyable
     {
     public:
-        static std::shared_ptr<Image> CreateImage(IMAGE_TYPE key);
+        static std::unique_ptr<Image> CreateImage(IMAGE_TYPE key);
         
     private:
         ImageFactory() {}

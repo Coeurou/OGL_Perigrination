@@ -13,7 +13,7 @@ namespace gs
 	{
 	}
 
-	void Mesh::InitGL(std::vector<Vertex> vertices, std::vector<GLuint> indices)
+	void Mesh::InitGL(const std::vector<Vertex>& vertices, const std::vector<GLuint>& indices)
 	{
 		vbo.BindVBO();
 		glBufferData(vbo.GetTarget(), sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
@@ -47,17 +47,17 @@ namespace gs
 			glUniform1i(program->GetUniform("samplerSpecular2"), 4);
 		}
 
-		if (material->ambientColor != glm::vec4(0) && program->GetUniform("material.ambientColor") != -1) {
-			glUniform4fv(program->GetUniform("material.ambientColor"), 1, glm::value_ptr(material->ambientColor));
+		if (material.ambientColor != glm::vec4(0) && program->GetUniform("material.ambientColor") != -1) {
+			glUniform4fv(program->GetUniform("material.ambientColor"), 1, glm::value_ptr(material.ambientColor));
 		}
-		if (material->diffuseColor != glm::vec4(0) && program->GetUniform("material.diffuseColor") != -1) {
-			glUniform4fv(program->GetUniform("material.diffuseColor"), 1, glm::value_ptr(material->diffuseColor));
+		if (material.diffuseColor != glm::vec4(0) && program->GetUniform("material.diffuseColor") != -1) {
+			glUniform4fv(program->GetUniform("material.diffuseColor"), 1, glm::value_ptr(material.diffuseColor));
 		}
-		if (material->specularColor != glm::vec4(0) && program->GetUniform("material.specularColor") != -1) {
-			glUniform4fv(program->GetUniform("material.specularColor"), 1, glm::value_ptr(material->specularColor));
+		if (material.specularColor != glm::vec4(0) && program->GetUniform("material.specularColor") != -1) {
+			glUniform4fv(program->GetUniform("material.specularColor"), 1, glm::value_ptr(material.specularColor));
 		}
-		if (material->shininess > std::numeric_limits<float>::epsilon() && program->GetUniform("material.shininess") != -1) {
-			glUniform1f(program->GetUniform("material.shininess"), material->shininess);
+		if (material.shininess > std::numeric_limits<float>::epsilon() && program->GetUniform("material.shininess") != -1) {
+			glUniform1f(program->GetUniform("material.shininess"), material.shininess);
 		}
 		int nbDiffuse = 0;
 		int nbSpecular = 3;

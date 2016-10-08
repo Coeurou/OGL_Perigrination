@@ -46,9 +46,9 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
 	if (res) {
         res &= InitGUI();
         
-        auto vao = std::make_shared<gs::VertexArray>();
+        auto vao = std::make_unique<gs::VertexArray>();
         vao->BindVAO();
-        vaos.push_back(vao);
+        vaos.push_back(std::move(vao));
         
         gs::Shader vertexShader(GL_VERTEX_SHADER);
         auto program = std::make_shared<gs::Program>();
@@ -66,27 +66,27 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         program->Use();
         programs.push_back(program);
         
-        auto wallTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+        auto wallTexture = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
         wallTexture->LoadTexture("Wall.dds");
-        textures.push_back(wallTexture);
+        textures.push_back(std::move(wallTexture));
         
-        auto ceilingTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+        auto ceilingTexture = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
         ceilingTexture->LoadTexture("Ceiling.dds");
-        textures.push_back(ceilingTexture);
+        textures.push_back(std::move(ceilingTexture));
         
-        auto wallTextureR = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+        auto wallTextureR = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
         wallTextureR->LoadTexture("Wall.dds");
-        textures.push_back(wallTextureR);
+        textures.push_back(std::move(wallTextureR));
         
-        auto floorTexture = std::make_shared<gs::Texture>(IMAGE_TYPE::GLI);
+        auto floorTexture = std::make_unique<gs::Texture>(IMAGE_TYPE::GLI);
         floorTexture->LoadTexture("Floor.dds");
-        textures.push_back(floorTexture);
+        textures.push_back(std::move(floorTexture));
         
-        auto sampler = std::make_shared<gs::Sampler>();
+        auto sampler = std::make_unique<gs::Sampler>();
         sampler->ChangeParameter(GL_TEXTURE_WRAP_S, GL_REPEAT);
         sampler->ChangeParameter(GL_TEXTURE_WRAP_T, GL_REPEAT);
         sampler->BindSampler(0);
-        samplers.push_back(sampler);
+        samplers.push_back(std::move(sampler));
         
 		resizableObjs.push_back(std::make_unique<OGLQuad>());
 
@@ -94,11 +94,11 @@ bool OGLMipmaps::Init(int windowWidth, int windowHeight)
         resizableObjs[0]->SetHeight(2);
         res &= resizableObjs[0]->InitVertices(glm::vec3());
         
-        auto vbo = std::make_shared<gs::VertexBuffer>(GL_ARRAY_BUFFER);
+        auto vbo = std::make_unique<gs::VertexBuffer>(GL_ARRAY_BUFFER);
         vbo->BindVBO();
         auto& geomData = resizableObjs[0]->GetVertices();
         glBufferData(GL_ARRAY_BUFFER, sizeof(gs::Vertex) * geomData.size(), geomData.data(), GL_STATIC_DRAW);
-        vbos.push_back(vbo);
+        vbos.push_back(std::move(vbo));
         
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
