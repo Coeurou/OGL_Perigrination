@@ -53,7 +53,7 @@ namespace gs
 		WindowGLFW* glfwWindow = dynamic_cast<WindowGLFW*>(window.get());
 
         while (window->Render()) {
-			EventManager::GetInstance().PollEvents();
+			EventManager::GetInstance()->PollEvents();
             stage->Render(glfwGetTime());
             TwDraw();
         }

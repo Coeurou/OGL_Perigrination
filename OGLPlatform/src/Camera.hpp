@@ -8,15 +8,16 @@
 
 #pragma once
 
+#include "EventListener.hpp"
 #include <glm/glm.hpp>
 #include <array>
 
 namespace gs
 {
-    class EventArgs;
+    class Event;
 	enum { HISTORY_BUFFER_SIZE = 10 };
 
-    class Camera
+    class Camera : public gs::EventListener
     {
         const float maxMouseMove = 100.0f;
         const float WEIGHT_MODIFIER = 0.3f;
@@ -33,14 +34,17 @@ namespace gs
         Camera();
         virtual ~Camera();
         
+		void OnEvent(Event e) override;
+
         void Update();
         void Move(const glm::vec3& dir);
         void Rotate(const glm::vec2& rot);
         void SetupProjection(float fovy, float aspectRatio, float near = 0.1f, float far = 100.0f);
 
-        void OnKeyPressed(const EventArgs& args);
-        void OnMouseMoved(const EventArgs& args);
-        void OnWindowResized(const EventArgs& args);
+        void OnKeyPressed(const Event& args);
+		void OnKeyReleased(const Event& args);
+        void OnMouseMoved(const Event& args);
+        void OnWindowResized(const Event& args);
         
         glm::mat4 GetProjectionMatrix() const { return projection; }
         glm::mat4 GetViewMatrix() const { return view; }
@@ -56,25 +60,26 @@ namespace gs
         float GetAspectRatio() const { return aspectRatio; }
         float GetNear() const { return nearDistance; }
         float GetFar() const { return farDistance; }
-        float GetSpeed() const { return speed; }
+        float GetSpeed() const { return velocity; }
         float GetAngularSpeed() const { return angularSpeed; }
         
-        void SetSpeed(float velocity) { speed = velocity; }
+        void SetSpeed(float velocity) { this->velocity = velocity; }
         void SetAngularSpeed(float velocity) { angularSpeed = velocity; }
         void SetPosition(const glm::vec3& newPos) { position = newPos; }
         void SetTarget(const glm::vec3& newTarget) { target = newTarget; }
         void SetUpVector(const glm::vec3& dir) { up = dir; }
         
-    protected:
+	private:
         glm::vec3 position;        
         glm::vec3 target;
         
         float fov;
         float nearDistance;
         float farDistance;
-        float speed;
+		float velocity;
         float angularSpeed;
-        float aspectRatio;
+		float aspectRatio;
+		float accumPitchRadians;
         
         glm::mat4 view;
         glm::mat4 projection;
@@ -82,9 +87,14 @@ namespace gs
         glm::vec3 up;
         glm::vec3 right;
         glm::vec3 forward;
-        
-    private:
-        glm::vec2 FilterMousePos(const glm::vec2& mousePos);
+
+		glm::vec3 currentVelocity;
+		glm::vec3 acceleration;
+		glm::vec3 direction;
+
+		glm::vec2 FilterMousePos(const glm::vec2& mousePos);
+		void UpdatePosition();
+		void UpdateVelocity();
     };
 }
 /* Camera_hpp */

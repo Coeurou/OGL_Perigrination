@@ -5,6 +5,7 @@
 #include <AntTweakBar.h>
 #include <iostream>
 #include "OGLUtility.hpp"
+#include "Event.hpp"
 #include "EventManager.hpp"
 
 static bool polygonState = false;
@@ -22,14 +23,38 @@ static void OnMouseButtonClick(GLFWwindow* window, int button, int action, int m
 {
 	mouseButton = button;
     mouseState = action;
-	gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_MOUSE_PRESSED, new gs::MouseEventArgs(mouseButton, mouseState, mousePosX, mousePosY));
+
+	gs::Event mouseEvent(EventType::ET_MOUSE_PRESSED);
+	Variant var;
+	var.asDouble = mousePosX;
+	mouseEvent.AddArgument(gs::Event::MOUSEX, var);
+	var.asDouble = mousePosY;
+	mouseEvent.AddArgument(gs::Event::MOUSEY, var);
+	var.asInteger = mouseState;
+	mouseEvent.AddArgument(gs::Event::BUTTON_STATE, var);
+	var.asInteger = mouseButton;
+	mouseEvent.AddArgument(gs::Event::BUTTON, var);
+
+	gs::EventManager::GetInstance()->QueueEvent(mouseEvent);
 }
 
 static void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 {
 	mousePosX = xpos;
 	mousePosY = ypos;
-    gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_MOUSE_MOVED, new gs::MouseEventArgs(mouseButton, mouseState, mousePosX, mousePosY));
+
+	gs::Event mouseEvent(EventType::ET_MOUSE_MOVED);
+	Variant var;
+	var.asDouble = mousePosX;
+	mouseEvent.AddArgument(gs::Event::MOUSEX, var);
+	var.asDouble = mousePosY;
+	mouseEvent.AddArgument(gs::Event::MOUSEY, var);
+	var.asInteger = mouseState;
+	mouseEvent.AddArgument(gs::Event::BUTTON_STATE, var);
+	var.asInteger = mouseButton;
+	mouseEvent.AddArgument(gs::Event::BUTTON, var);
+
+	gs::EventManager::GetInstance()->QueueEvent(mouseEvent);
 }
 
 static void OnMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
@@ -40,6 +65,9 @@ static void OnMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 
 static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+	int width, height = 0;
+	glfwGetWindowSize(window, &width, &height);
+
     if (action == GLFW_PRESS) {
         switch (key) {
             case GLFW_KEY_Z:
@@ -57,11 +85,28 @@ static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int
                 break;
             default:
                 break;
-        }        
+        }
+		gs::Event keyEvent(EventType::ET_KEY_PRESSED);
+		Variant var;
+		var.asInteger = key;
+		keyEvent.AddArgument(gs::Event::KEY, var);
+		var.asInteger = width;
+		keyEvent.AddArgument(gs::Event::WIDTH, var);
+		var.asInteger = height;
+		keyEvent.AddArgument(gs::Event::HEIGHT, var);
+		gs::EventManager::GetInstance()->QueueEvent(keyEvent);
     }
-	int width, height = 0;
-	glfwGetWindowSize(window, &width, &height);
-	gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_KEY_PRESSED, new gs::KeyEventArgs(key, width, height));
+	else if (action == GLFW_RELEASE) {
+		gs::Event keyEvent(EventType::ET_KEY_RELEASED);
+		Variant var;
+		var.asInteger = key;
+		keyEvent.AddArgument(gs::Event::KEY, var);
+		var.asInteger = width;
+		keyEvent.AddArgument(gs::Event::WIDTH, var);
+		var.asInteger = height;
+		keyEvent.AddArgument(gs::Event::HEIGHT, var);
+		gs::EventManager::GetInstance()->QueueEvent(keyEvent);
+	}
 }
 
 static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
@@ -72,5 +117,5 @@ static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
 static void OnWindowResize(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-    gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_WINDOW_RESIZED, new gs::ResizeEventArgs(width, height));
+    //gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_WINDOW_RESIZED, new gs::ResizeEventArgs(width, height));
 }

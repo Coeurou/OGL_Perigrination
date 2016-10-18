@@ -219,6 +219,12 @@
     <ClInclude Include="src\OGLRefractionReflection.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
+    <ClInclude Include="src\EventListener.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -382,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="src\OGLRefractionReflection.cpp">
       <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

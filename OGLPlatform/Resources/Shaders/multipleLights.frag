@@ -67,7 +67,7 @@ void main()
 	lightResult += ComputeDirLight(dirLight, unitNormal, vsPosition);
 
 	for (int i = 0; i < NB_POINT_LIGHTS; i++) {
-		lightResult += ComputePointLight(ptLights[0], unitNormal, vsPosition);
+		lightResult += ComputePointLight(ptLights[i], unitNormal, vsPosition);
 	}
 
 	lightResult += ComputeSpotLight(spotLight, unitNormal, vsPosition);

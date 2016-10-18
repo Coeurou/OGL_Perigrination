@@ -11,51 +11,52 @@
 
 namespace gs
 {
-    EventManager* EventManager::instance = nullptr;
-    
+    std::unique_ptr<EventManager> EventManager::instance = nullptr;
+	bool EventManager::instanceDeleted = false;
+
     EventManager::EventManager()
     {}
     
     EventManager::~EventManager()
-    {}
+    {
+		EventManager::instanceDeleted = true;
+	}
     
-    EventManager& EventManager::GetInstance()
+    EventManager* EventManager::GetInstance()
     {
         if (instance == nullptr) {
-            instance = new EventManager();
+            instance = std::make_unique<EventManager>();
         }
-        return *instance;
+        return instance.get();
     }
     
-    void EventManager::Subscribe(Event&& ev)
+    void EventManager::Subscribe(EventType type, EventListener* listener)
     {
-        dispatcher[ev.first].push_back(ev.second);
+        dispatcher[type].push_back(listener);
     }
     
-    void EventManager::Unsubscribe(Event&& ev)
+    void EventManager::Unsubscribe(EventType type, EventListener* listener)
     {   
-        dispatcher[ev.first].erase(std::remove_if(dispatcher[ev.first].begin(), dispatcher[ev.first].end(), [&](EventFun e) { return ev.second.GetId() == e.GetId(); }));
+        dispatcher[type].erase(std::remove_if(dispatcher[type].begin(), dispatcher[type].end(), [listener](EventListener* l) { return l == listener; }));
     }
     
-    void EventManager::Dispatch(EventType type, const EventArgs& args)
+    void EventManager::Dispatch(Event e)
     {
-        for (auto callback : dispatcher[type]) {
-            callback.GetFunction()(args);
-        }
+		for (auto& listener : dispatcher[e.GetEventType()]) {
+			listener->OnEvent(e);
+		}
     }
 
-	void EventManager::QueueEvent(EventType type, EventArgs* args)
+	void EventManager::QueueEvent(Event e)
 	{
-		pendingEvents.push(std::make_pair(type, args));
+		pendingEvents.push(e);
 	}
 
 	void EventManager::PollEvents()
 	{
 		while (!pendingEvents.empty()) {
-			auto& toDispatch = pendingEvents.front();
-			Dispatch(toDispatch.first, *toDispatch.second);
+			Dispatch(pendingEvents.front());
 			pendingEvents.pop();
-			delete toDispatch.second;
 		}
 	}
 }

@@ -15,57 +15,144 @@
 
 namespace gs
 { 
-    Camera::Camera() : speed(0.1f), angularSpeed(0.5f), nearDistance(0.1f), farDistance(100.0f),
+    Camera::Camera() : velocity(0.1f), angularSpeed(0.5f), nearDistance(0.1f), farDistance(100.0f),
                        fov(45.0f), up(glm::vec3(0.0f, 1.0f, 0.0f)),
                        right(glm::vec3(1.0f, 0.0f, 0.0f)), target(glm::vec3(0.0f, 0.0f, 0.0f)),
-                       forward(glm::vec3(0.0f, 0.0f, -1.0f))
+                       forward(glm::vec3(0.0f, 0.0f, -1.0f)), accumPitchRadians(0.0f),
+					   acceleration(8.0f), currentVelocity(0.0f), direction(0.0f)
     {
-        EventFun keyEventFun(0, [=](const EventArgs& args) {
-            this->OnKeyPressed(args);
-        });
-        EventManager::GetInstance().Subscribe(std::make_pair(EventType::ET_KEY_PRESSED, keyEventFun));
-        
-        EventFun mouseEventFun(0, [=](const EventArgs& args) {
-            this->OnMouseMoved(args);
-        });
-        EventManager::GetInstance().Subscribe(std::make_pair(EventType::ET_MOUSE_MOVED, mouseEventFun));
-        
-        EventFun resizeEventFun(0, [=](const EventArgs& args) {
-            this->OnWindowResized(args);
-        });
-        EventManager::GetInstance().Subscribe(std::make_pair(EventType::ET_WINDOW_RESIZED, resizeEventFun));
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY_PRESSED, this);
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY_RELEASED, this);
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_MOVED, this);
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_WINDOW_RESIZED, this);
     }
     
     Camera::~Camera()
     {
-        EventFun keyEventFun(0, [=](const EventArgs& args) {
-            this->OnKeyPressed(args);
-        });
-        EventManager::GetInstance().Unsubscribe(std::make_pair(EventType::ET_KEY_PRESSED, keyEventFun));
-        
-        EventFun mouseEventFun(0, [=](const EventArgs& args) {
-            this->OnMouseMoved(args);
-        });
-        EventManager::GetInstance().Unsubscribe(std::make_pair(EventType::ET_MOUSE_MOVED, mouseEventFun));
-        
-        EventFun resizeEventFun(0, [=](const EventArgs& args) {
-            this->OnWindowResized(args);
-        });
-        EventManager::GetInstance().Unsubscribe(std::make_pair(EventType::ET_WINDOW_RESIZED, resizeEventFun));
+		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY_PRESSED, this);
+		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY_RELEASED, this);
+		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_MOUSE_MOVED, this);
+		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_WINDOW_RESIZED, this);
     }
-    
+
+	void Camera::OnEvent(Event e)
+	{
+		switch (e.GetEventType())
+		{
+		case EventType::ET_KEY_PRESSED:
+			OnKeyPressed(e);
+			break;
+		case EventType::ET_KEY_RELEASED:
+			OnKeyReleased(e);
+			break;
+		case EventType::ET_MOUSE_MOVED:
+			OnMouseMoved(e);
+			break;
+		case EventType::ET_WINDOW_RESIZED:
+			OnWindowResized(e);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void Camera::UpdateVelocity()
+	{
+		currentVelocity += direction * acceleration * (float)deltaTime;
+		// X axis
+		if (direction.x != 0.0f) {
+			if (currentVelocity.x > velocity) {
+				currentVelocity.x = velocity;
+			}
+			else if (currentVelocity.x < -velocity) {
+				currentVelocity.x = -velocity;
+			}
+		}
+		else
+		{
+			if (currentVelocity.x > 0.0f) {
+				if (currentVelocity.x -= acceleration.x * deltaTime < 0.0f) {
+					currentVelocity.x = 0.0f;
+				}
+			}
+			else if (currentVelocity.x < 0.0f) {
+				if (currentVelocity.x += acceleration.x * deltaTime > 0.0f) {
+					currentVelocity.x = 0.0f;
+				}
+			}
+		}
+
+		// Y axis
+		if (direction.y != 0.0f) {
+			if (currentVelocity.y > velocity) {
+				currentVelocity.y = velocity;
+			}
+			else if (currentVelocity.y < -velocity) {
+				currentVelocity.y = -velocity;
+			}
+		}
+		else
+		{
+			if (currentVelocity.y > 0.0f) {
+				if (currentVelocity.y -= acceleration.y * deltaTime < 0.0f) {
+					currentVelocity.y = 0.0f;
+				}
+			}
+			else if (currentVelocity.y < 0.0f) {
+				if (currentVelocity.y += acceleration.y * deltaTime > 0.0f) {
+					currentVelocity.y = 0.0f;
+				}
+			}
+		}
+
+		// Z axis
+		if (direction.z != 0.0f) {
+			if (currentVelocity.z > velocity) {
+				currentVelocity.z = velocity;
+			}
+			else if (currentVelocity.z < -velocity) {
+				currentVelocity.z = -velocity;
+			}
+		}
+		else
+		{
+			if (currentVelocity.z > 0.0f) {
+				if (currentVelocity.z -= acceleration.z * deltaTime < 0.0f) {
+					currentVelocity.z = 0.0f;
+				}
+			}
+			else if (currentVelocity.z < 0.0f) {
+				if (currentVelocity.z += acceleration.z * deltaTime > 0.0f) {
+					currentVelocity.z = 0.0f;
+				}
+			}
+		}
+	}
+
+	void Camera::UpdatePosition()
+	{		
+		if (glm::length(currentVelocity) * glm::length(currentVelocity) != 0.0f)
+		{
+			glm::vec3 displacement = currentVelocity * (float)deltaTime + acceleration * (float)(deltaTime * deltaTime);
+			position += displacement;
+			target = position + forward;
+			UpdateVelocity();
+		}
+	}
+
     void Camera::Update()
     {
 		double currentTime = glfwGetTime();
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
+		UpdatePosition();
         view = glm::lookAt(position, target, up);
     }
     
     void Camera::Move(const glm::vec3& dir)
     {
-        position += dir * (float)deltaTime;
-        target = position + forward;
+		direction = dir;
+		currentVelocity = dir * velocity;
     }
     
     void Camera::Rotate(const glm::vec2& rot)
@@ -87,59 +174,79 @@ namespace gs
         projection = glm::perspective(fovy, aspectRatio, near, far);
     }
     
-    void Camera::OnKeyPressed(const EventArgs& args)
+	void Camera::OnKeyPressed(const Event& args)
+	{
+		auto key = args.GetArgument(gs::Event::KEY);
+
+		switch (key.asInteger)
+		{
+		case GLFW_KEY_0:
+			fov = 45.0f;
+			nearDistance = 0.1f;
+			farDistance = 100.0f;
+			break;
+		case GLFW_KEY_1:
+			fov += 1.0f;
+			break;
+		case GLFW_KEY_2:
+			fov -= 1.0f;
+			break;
+		case GLFW_KEY_4:
+			nearDistance += 0.1f;
+			break;
+		case GLFW_KEY_5:
+			nearDistance -= 0.1f;
+			break;
+		case GLFW_KEY_7:
+			farDistance += 1.0f;
+			break;
+		case GLFW_KEY_8:
+			farDistance -= 1.0f;
+			break;
+		case GLFW_KEY_W:
+			Move(forward);
+			break;
+		case GLFW_KEY_S:
+			Move(-forward);
+			break;
+		case GLFW_KEY_D:
+			Move(right);
+			break;
+		case GLFW_KEY_A:
+			Move(-right);
+			break;
+		case GLFW_KEY_Q:
+			Move(up);
+			break;
+		case GLFW_KEY_E:
+			Move(-up);
+			break;
+		default:
+			break;
+		}
+		if (key.asInteger >= GLFW_KEY_0 && key.asInteger <= GLFW_KEY_8)
+		{
+			auto w = args.GetArgument(gs::Event::WIDTH);
+			auto h = args.GetArgument(gs::Event::HEIGHT);
+			projection = glm::perspective(fov, w.asInteger / (float)h.asInteger, nearDistance, farDistance);
+		}
+	}
+
+    void Camera::OnKeyReleased(const Event& args)
     {
-        const auto& keyEvent = static_cast<const KeyEventArgs&>(args);
-        
-        switch (keyEvent.key)
-        {
-            case GLFW_KEY_0:
-                fov = 45.0f;
-                nearDistance = 0.1f;
-                farDistance = 100.0f;
-                break;
-            case GLFW_KEY_1:
-                fov += 1.0f;
-                break;
-            case GLFW_KEY_2:
-                fov -= 1.0f;
-                break;
-            case GLFW_KEY_4:
-                nearDistance += 0.1f;
-                break;
-            case GLFW_KEY_5:
-                nearDistance -= 0.1f;
-                break;
-            case GLFW_KEY_7:
-                farDistance += 1.0f;
-                break;
-            case GLFW_KEY_8:
-                farDistance -= 1.0f;
-                break;
+		auto key = args.GetArgument(gs::Event::KEY);
+        switch (key.asInteger)
+        {            
             case GLFW_KEY_W:
-                Move(forward * speed);
-                break;
             case GLFW_KEY_S:
-                Move(-forward * speed);
-                break;
             case GLFW_KEY_D:
-                Move(right * speed);
-                break;
             case GLFW_KEY_A:
-                Move(-right * speed);
-                break;
             case GLFW_KEY_Q:
-                Move(up * speed);
-                break;
             case GLFW_KEY_E:
-                Move(-up * speed);
+				direction = glm::vec3(0);
                 break;
             default:
                 break;
-        }
-        if (keyEvent.key >= GLFW_KEY_0 && keyEvent.key <= GLFW_KEY_8)
-        {
-            projection = glm::perspective(fov, keyEvent.width / (float)keyEvent.height, nearDistance, farDistance);
         }
     }
     
@@ -162,29 +269,45 @@ namespace gs
         return smoothPos / averageSum;
     }
     
-    void Camera::OnMouseMoved(const EventArgs& args)
+    void Camera::OnMouseMoved(const Event& args)
     {
-        const auto& mouseEvent = static_cast<const MouseEventArgs&>(args);
+		auto button = args.GetArgument(gs::Event::BUTTON);
+		auto buttonState = args.GetArgument(gs::Event::BUTTON_STATE);
+		auto posX = args.GetArgument(gs::Event::MOUSEX);
+		auto posY = args.GetArgument(gs::Event::MOUSEY);
+
 		// If mouse button release or button is not right
-		if (mouseEvent.button != 1 || mouseEvent.state == 0) { return; }
+		if (button.asInteger != 1 || buttonState.asInteger == 0) { return; }
 
-        glm::vec2 delta { mouseEvent.posY - mousePos.y, mouseEvent.posX - mousePos.x };
+        glm::vec2 delta { posY.asDouble - mousePos.y, posX.asDouble - mousePos.x };
 
-		mousePos = glm::ivec2(mouseEvent.posX, mouseEvent.posY);
+		mousePos = glm::ivec2(posX.asDouble, posY.asDouble);
         delta = FilterMousePos(delta);
         if (glm::length(delta) > maxMouseMove) {
             return;
         }
         delta *= deltaTime * angularSpeed;
-            
-        Rotate(delta);
+        
+		accumPitchRadians += delta.x;
+		if (accumPitchRadians > glm::half_pi<float>())
+		{
+			accumPitchRadians = glm::half_pi<float>();
+			delta.x = 0;
+		}
+		else if (accumPitchRadians < -glm::half_pi<float>())
+		{
+			accumPitchRadians = -glm::half_pi<float>();
+			delta.x = 0;
+		}
+		Rotate(delta);	
     }
     
-    void Camera::OnWindowResized(const EventArgs& args)
+    void Camera::OnWindowResized(const Event& args)
     {
-        const auto& resizeEvent = static_cast<const ResizeEventArgs&>(args);
-		if (resizeEvent.width > 0) {
-			SetupProjection(fov, resizeEvent.width / (float)resizeEvent.height);
+		auto w = args.GetArgument(gs::Event::WIDTH);
+		auto h = args.GetArgument(gs::Event::HEIGHT);
+		if (w.asInteger > 0) {
+			SetupProjection(fov, w.asInteger / (float)h.asInteger);
 		}
     }
 }
