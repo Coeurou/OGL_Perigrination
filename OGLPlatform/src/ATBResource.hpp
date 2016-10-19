@@ -10,7 +10,7 @@ class ATBResource : public gs::EventListener
 public:
 	ATBResource() 
 	{
-		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY_PRESSED, this);
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY, this);
 		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_MOVED, this);
 		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
 		gs::EventManager::GetInstance()->Subscribe(EventType::ET_WINDOW_RESIZED, this);
@@ -19,7 +19,7 @@ public:
 	~ATBResource() 
 	{
 		if (!gs::EventManager::IsInstanceDeleted()) {
-			gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY_PRESSED, this);
+			gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY, this);
 			gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_MOUSE_MOVED, this);
 			gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_MOUSE_PRESSED, this);
 			gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_WINDOW_RESIZED, this);
@@ -30,7 +30,7 @@ public:
 	{
 		switch (e.GetEventType())
 		{
-		case EventType::ET_KEY_PRESSED:
+		case EventType::ET_KEY:
 			OnKeyPressed(e);
 			break;
 		case EventType::ET_MOUSE_MOVED:
@@ -49,30 +49,25 @@ public:
 
 	bool InitATB() { return TwInit(TW_OPENGL_CORE, NULL) == 1; }
 	
-	void OnKeyPressed(const gs::Event& args) 
+	void OnKeyPressed(const gs::Event& e) 
 	{		
-		auto var = args.GetArgument(gs::Event::KEY);
-		TwEventKeyGLFW(var.asInteger, 1);
+		if (e.args.keyState == 1) {
+			TwEventKeyGLFW(e.args.key, 1);
+		}
 	}
 
-	void OnMousePressed(const gs::Event& args) 
+	void OnMousePressed(const gs::Event& e) 
 	{
-		auto button = args.GetArgument(gs::Event::BUTTON);
-		auto buttonState = args.GetArgument(gs::Event::BUTTON_STATE);
-		TwEventMouseButtonGLFW(button.asInteger, buttonState.asInteger);
+		TwEventMouseButtonGLFW(e.args.mouseButton, e.args.mouseButtonState);
 	}
 
-	void OnMouseMoved(const gs::Event& args)
+	void OnMouseMoved(const gs::Event& e)
 	{
-		auto posX = args.GetArgument(gs::Event::MOUSEX);
-		auto posY = args.GetArgument(gs::Event::MOUSEY);
-		TwMouseMotion(int(posX.asDouble), int(posY.asDouble));
+		TwMouseMotion(int(e.args.mousePosX), int(e.args.mousePosY));
 	}
 
-	void OnWindowResized(const gs::Event& args) 
+	void OnWindowResized(const gs::Event& e) 
 	{
-		auto w = args.GetArgument(gs::Event::WIDTH);
-		auto h = args.GetArgument(gs::Event::HEIGHT);
-		TwWindowSize(w.asInteger, h.asInteger);
+		TwWindowSize(e.args.width, e.args.height);
 	}
 };

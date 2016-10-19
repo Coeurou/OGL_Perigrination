@@ -25,15 +25,10 @@ static void OnMouseButtonClick(GLFWwindow* window, int button, int action, int m
     mouseState = action;
 
 	gs::Event mouseEvent(EventType::ET_MOUSE_PRESSED);
-	Variant var;
-	var.asDouble = mousePosX;
-	mouseEvent.AddArgument(gs::Event::MOUSEX, var);
-	var.asDouble = mousePosY;
-	mouseEvent.AddArgument(gs::Event::MOUSEY, var);
-	var.asInteger = mouseState;
-	mouseEvent.AddArgument(gs::Event::BUTTON_STATE, var);
-	var.asInteger = mouseButton;
-	mouseEvent.AddArgument(gs::Event::BUTTON, var);
+	mouseEvent.args.mousePosX = mousePosX;
+	mouseEvent.args.mousePosY = mousePosY;
+	mouseEvent.args.mouseButton = mouseButton;
+	mouseEvent.args.mouseButtonState = mouseState;
 
 	gs::EventManager::GetInstance()->QueueEvent(mouseEvent);
 }
@@ -44,15 +39,10 @@ static void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	mousePosY = ypos;
 
 	gs::Event mouseEvent(EventType::ET_MOUSE_MOVED);
-	Variant var;
-	var.asDouble = mousePosX;
-	mouseEvent.AddArgument(gs::Event::MOUSEX, var);
-	var.asDouble = mousePosY;
-	mouseEvent.AddArgument(gs::Event::MOUSEY, var);
-	var.asInteger = mouseState;
-	mouseEvent.AddArgument(gs::Event::BUTTON_STATE, var);
-	var.asInteger = mouseButton;
-	mouseEvent.AddArgument(gs::Event::BUTTON, var);
+	mouseEvent.args.mousePosX = mousePosX;
+	mouseEvent.args.mousePosY = mousePosY;
+	mouseEvent.args.mouseButton = mouseButton;
+	mouseEvent.args.mouseButtonState = mouseState;
 
 	gs::EventManager::GetInstance()->QueueEvent(mouseEvent);
 }
@@ -65,9 +55,6 @@ static void OnMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 
 static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	int width, height = 0;
-	glfwGetWindowSize(window, &width, &height);
-
     if (action == GLFW_PRESS) {
         switch (key) {
             case GLFW_KEY_Z:
@@ -86,27 +73,11 @@ static void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int
             default:
                 break;
         }
-		gs::Event keyEvent(EventType::ET_KEY_PRESSED);
-		Variant var;
-		var.asInteger = key;
-		keyEvent.AddArgument(gs::Event::KEY, var);
-		var.asInteger = width;
-		keyEvent.AddArgument(gs::Event::WIDTH, var);
-		var.asInteger = height;
-		keyEvent.AddArgument(gs::Event::HEIGHT, var);
-		gs::EventManager::GetInstance()->QueueEvent(keyEvent);
     }
-	else if (action == GLFW_RELEASE) {
-		gs::Event keyEvent(EventType::ET_KEY_RELEASED);
-		Variant var;
-		var.asInteger = key;
-		keyEvent.AddArgument(gs::Event::KEY, var);
-		var.asInteger = width;
-		keyEvent.AddArgument(gs::Event::WIDTH, var);
-		var.asInteger = height;
-		keyEvent.AddArgument(gs::Event::HEIGHT, var);
-		gs::EventManager::GetInstance()->QueueEvent(keyEvent);
-	}
+	gs::Event keyEvent(EventType::ET_KEY);
+	keyEvent.args.key = key;
+	keyEvent.args.keyState = action;
+	gs::EventManager::GetInstance()->QueueEvent(keyEvent);
 }
 
 static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
@@ -117,5 +88,9 @@ static void OnCharPressed(GLFWwindow* window, unsigned int codepoint)
 static void OnWindowResize(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-    //gs::EventManager::GetInstance().QueueEvent(gs::EventType::ET_WINDOW_RESIZED, new gs::ResizeEventArgs(width, height));
+
+	gs::Event resizeEvent(EventType::ET_WINDOW_RESIZED);
+	resizeEvent.args.width = width;
+	resizeEvent.args.height = height;
+	gs::EventManager::GetInstance()->QueueEvent(resizeEvent);
 }

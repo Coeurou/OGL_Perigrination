@@ -21,16 +21,14 @@ namespace gs
                        forward(glm::vec3(0.0f, 0.0f, -1.0f)), accumPitchRadians(0.0f),
 					   acceleration(8.0f), currentVelocity(0.0f), direction(0.0f)
     {
-		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY_PRESSED, this);
-		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY_RELEASED, this);
+		gs::EventManager::GetInstance()->Subscribe(EventType::ET_KEY, this);
 		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_MOVED, this);
 		gs::EventManager::GetInstance()->Subscribe(EventType::ET_WINDOW_RESIZED, this);
     }
     
     Camera::~Camera()
     {
-		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY_PRESSED, this);
-		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY_RELEASED, this);
+		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_KEY, this);
 		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_MOUSE_MOVED, this);
 		gs::EventManager::GetInstance()->Unsubscribe(EventType::ET_WINDOW_RESIZED, this);
     }
@@ -39,11 +37,13 @@ namespace gs
 	{
 		switch (e.GetEventType())
 		{
-		case EventType::ET_KEY_PRESSED:
-			OnKeyPressed(e);
-			break;
-		case EventType::ET_KEY_RELEASED:
-			OnKeyReleased(e);
+		case EventType::ET_KEY:
+			if (e.args.keyState >= 1) {
+				OnKeyPressed(e);
+			}
+			else {
+				OnKeyReleased(e);
+			}
 			break;
 		case EventType::ET_MOUSE_MOVED:
 			OnMouseMoved(e);
@@ -174,11 +174,9 @@ namespace gs
         projection = glm::perspective(fovy, aspectRatio, near, far);
     }
     
-	void Camera::OnKeyPressed(const Event& args)
+	void Camera::OnKeyPressed(const Event& e)
 	{
-		auto key = args.GetArgument(gs::Event::KEY);
-
-		switch (key.asInteger)
+		switch (e.args.key)
 		{
 		case GLFW_KEY_0:
 			fov = 45.0f;
@@ -224,18 +222,15 @@ namespace gs
 		default:
 			break;
 		}
-		if (key.asInteger >= GLFW_KEY_0 && key.asInteger <= GLFW_KEY_8)
+		if (e.args.key >= GLFW_KEY_0 && e.args.key <= GLFW_KEY_8)
 		{
-			auto w = args.GetArgument(gs::Event::WIDTH);
-			auto h = args.GetArgument(gs::Event::HEIGHT);
-			projection = glm::perspective(fov, w.asInteger / (float)h.asInteger, nearDistance, farDistance);
+			projection = glm::perspective(fov, windowWidth / (float)windowHeight, nearDistance, farDistance);
 		}
 	}
 
-    void Camera::OnKeyReleased(const Event& args)
+    void Camera::OnKeyReleased(const Event& e)
     {
-		auto key = args.GetArgument(gs::Event::KEY);
-        switch (key.asInteger)
+        switch (e.args.key)
         {            
             case GLFW_KEY_W:
             case GLFW_KEY_S:
@@ -269,19 +264,14 @@ namespace gs
         return smoothPos / averageSum;
     }
     
-    void Camera::OnMouseMoved(const Event& args)
+    void Camera::OnMouseMoved(const Event& e)
     {
-		auto button = args.GetArgument(gs::Event::BUTTON);
-		auto buttonState = args.GetArgument(gs::Event::BUTTON_STATE);
-		auto posX = args.GetArgument(gs::Event::MOUSEX);
-		auto posY = args.GetArgument(gs::Event::MOUSEY);
-
 		// If mouse button release or button is not right
-		if (button.asInteger != 1 || buttonState.asInteger == 0) { return; }
+		if (e.args.mouseButton != 1 || e.args.mouseButtonState == 0) { return; }
 
-        glm::vec2 delta { posY.asDouble - mousePos.y, posX.asDouble - mousePos.x };
+        glm::vec2 delta { e.args.mousePosY - mousePos.y, e.args.mousePosX - mousePos.x };
 
-		mousePos = glm::ivec2(posX.asDouble, posY.asDouble);
+		mousePos = glm::ivec2(e.args.mousePosX, e.args.mousePosY);
         delta = FilterMousePos(delta);
         if (glm::length(delta) > maxMouseMove) {
             return;
@@ -302,12 +292,11 @@ namespace gs
 		Rotate(delta);	
     }
     
-    void Camera::OnWindowResized(const Event& args)
+    void Camera::OnWindowResized(const Event& e)
     {
-		auto w = args.GetArgument(gs::Event::WIDTH);
-		auto h = args.GetArgument(gs::Event::HEIGHT);
-		if (w.asInteger > 0) {
-			SetupProjection(fov, w.asInteger / (float)h.asInteger);
+		if (e.args.width > 0) {
+			SetupProjection(fov, e.args.width / (float)e.args.height);
+			SetWindowSize(e.args.width, e.args.height);
 		}
     }
 }
