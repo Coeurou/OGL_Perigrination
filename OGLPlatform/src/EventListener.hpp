@@ -4,12 +4,11 @@
 
 namespace gs
 {
-	class EventListener
+	class IEventListener
 	{
 	public:
-		EventListener() {}
-		virtual ~EventListener() {}
-
+		IEventListener() {}
+		virtual ~IEventListener() {}
 		virtual void OnEvent(Event e) = 0;
 	};
 }

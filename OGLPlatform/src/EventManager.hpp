@@ -12,6 +12,7 @@
 #include "EventListener.hpp"
 #include <map>
 #include <memory>
+#include <mutex>
 #include <vector>
 #include <queue>
 
@@ -27,8 +28,8 @@ namespace gs
         
         static EventManager* GetInstance();
         
-        void Subscribe(EventType type, EventListener* listener);
-        void Unsubscribe(EventType type, EventListener* listener);
+        void Subscribe(EventType type, IEventListener* listener);
+        void Unsubscribe(EventType type, IEventListener* listener);
         void Dispatch(Event e);
 		void QueueEvent(Event e);
 		void PollEvents();
@@ -37,8 +38,8 @@ namespace gs
     private:
 		static std::unique_ptr<EventManager> instance;
 		static bool instanceDeleted;
-        std::map<EventType, std::vector<EventListener*>> dispatcher;
+        std::map<EventType, std::vector<IEventListener*>> dispatcher;
 		std::queue<Event> pendingEvents;
-    };
+	};
 }
 /* EventManager_hpp */

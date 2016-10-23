@@ -5,7 +5,7 @@
 #include "EventManager.hpp"
 #include "EventListener.hpp"
 
-class ATBResource : public gs::EventListener
+class ATBResource : public gs::IEventListener
 {
 public:
 	ATBResource() 

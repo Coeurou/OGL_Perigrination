@@ -11,6 +11,7 @@
 #include "OGLAntTweakBar.hpp"
 #include <vector>
 #include <memory>
+#include "EventListener.hpp"
 #include "OGLObjResizable.hpp"
 #include "OGLRenderableObject.hpp"
 #include "Program.hpp"
@@ -22,7 +23,7 @@
 
 namespace gs
 {    
-    class Stage
+    class Stage : public gs::IEventListener
     {
     public:
         Stage();
@@ -30,7 +31,8 @@ namespace gs
         
         virtual bool Init(int windowWidth, int windowHeight);
         virtual void Render(double time) {}
-        
+		virtual void OnEvent(Event e) override {}
+
     protected:
         virtual bool InitGUI() { return true; };
         

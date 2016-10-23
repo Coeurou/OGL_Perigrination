@@ -53,10 +53,10 @@ namespace gs
 		WindowGLFW* glfwWindow = dynamic_cast<WindowGLFW*>(window.get());
 
         while (window->Render()) {
-			EventManager::GetInstance()->PollEvents();
             stage->Render(glfwGetTime());
             TwDraw();
-        }
+			EventManager::GetInstance()->PollEvents();
+		}
         return 0;
     }
     
@@ -136,8 +136,11 @@ namespace gs
         OGLApplicationParams* params17 = new OGLApplicationParams(this, STAGES::DEPTH_PICKING);
         TwAddButton(mainBar, "DepthPicking", ChangeStage, (void*)params17, " label='Depth Picking Example' ");
 
-		OGLApplicationParams* params18 = new OGLApplicationParams(this, STAGES::REFRACTION_REFLECTION);
-		TwAddButton(mainBar, "Refraction_Reflection", ChangeStage, (void*)params18, " label='Refraction/Reflection Example' ");
+		OGLApplicationParams* params18 = new OGLApplicationParams(this, STAGES::COLOR_PICKING);
+		TwAddButton(mainBar, "ColorPicking", ChangeStage, (void*)params18, " label='Color Picking Example' ");
+
+		OGLApplicationParams* params19 = new OGLApplicationParams(this, STAGES::REFRACTION_REFLECTION);
+		TwAddButton(mainBar, "Refraction_Reflection", ChangeStage, (void*)params19, " label='Refraction/Reflection Example' ");
     }
     
     void Application::LoadSettings()

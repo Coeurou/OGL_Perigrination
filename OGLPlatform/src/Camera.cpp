@@ -38,7 +38,7 @@ namespace gs
 		switch (e.GetEventType())
 		{
 		case EventType::ET_KEY:
-			if (e.args.keyState >= 1) {
+			if (e.args.keyState >= (int)ButtonState::BUTTON_PRESSED) {
 				OnKeyPressed(e);
 			}
 			else {
@@ -267,7 +267,7 @@ namespace gs
     void Camera::OnMouseMoved(const Event& e)
     {
 		// If mouse button release or button is not right
-		if (e.args.mouseButton != 1 || e.args.mouseButtonState == 0) { return; }
+		if (e.args.mouseButton != (int)MouseButton::MB_RIGHT || e.args.mouseButtonState == (int)ButtonState::BUTTON_RELEASED) { return; }
 
         glm::vec2 delta { e.args.mousePosY - mousePos.y, e.args.mousePosX - mousePos.x };
 

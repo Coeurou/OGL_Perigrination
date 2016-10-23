@@ -166,6 +166,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\Mesh.hpp" />
     <ClInclude Include="src\Model.hpp" />
     <ClInclude Include="src\OGLCameraStage.hpp" />
+    <ClInclude Include="src\OGLColorPicking.hpp" />
     <ClInclude Include="src\OGLDepthPicking.hpp" />
     <ClInclude Include="src\OGLFrustumCulling.hpp" />
     <ClInclude Include="src\OGLGeometryShader.hpp" />
@@ -229,6 +230,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\OGLCameraStage.cpp" />
+    <ClCompile Include="src\OGLColorPicking.cpp" />
     <ClCompile Include="src\OGLDepthPicking.cpp" />
     <ClCompile Include="src\OGLFrustumCulling.cpp" />
     <ClCompile Include="src\OGLGeometryShader.cpp" />

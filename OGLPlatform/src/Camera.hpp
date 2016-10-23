@@ -17,7 +17,7 @@ namespace gs
     class Event;
 	enum { HISTORY_BUFFER_SIZE = 10 };
 
-    class Camera : public gs::EventListener
+    class Camera : public gs::IEventListener
     {
         const float maxMouseMove = 40.0f;
         const float WEIGHT_MODIFIER = 0.3f;

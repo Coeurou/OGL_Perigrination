@@ -7,7 +7,24 @@ enum class EventType
 	ET_KEY,
 	ET_MOUSE_MOVED,
 	ET_MOUSE_PRESSED,
-	ET_WINDOW_RESIZED
+	ET_WINDOW_RESIZED,
+	ET_COUNT
+};
+
+enum class MouseButton
+{
+	MB_LEFT,
+	MB_RIGHT,
+	MB_MIDDLE,
+	MB_COUNT
+};
+
+enum class ButtonState
+{
+	BUTTON_RELEASED,
+	BUTTON_PRESSED,
+	BUTTON_REPEAT,
+	BUTTON_STATE_COUNT
 };
 
 struct Variant

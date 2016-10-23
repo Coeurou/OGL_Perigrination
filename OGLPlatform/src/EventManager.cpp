@@ -30,19 +30,22 @@ namespace gs
         return instance.get();
     }
     
-    void EventManager::Subscribe(EventType type, EventListener* listener)
+    void EventManager::Subscribe(EventType type, IEventListener* listener)
     {
-        dispatcher[type].push_back(listener);
-    }
+		dispatcher[type].push_back(listener);
+	}
     
-    void EventManager::Unsubscribe(EventType type, EventListener* listener)
+    void EventManager::Unsubscribe(EventType type, IEventListener* listener)
     {   
-        dispatcher[type].erase(std::remove_if(dispatcher[type].begin(), dispatcher[type].end(), [listener](EventListener* l) { return l == listener; }));
+		auto it = std::remove_if(dispatcher[type].begin(), dispatcher[type].end(), [listener](IEventListener* l) { return l == listener; });
+		if (it != dispatcher[type].cend()) {
+			dispatcher[type].erase(it);
+		}
     }
     
     void EventManager::Dispatch(Event e)
     {
-		for (auto& listener : dispatcher[e.GetEventType()]) {
+		for (auto listener : dispatcher[e.GetEventType()]) {
 			listener->OnEvent(e);
 		}
     }
