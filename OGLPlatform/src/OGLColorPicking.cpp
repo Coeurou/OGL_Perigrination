@@ -16,10 +16,13 @@
 #include "EventManager.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/epsilon.hpp>
 #include <sstream>
 
 OGLColorPicking::OGLColorPicking()
 {
+    gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
+    hasSubscribed = true;
 }
 
 OGLColorPicking::~OGLColorPicking()
@@ -61,20 +64,15 @@ bool OGLColorPicking::Init(int windowWidth, int windowHeight)
 		cube.SetProgram(programs[0]);
         cube.Load("");
         //cube.SetSize(30);
-		for (size_t i = 1; i < 7; i++)
-		{
-			size_t j = (i % 2 == 1) ? i : i - 1;
-			float sign = (i % 2) * 2 - 1.0f;
-			boxPositions.push_back(glm::vec3(2 * sign*j, 0, 0));
-		}
 
 		InitGround(NBVERTICESX, NBVERTICESZ, WORLDSIZEX, WORLDSIZEZ);
 
 		camera.SetSpeed(10);
 		//camera.SetAngularSpeed(0);
-        camera.SetPosition(glm::vec3(0,2,10));
-        camera.SetupProjection(45.0f, windowWidth/(float)windowHeight);
+        camera.SetPosition(glm::vec3(45,15,10));
+        camera.SetupProjection(45.0f, windowWidth/(float)windowHeight, 0.1f, 1000.0f);
         glEnable(GL_DEPTH_TEST);
+        glDisable(GL_DITHER);
     }
 	return res;
 }
@@ -123,22 +121,28 @@ void OGLColorPicking::Render(double time)
 	}
 
     glClear(GL_DEPTH_BUFFER_BIT);
-	glm::vec4 color(1.0f, 0.78f, 0.22f, 1.0f);
+	glm::vec4 color(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(color));
 
     camera.Update();
     
     glm::mat4 viewProjMatrix = camera.GetViewProjectionMatrix();
 
-	for (size_t i = 0; i < 6; i++)
-	{
-		glm::mat4 model = glm::translate(glm::mat4(1), boxPositions[i]);
-
-		glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(viewProjMatrix*model));
-		color = (selectedBox == i) ? glm::vec4(1.0f, 1.0f, 1.0f, 1.0f) : glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-		glUniform4fv(programs[0]->GetUniform("color"), 1, glm::value_ptr(color));
-		cube.Render();
-	}
+    for (size_t r = 0; r < 150; r += 15) {
+        for (size_t g = 0; g < 150; g += 15) {
+            for (size_t b = 0; b < 150; b += 15) {
+                color = glm::vec4(r/255.0f,g/255.0f,b/255.0f,1.0f);
+                auto isEqual = glm::epsilonEqual(color, selectedColor, 0.01f);
+                color = (isEqual.x && isEqual.y && isEqual.z) ? glm::vec4(1.0f) : color;
+                glm::vec3 translation(r/8.0f, g/8.0f, b/8.0f);
+                glm::mat4 model = glm::translate(glm::mat4(1), translation);
+                
+                glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(viewProjMatrix*model));
+                glUniform4fv(programs[0]->GetUniform("color"), 1, glm::value_ptr(color));
+                cube.Render();
+            }
+        }
+    }
     
     glUniformMatrix4fv(programs[0]->GetUniform("MVP"), 1, GL_FALSE, glm::value_ptr(viewProjMatrix));
 	color = glm::vec4(0.8f);
@@ -161,17 +165,9 @@ void OGLColorPicking::OnMouseButtonDown(gs::Event e)
 	glGetIntegerv(GL_VIEWPORT, glm::value_ptr(viewport));
 	int x = (int)e.args.mousePosX;
 	int y = (int)e.args.mousePosY;
-	float z = 0.0f;
-	glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-	glm::vec3 ptPixel = glm::unProject(glm::vec3(x,y,z), camera.GetViewMatrix(), camera.GetProjectionMatrix(), viewport);
-
-	float minDist = 1000.0f;
-
-	for (size_t i = 0; i < boxPositions.size(); i++) {
-		float dist = glm::distance(ptPixel, boxPositions[i]);
-		selectedBox = (dist < minDist) ? (int)i : selectedBox;
-		minDist = std::min(dist, minDist);
-	}
+    glm::u8vec4 pixelColor;
+	glReadPixels(x,viewport.w-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &pixelColor);
+    selectedColor = glm::vec4(pixelColor) / 255.0f;
 }
 
 void OGLColorPicking::OnEvent(gs::Event e)
@@ -179,7 +175,7 @@ void OGLColorPicking::OnEvent(gs::Event e)
 	switch (e.GetEventType())
 	{
 	case EventType::ET_MOUSE_PRESSED:
-		if (e.args.mouseButton == (int)MouseButton::MB_LEFT) {
+            if (e.args.mouseButton == (int)MouseButton::MB_LEFT && e.args.mouseButtonState == (int)ButtonState::BUTTON_PRESSED) {
 			OnMouseButtonDown(e);
 		}
 		break;

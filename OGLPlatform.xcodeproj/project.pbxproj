@@ -23,6 +23,11 @@
 		D134A40C1D52820B0029C42A /* OGLQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D134A4081D52820B0029C42A /* OGLQuad.cpp */; };
 		D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13541851D4D623400B01378 /* ImageFactory.cpp */; };
 		D13B91871D7F25A9005A6095 /* OGLMultipleLights.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D13B91851D7F25A9005A6095 /* OGLMultipleLights.cpp */; };
+		D143BC371DBEA2BA0006B7D5 /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D143BC351DBEA2BA0006B7D5 /* Skybox.cpp */; };
+		D143BC3D1DBEA2E20006B7D5 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D143BC381DBEA2E20006B7D5 /* Event.cpp */; };
+		D143BC471DBEA2F20006B7D5 /* OGLColorPicking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D143BC3F1DBEA2F20006B7D5 /* OGLColorPicking.cpp */; };
+		D143BC481DBEA2F20006B7D5 /* OGLDepthPicking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D143BC411DBEA2F20006B7D5 /* OGLDepthPicking.cpp */; };
+		D143BC4A1DBEA2F20006B7D5 /* OGLRefractionReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D143BC451DBEA2F20006B7D5 /* OGLRefractionReflection.cpp */; };
 		D14DED751D5E2A570023630A /* OGLModelMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */; };
 		D14DED7B1D60CC960023630A /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D14DED791D60CC960023630A /* EventManager.cpp */; };
 		D1520D161D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1520D101D7C91CB00F8B6B3 /* OGLMaterialInstancedDraw.cpp */; };
@@ -64,7 +69,6 @@
 		D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F0AF0D1D4C0BF20012F548 /* Texture.cpp */; };
 		D1F9B6F61D8C95F1005BEBE2 /* OGLRenderableCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */; };
 		D1F9B6F91D8C9895005BEBE2 /* OGLRenderableQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */; };
-		D1F9B6FC1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,6 +122,18 @@
 		D13B91851D7F25A9005A6095 /* OGLMultipleLights.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLMultipleLights.cpp; path = src/OGLMultipleLights.cpp; sourceTree = "<group>"; };
 		D13B91861D7F25A9005A6095 /* OGLMultipleLights.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLMultipleLights.hpp; path = src/OGLMultipleLights.hpp; sourceTree = "<group>"; };
 		D13F506D1D1B50CD003E29B9 /* libAntTweakBar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAntTweakBar.a; path = ../../../../../../../../opt/local/lib/libAntTweakBar.a; sourceTree = "<group>"; };
+		D143BC351DBEA2BA0006B7D5 /* Skybox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skybox.cpp; path = src/Skybox.cpp; sourceTree = "<group>"; };
+		D143BC361DBEA2BA0006B7D5 /* Skybox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Skybox.hpp; path = src/Skybox.hpp; sourceTree = "<group>"; };
+		D143BC381DBEA2E20006B7D5 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Event.cpp; path = src/Event.cpp; sourceTree = "<group>"; };
+		D143BC391DBEA2E20006B7D5 /* Event.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Event.hpp; path = src/Event.hpp; sourceTree = "<group>"; };
+		D143BC3A1DBEA2E20006B7D5 /* EventListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EventListener.hpp; path = src/EventListener.hpp; sourceTree = "<group>"; };
+		D143BC3F1DBEA2F20006B7D5 /* OGLColorPicking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLColorPicking.cpp; path = src/OGLColorPicking.cpp; sourceTree = "<group>"; };
+		D143BC401DBEA2F20006B7D5 /* OGLColorPicking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLColorPicking.hpp; path = src/OGLColorPicking.hpp; sourceTree = "<group>"; };
+		D143BC411DBEA2F20006B7D5 /* OGLDepthPicking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLDepthPicking.cpp; path = src/OGLDepthPicking.cpp; sourceTree = "<group>"; };
+		D143BC421DBEA2F20006B7D5 /* OGLDepthPicking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLDepthPicking.hpp; path = src/OGLDepthPicking.hpp; sourceTree = "<group>"; };
+		D143BC451DBEA2F20006B7D5 /* OGLRefractionReflection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRefractionReflection.cpp; path = src/OGLRefractionReflection.cpp; sourceTree = "<group>"; };
+		D143BC461DBEA2F20006B7D5 /* OGLRefractionReflection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRefractionReflection.hpp; path = src/OGLRefractionReflection.hpp; sourceTree = "<group>"; };
+		D143BC4B1DBEA3270006B7D5 /* OGLRenderableObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableObject.hpp; path = src/OGLRenderableObject.hpp; sourceTree = "<group>"; };
 		D14DED731D5E2A570023630A /* OGLModelMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLModelMatrix.cpp; path = src/OGLModelMatrix.cpp; sourceTree = "<group>"; };
 		D14DED741D5E2A570023630A /* OGLModelMatrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLModelMatrix.hpp; path = src/OGLModelMatrix.hpp; sourceTree = "<group>"; };
 		D14DED791D60CC960023630A /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventManager.cpp; path = src/EventManager.cpp; sourceTree = "<group>"; };
@@ -202,8 +218,6 @@
 		D1F9B6F51D8C95F1005BEBE2 /* OGLRenderableCube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableCube.hpp; path = src/OGLRenderableCube.hpp; sourceTree = "<group>"; };
 		D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLRenderableQuad.cpp; path = src/OGLRenderableQuad.cpp; sourceTree = "<group>"; };
 		D1F9B6F81D8C9895005BEBE2 /* OGLRenderableQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLRenderableQuad.hpp; path = src/OGLRenderableQuad.hpp; sourceTree = "<group>"; };
-		D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OGLDepthPicking.cpp; path = src/OGLDepthPicking.cpp; sourceTree = "<group>"; };
-		D1F9B6FB1D8C9ECC005BEBE2 /* OGLDepthPicking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = OGLDepthPicking.hpp; path = src/OGLDepthPicking.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +263,12 @@
 				D1520D131D7C91CB00F8B6B3 /* OGLPointLight.hpp */,
 				D113D9B11D4B0EB8009A34DC /* OGLPointSize.cpp */,
 				D113D9B21D4B0EB8009A34DC /* OGLPointSize.hpp */,
+				D143BC3F1DBEA2F20006B7D5 /* OGLColorPicking.cpp */,
+				D143BC401DBEA2F20006B7D5 /* OGLColorPicking.hpp */,
+				D143BC411DBEA2F20006B7D5 /* OGLDepthPicking.cpp */,
+				D143BC421DBEA2F20006B7D5 /* OGLDepthPicking.hpp */,
+				D143BC451DBEA2F20006B7D5 /* OGLRefractionReflection.cpp */,
+				D143BC461DBEA2F20006B7D5 /* OGLRefractionReflection.hpp */,
 				D131DAA31D58FB3100A129CE /* OGLRipplePlane.cpp */,
 				D131DAA41D58FB3100A129CE /* OGLRipplePlane.hpp */,
 				D1F0AF071D4B201B0012F548 /* OGLSimpleCube.cpp */,
@@ -263,8 +283,6 @@
 				D1520D151D7C91CB00F8B6B3 /* OGLSpotLight.hpp */,
 				D113D9AD1D4B0EB8009A34DC /* FactoryStage.cpp */,
 				D113D9AE1D4B0EB8009A34DC /* FactoryStage.hpp */,
-				D1F9B6FA1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp */,
-				D1F9B6FB1D8C9ECC005BEBE2 /* OGLDepthPicking.hpp */,
 			);
 			name = Stages;
 			sourceTree = "<group>";
@@ -284,6 +302,7 @@
 				D113D9BB1D4B0EC6009A34DC /* OGLTriangle.cpp */,
 				D113D9BC1D4B0EC6009A34DC /* OGLTriangle.hpp */,
 				D1814D551D53DA5100E1F4F2 /* OGLObjResizable.hpp */,
+				D143BC4B1DBEA3270006B7D5 /* OGLRenderableObject.hpp */,
 				D1F9B6F41D8C95F1005BEBE2 /* OGLRenderableCube.cpp */,
 				D1F9B6F51D8C95F1005BEBE2 /* OGLRenderableCube.hpp */,
 				D1F9B6F71D8C9895005BEBE2 /* OGLRenderableQuad.cpp */,
@@ -346,6 +365,9 @@
 				D19544C01D60F0E70041F2A0 /* Camera.cpp */,
 				D19544C11D60F0E70041F2A0 /* Camera.hpp */,
 				D1636E6F1D5687AC006E2648 /* Context.hpp */,
+				D143BC381DBEA2E20006B7D5 /* Event.cpp */,
+				D143BC391DBEA2E20006B7D5 /* Event.hpp */,
+				D143BC3A1DBEA2E20006B7D5 /* EventListener.hpp */,
 				D135417D1D4D5EFE00B01378 /* Image.hpp */,
 				D13541851D4D623400B01378 /* ImageFactory.cpp */,
 				D13541861D4D623400B01378 /* ImageFactory.hpp */,
@@ -362,6 +384,8 @@
 				D1D403891D56379600DCC53F /* Sampler.hpp */,
 				D1926A451D2C5DB400657C3F /* Shader.cpp */,
 				D1926A461D2C5DB400657C3F /* Shader.hpp */,
+				D143BC351DBEA2BA0006B7D5 /* Skybox.cpp */,
+				D143BC361DBEA2BA0006B7D5 /* Skybox.hpp */,
 				D1926A601D30499E00657C3F /* Stage.cpp */,
 				D1926A611D30499E00657C3F /* Stage.hpp */,
 				D1F0AF0D1D4C0BF20012F548 /* Texture.cpp */,
@@ -512,16 +536,20 @@
 				D1F0AF0F1D4C0BF20012F548 /* Texture.cpp in Sources */,
 				D13541871D4D623400B01378 /* ImageFactory.cpp in Sources */,
 				D13B91871D7F25A9005A6095 /* OGLMultipleLights.cpp in Sources */,
+				D143BC3D1DBEA2E20006B7D5 /* Event.cpp in Sources */,
 				D1926A4C1D2C5DD100657C3F /* main.cpp in Sources */,
 				D12DC4A31D74A43200C2140D /* OGLSkybox.cpp in Sources */,
 				D113D9BD1D4B0EC6009A34DC /* OGLPoint.cpp in Sources */,
 				D131DAAE1D58FB6600A129CE /* WindowGLFW.cpp in Sources */,
+				D143BC4A1DBEA2F20006B7D5 /* OGLRefractionReflection.cpp in Sources */,
 				D131DAA51D58FB3100A129CE /* OGLRipplePlane.cpp in Sources */,
 				D1520D1B1D7C922A00F8B6B3 /* OGLLight.cpp in Sources */,
+				D143BC481DBEA2F20006B7D5 /* OGLDepthPicking.cpp in Sources */,
 				D19544C21D60F0E70041F2A0 /* Camera.cpp in Sources */,
 				D1D7933E1D5741BC007319C3 /* OpenGLInfos.cpp in Sources */,
 				D134A40B1D52820B0029C42A /* OGLMipmaps.cpp in Sources */,
-				D1F9B6FC1D8C9ECC005BEBE2 /* OGLDepthPicking.cpp in Sources */,
+				D143BC471DBEA2F20006B7D5 /* OGLColorPicking.cpp in Sources */,
+				D143BC371DBEA2BA0006B7D5 /* Skybox.cpp in Sources */,
 				D113D9BE1D4B0EC6009A34DC /* OGLTriangle.cpp in Sources */,
 				D1D4038A1D56379600DCC53F /* Sampler.cpp in Sources */,
 				D1926A481D2C5DB400657C3F /* Shader.cpp in Sources */,

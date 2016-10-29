@@ -16,7 +16,6 @@
 class OGLColorPicking : public gs::Stage
 {
 	bool hasSubscribed = false;
-	int selectedBox = -1;
 	const size_t NBVERTICESX = 100;
 	const size_t NBVERTICESZ = 100;
 	const size_t WORLDSIZEX = 1000;
@@ -24,7 +23,7 @@ class OGLColorPicking : public gs::Stage
 
 	gs::Camera camera;
     OGLRenderableCube cube;
-	std::vector<glm::vec3> boxPositions;
+	glm::vec4 selectedColor;
    
 	struct LineGround
 	{

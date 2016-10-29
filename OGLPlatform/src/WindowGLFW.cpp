@@ -58,4 +58,5 @@ void WindowGLFW::InitCallbacks()
 	glfwSetCursorPosCallback(window, OnMouseMove);
 	glfwSetWindowSizeCallback(window, OnWindowResize);
 	glfwSetMouseButtonCallback(window, OnMouseButtonClick);
+    glfwSetFramebufferSizeCallback(window, OnFrameBufferResize);
 }

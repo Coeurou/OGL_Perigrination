@@ -121,8 +121,8 @@ void OGLDepthPicking::OnMouseButtonDown(gs::Event e)
 	int x = (int)e.args.mousePosX;
 	int y = (int)e.args.mousePosY;
 	float z = 0.0f;
-	glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-	glm::vec3 ptPixel = glm::unProject(glm::vec3(x,y,z), camera.GetViewMatrix(), camera.GetProjectionMatrix(), viewport);
+	glReadPixels(x, 720-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	glm::vec3 ptPixel = glm::unProject(glm::vec3(x,720-y,z), camera.GetViewMatrix(), camera.GetProjectionMatrix(), viewport);
 
 	float minDist = 1000.0f;
 

@@ -94,3 +94,8 @@ static void OnWindowResize(GLFWwindow* window, int width, int height)
 	resizeEvent.args.height = height;
 	gs::EventManager::GetInstance()->QueueEvent(resizeEvent);
 }
+
+static void OnFrameBufferResize(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}

@@ -30,6 +30,7 @@ namespace gs
 
         window = std::make_unique<WindowGLFW>(context);
 		res &= window->CreateWindow();
+        
         glewExperimental = GL_TRUE;
         GLenum resGLEW = glewInit();
         res &= (resGLEW == GLEW_OK);
@@ -42,7 +43,8 @@ namespace gs
         res &= atbHandle.InitATB();
         atbApp->InitAntTweakBar("Stages", window->GetWindowWidth(), window->GetWindowHeight());
         InitStagesTweakBar();
-
+        
+        //glViewport(0, 0, window->GetWindowWidth(), window->GetWindowHeight());
 		projection = glm::perspective(fov, window->GetWindowWidth() / (float)window->GetWindowHeight(), nearDistance, farDistance);
 
         return res;
@@ -50,8 +52,6 @@ namespace gs
     
     int Application::Run()
     {
-		WindowGLFW* glfwWindow = dynamic_cast<WindowGLFW*>(window.get());
-
         while (window->Render()) {
             stage->Render(glfwGetTime());
             TwDraw();
