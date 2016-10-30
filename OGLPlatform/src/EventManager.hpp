@@ -40,6 +40,10 @@ namespace gs
 		static bool instanceDeleted;
         std::map<EventType, std::vector<IEventListener*>> dispatcher;
 		std::queue<Event> pendingEvents;
+		std::queue<std::pair<EventType, IEventListener*>> pendingSubscribers;
+		std::queue<std::pair<EventType, IEventListener*>> pendingUnsubscribers;
+
+		void PollSubscribers();
 	};
 }
 /* EventManager_hpp */

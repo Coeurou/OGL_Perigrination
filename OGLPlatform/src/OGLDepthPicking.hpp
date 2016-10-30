@@ -15,7 +15,6 @@
 
 class OGLDepthPicking : public gs::Stage
 {
-	bool hasSubscribed = false;
 	int selectedBox = -1;
 	gs::Camera camera;
     OGLRenderableCube cube;

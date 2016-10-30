@@ -32,16 +32,13 @@ namespace gs
     
     void EventManager::Subscribe(EventType type, IEventListener* listener)
     {
-		dispatcher[type].push_back(listener);
+		pendingSubscribers.push(std::make_pair(type, listener));
 	}
     
     void EventManager::Unsubscribe(EventType type, IEventListener* listener)
-    {   
-		auto it = std::remove_if(dispatcher[type].begin(), dispatcher[type].end(), [listener](IEventListener* l) { return l == listener; });
-		if (it != dispatcher[type].cend()) {
-			dispatcher[type].erase(it);
-		}
-    }
+    {
+		pendingUnsubscribers.push(std::make_pair(type, listener));
+	}
     
     void EventManager::Dispatch(Event e)
     {
@@ -55,11 +52,34 @@ namespace gs
 		pendingEvents.push(e);
 	}
 
+	void EventManager::PollSubscribers()
+	{
+		// Subscribe
+		while (!pendingSubscribers.empty()) {
+			auto typeListenerPair = pendingSubscribers.front();
+			dispatcher[typeListenerPair.first].insert(dispatcher[typeListenerPair.first].begin(), typeListenerPair.second);
+			pendingSubscribers.pop();
+		}
+		// Unsubscribe
+		while (!pendingUnsubscribers.empty()) {
+			auto typeListenerPair = pendingUnsubscribers.front();
+			EventType type = typeListenerPair.first;
+			IEventListener* listener = typeListenerPair.second;
+
+			auto it = std::remove_if(dispatcher[type].begin(), dispatcher[type].end(), [listener](IEventListener* l) { return l == listener; });
+			if (it != dispatcher[type].cend()) {
+				dispatcher[type].erase(it);
+			}
+			pendingUnsubscribers.pop();
+		}
+	}
+
 	void EventManager::PollEvents()
 	{
 		while (!pendingEvents.empty()) {
 			Dispatch(pendingEvents.front());
 			pendingEvents.pop();
 		}
+		PollSubscribers();
 	}
 }

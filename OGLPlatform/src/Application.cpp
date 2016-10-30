@@ -53,9 +53,9 @@ namespace gs
     int Application::Run()
     {
         while (window->Render()) {
-            stage->Render(glfwGetTime());
-            TwDraw();
 			EventManager::GetInstance()->PollEvents();
+			stage->Render(glfwGetTime());
+			TwDraw();
 		}
         return 0;
     }

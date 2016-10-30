@@ -20,6 +20,7 @@
 
 OGLDepthPicking::OGLDepthPicking()
 {
+	gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
 }
 
 OGLDepthPicking::~OGLDepthPicking()
@@ -83,11 +84,6 @@ bool OGLDepthPicking::Init(int windowWidth, int windowHeight)
 
 void OGLDepthPicking::Render(double time)
 {
-	if (!hasSubscribed) {
-		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
-		hasSubscribed = true;
-	}
-
     glClear(GL_DEPTH_BUFFER_BIT);
 	glm::vec4 color(0.874f, 0.802f, 0.241f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(color));

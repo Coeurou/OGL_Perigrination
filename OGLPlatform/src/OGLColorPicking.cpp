@@ -21,8 +21,7 @@
 
 OGLColorPicking::OGLColorPicking()
 {
-    gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
-    hasSubscribed = true;
+	gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
 }
 
 OGLColorPicking::~OGLColorPicking()
@@ -63,16 +62,13 @@ bool OGLColorPicking::Init(int windowWidth, int windowHeight)
         
 		cube.SetProgram(programs[0]);
         cube.Load("");
-        //cube.SetSize(30);
 
 		InitGround(NBVERTICESX, NBVERTICESZ, WORLDSIZEX, WORLDSIZEZ);
 
 		camera.SetSpeed(10);
-		//camera.SetAngularSpeed(0);
         camera.SetPosition(glm::vec3(45,15,10));
         camera.SetupProjection(45.0f, windowWidth/(float)windowHeight, 0.1f, 1000.0f);
         glEnable(GL_DEPTH_TEST);
-        glDisable(GL_DITHER);
     }
 	return res;
 }
@@ -115,11 +111,6 @@ void OGLColorPicking::InitGround(size_t xCount, size_t zCount, size_t worldSizeX
 
 void OGLColorPicking::Render(double time)
 {
-	if (!hasSubscribed) {
-		gs::EventManager::GetInstance()->Subscribe(EventType::ET_MOUSE_PRESSED, this);
-		hasSubscribed = true;
-	}
-
     glClear(GL_DEPTH_BUFFER_BIT);
 	glm::vec4 color(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(color));

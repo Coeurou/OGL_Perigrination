@@ -15,7 +15,6 @@
 
 class OGLColorPicking : public gs::Stage
 {
-	bool hasSubscribed = false;
 	const size_t NBVERTICESX = 100;
 	const size_t NBVERTICESZ = 100;
 	const size_t WORLDSIZEX = 1000;
