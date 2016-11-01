@@ -228,6 +228,18 @@
     <ClInclude Include="src\OGLColorPicking.hpp">
       <Filter>Stages</Filter>
     </ClInclude>
+    <ClInclude Include="src\OGLRayPicking.hpp">
+      <Filter>Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ray.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AABB.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RayUtils.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -396,6 +408,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\OGLColorPicking.cpp">
+      <Filter>Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OGLRayPicking.cpp">
       <Filter>Stages</Filter>
     </ClCompile>
   </ItemGroup>

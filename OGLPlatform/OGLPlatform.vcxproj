@@ -148,6 +148,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\AABB.hpp" />
     <ClInclude Include="src\Application.hpp" />
     <ClInclude Include="src\ApplicationSettings.hpp" />
     <ClInclude Include="src\ATBGLEnumWrapper.h" />
@@ -176,6 +177,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLModelMatrix.hpp" />
     <ClInclude Include="src\OGLMultipleLights.hpp" />
     <ClInclude Include="src\OGLPointLight.hpp" />
+    <ClInclude Include="src\OGLRayPicking.hpp" />
     <ClInclude Include="src\OGLRefractionReflection.hpp" />
     <ClInclude Include="src\OGLRenderableCube.hpp" />
     <ClInclude Include="src\OGLRenderableObject.hpp" />
@@ -186,6 +188,8 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLSpotLight.hpp" />
     <ClInclude Include="src\OGLUtility.hpp" />
     <ClInclude Include="src\Query.hpp" />
+    <ClInclude Include="src\Ray.hpp" />
+    <ClInclude Include="src\RayUtils.hpp" />
     <ClInclude Include="src\Skybox.hpp" />
     <ClInclude Include="src\WindowGLFW.hpp" />
     <ClInclude Include="src\GLIImage.hpp" />
@@ -240,6 +244,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLModelMatrix.cpp" />
     <ClCompile Include="src\OGLMultipleLights.cpp" />
     <ClCompile Include="src\OGLPointLight.cpp" />
+    <ClCompile Include="src\OGLRayPicking.cpp" />
     <ClCompile Include="src\OGLRefractionReflection.cpp" />
     <ClCompile Include="src\OGLRenderableCube.cpp" />
     <ClCompile Include="src\OGLRenderableQuad.cpp" />

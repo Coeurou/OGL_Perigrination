@@ -19,6 +19,7 @@
 #include "OGLFrustumCulling.hpp"
 #include "OGLDepthPicking.hpp"
 #include "OGLColorPicking.hpp"
+#include "OGLRayPicking.hpp"
 #include "OGLRefractionReflection.hpp"
 #include "Stage.hpp"
 
@@ -85,6 +86,9 @@ std::unique_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
             break;
 		case COLOR_PICKING:
 			return std::make_unique<OGLColorPicking>();
+			break;
+		case RAY_PICKING:
+			return std::make_unique<OGLRayPicking>();
 			break;
 		case REFRACTION_REFLECTION:
 			return std::make_unique<OGLRefractionReflection>();
