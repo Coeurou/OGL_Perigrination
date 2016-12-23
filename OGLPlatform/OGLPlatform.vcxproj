@@ -160,6 +160,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\EventListener.hpp" />
     <ClInclude Include="src\EventManager.hpp" />
     <ClInclude Include="src\FactoryStage.hpp" />
+    <ClInclude Include="src\Framebuffer.hpp" />
     <ClInclude Include="src\GLFWContext.hpp" />
     <ClInclude Include="src\GLFWUtility.hpp" />
     <ClInclude Include="src\Light.hpp" />
@@ -174,6 +175,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLIndexedDraw.hpp" />
     <ClInclude Include="src\OGLLight.hpp" />
     <ClInclude Include="src\OGLMaterialInstancedDraw.hpp" />
+    <ClInclude Include="src\OGLMirror.hpp" />
     <ClInclude Include="src\OGLModelMatrix.hpp" />
     <ClInclude Include="src\OGLMultipleLights.hpp" />
     <ClInclude Include="src\OGLPointLight.hpp" />
@@ -186,10 +188,12 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClInclude Include="src\OGLSimpleLighting.hpp" />
     <ClInclude Include="src\OGLSkybox.hpp" />
     <ClInclude Include="src\OGLSpotLight.hpp" />
+    <ClInclude Include="src\OGLTwirlEffect.hpp" />
     <ClInclude Include="src\OGLUtility.hpp" />
     <ClInclude Include="src\Query.hpp" />
     <ClInclude Include="src\Ray.hpp" />
     <ClInclude Include="src\RayUtils.hpp" />
+    <ClInclude Include="src\Renderbuffer.hpp" />
     <ClInclude Include="src\Skybox.hpp" />
     <ClInclude Include="src\WindowGLFW.hpp" />
     <ClInclude Include="src\GLIImage.hpp" />
@@ -230,6 +234,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\Event.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FactoryStage.cpp" />
+    <ClCompile Include="src\Framebuffer.cpp" />
     <ClCompile Include="src\GLFWContext.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
@@ -241,6 +246,7 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLIndexedDraw.cpp" />
     <ClCompile Include="src\OGLLight.cpp" />
     <ClCompile Include="src\OGLMaterialInstancedDraw.cpp" />
+    <ClCompile Include="src\OGLMirror.cpp" />
     <ClCompile Include="src\OGLModelMatrix.cpp" />
     <ClCompile Include="src\OGLMultipleLights.cpp" />
     <ClCompile Include="src\OGLPointLight.cpp" />
@@ -252,8 +258,10 @@ xcopy "$(SolutionDir)\lib" "$(TargetDir)" /Y</Command>
     <ClCompile Include="src\OGLSimpleLighting.cpp" />
     <ClCompile Include="src\OGLSkybox.cpp" />
     <ClCompile Include="src\OGLSpotLight.cpp" />
+    <ClCompile Include="src\OGLTwirlEffect.cpp" />
     <ClCompile Include="src\OGLUtility.cpp" />
     <ClCompile Include="src\Query.cpp" />
+    <ClCompile Include="src\Renderbuffer.cpp" />
     <ClCompile Include="src\Skybox.cpp" />
     <ClCompile Include="src\WindowGLFW.cpp" />
     <ClCompile Include="src\GLIImage.cpp" />

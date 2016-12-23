@@ -21,6 +21,8 @@
 #include "OGLColorPicking.hpp"
 #include "OGLRayPicking.hpp"
 #include "OGLRefractionReflection.hpp"
+#include "OGLTwirlEffect.hpp"
+#include "OGLMirror.hpp"
 #include "Stage.hpp"
 
 
@@ -92,7 +94,13 @@ std::unique_ptr<gs::Stage> FactoryStage::CreateStage(STAGES key)
 			break;
 		case REFRACTION_REFLECTION:
 			return std::make_unique<OGLRefractionReflection>();
-			break; 
+			break;
+		case TWIRL:
+			return std::make_unique<OGLTwirlEffect>();
+			break;
+		case MIRROR:
+			return std::make_unique<OGLMirror>();
+			break;
         default:
             return nullptr;
             break;

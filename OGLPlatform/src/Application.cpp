@@ -144,6 +144,12 @@ namespace gs
 
 		OGLApplicationParams* params20 = new OGLApplicationParams(this, STAGES::REFRACTION_REFLECTION);
 		TwAddButton(mainBar, "Refraction_Reflection", ChangeStage, (void*)params20, " label='Refraction/Reflection Example' ");
+
+		OGLApplicationParams* params21 = new OGLApplicationParams(this, STAGES::TWIRL);
+		TwAddButton(mainBar, "Twirl", ChangeStage, (void*)params21, " label='Twirl effect Example' ");
+
+		OGLApplicationParams* params22 = new OGLApplicationParams(this, STAGES::MIRROR);
+		TwAddButton(mainBar, "Mirror", ChangeStage, (void*)params22, " label='Mirror effect Example' ");
     }
     
     void Application::LoadSettings()
